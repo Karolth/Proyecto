@@ -15,7 +15,6 @@
     }
     
     
-    
     .container {
       position: relative;
       width: 100%;
@@ -152,6 +151,7 @@
       margin-bottom: 20px;
       color: #2c3e50;
     }
+
   </style>
 </head>
 <body>
@@ -171,19 +171,19 @@
         <li>
              <a href="#">
                 <i class="fas fa-user"></i>
-              <span class="link_name" onclick="window.location.href='Formulario.html'">Formulario</span>
+              <span class="link_name" onclick="window.open('Formulario.html', 'popup', 'width=800,height=600')">Formulario</span>
             </a>
           </li>  
         <li>
           <a href="#">
             <i class="fas fa-user"></i>
-            <span class="link_name" onclick="window.location.href='RegistrarElemento.html'">Registrar Elemento</span>
+            <span class="link_name" onclick="window.open('RegistrarElemento.html', 'popup', 'width=800,height=600')">Registrar Elemento</span>
           </a>
         </li>
         <li>
           <a href="#">
             <i class="fas fa-chart-line"></i>
-            <span class="link_name" onclick="window.location.href='Historial.html'">Historial</span>
+            <span class="link_name" onclick="window.open('Historial.html', 'popup', 'width=800,height=600')">Historial</span>
           </a>
         </li>
         <li>
@@ -210,13 +210,31 @@
                       <label id="#D"> N° documento</label><!--NUMERO DE DOCUMENTO  -->
                   </div>
                   <div class="container-label">
-                      <label id="RH">RH</label>
+                      <label id="RH">RH</label> 
                   </div>
                   <div class="container-label">
                       <label id="PROGRAMA">Programa de Formación</label>
                   </div>
                   </form>
               </div> 
+              <div class ="botones">
+                <button class="btn hover" onclick="registrar('ingreso')">Registrar Entrada</button>
+                <button class="btn hover" onclick="registrar('salida')">Registrar Salida</button>
+              </div>
+      
+          <script>
+              function registrar(tipo) {
+                  fetch('../php/botones.php', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                      body: 'movimiento=${tipo}'
+                  })
+                  .then(response => response.text())
+                  .then(data => alert(data))
+                  .catch(error => console.error('Error:', error));
+              }
+          </script>
+          
               </div>
           </div>
           </div>
