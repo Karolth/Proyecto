@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla 2</title>
+    <link rel="stylesheet" href="../css/PantallaAdministrador.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <img src="../img/formulariocontacto.webp" alt="Formulario">
+                <h2>Formulario</h2>
+                <div class="button-container">
+                    <button onclick="window.location.href='Formulario.html'">Ir a Formulario</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/X7X7B6EUZVBULLYKFVOU45W7SE.avif" alt="Historial de Usuario">
+                <h2>Historial de Usuario</h2>
+                <div class="button-container">
+                    <button onclick="window.location.href='Historial.html'">Ir a Historial</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Registro elementos.jpg" alt="Registrar Elementos">
+                <h2>Registrar Elementos</h2>
+                <div class="button-container">
+                    <button onclick="window.location.href='RegistrarElemento.html'">Registrar</button>
+                </div>
+            </div>
+        </div>
+        <div class="admin-button">
+            <button onclick="mostrarInformacionAdmin()">Administrador</button>
+        </div>
+        <div id="overlay">
+            <div id="infoAdmin">
+                <h2>Información del Administrador</h2>
+                <table id="adminInfo">
+                    <tr>
+                        <td><strong>Nombre:</strong></td>
+                        <td id="nombreAdmin"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apellidos:</strong></td>
+                        <td id="apellidosAdmin"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documento:</strong></td>                       
+                        <td id="documentoAdmin"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td id="emailAdmin"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Número de Celular:</strong></td>
+                        <td id="celularAdmin"></td>
+                    </tr>
+                </table>
+                <button class ="cerar_button" type="button" id="closeOverlay" onclick="cerrarInformacionAdmin()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+<script src="../js/PantallaAdministrador.js"> </script>
+</body>
+
+</html>

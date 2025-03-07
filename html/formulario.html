@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Datos Personales</title>
+    <link rel="stylesheet" href="../css/formulario.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <img src="../img/logo.jpg" alt="Logo del Proyecto" class="logo">
+        <h2>Formulario de Ingreso</h2>
+        <form action="../php/procesar_formulario.php" method="post">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="Nombre" name="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="Documento">Documento:</label>
+                    <input type="tel" id="Documento" name="Documento" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="Email" name="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="Celular" name="Celular" required>
+                </div>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>

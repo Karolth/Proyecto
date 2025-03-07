@@ -1,0 +1,243 @@
+/* #menu * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  }
+  
+  
+  
+  #menu  .container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  #menu .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 70px;
+    background-color: #437670;
+    padding: 6px 14px;
+    transition: all 0.5s ease;
+    z-index: 99;
+    overflow-y: auto;
+    
+  }
+  
+  #menu .sidebar.active {
+    width: 250px;
+  }
+  
+  #menu .sidebar .logo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  #menu .logo .icon {
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  
+  #menu .sidebar.active .logo .icon {
+    opacity: 1;
+  }
+  
+  #menu .logo .text {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  
+  #menu .sidebar.active .logo .text {
+    opacity: 1;
+  }
+  
+  #menu .sidebar #btn {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    color: white;
+  }
+  
+  #menu .sidebar.active #btn {
+    left: 90%;
+  }
+  
+  #menu  .sidebar ul {
+    margin-top: 20px;
+    list-style: none;
+  }
+  
+  #menu  .sidebar ul li {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin: 0 5px;
+    list-style: none;
+    line-height: 50px;
+  }
+  
+  #menu .sidebar ul li a {
+    color: white;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  
+  #menu .sidebar ul li a:hover {
+    color: #11101d;
+    background: white;
+  }
+  
+  #menu .sidebar ul li a i {
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    text-align: center;
+  }
+  
+  #menu .sidebar .link_name {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+  }
+  
+  #menu .sidebar.active .link_name {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  #menu .content {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 70px);
+    left: 70px;
+  background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
+    transition: all 0.5s ease;
+    padding-top: 46px;
+  padding-left: 350px;
+  }
+  
+  #menu .sidebar.active ~ .content {
+    width: calc(100% - 250px);
+    left: 250px;
+  }
+  
+  #menu  .content h1 {
+    margin-bottom: 20px;
+  font-family: 'Nunito', sans-serif;
+   
+    color: #2c3e50;
+  } */
+
+/* usuario registrado */
+
+#UsuarioRegistrado * {
+    font-family:'Nunito', sans-serif;
+
+}
+
+#UsuarioRegistrado body {
+    font-family: 'Nunito', sans-serif;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0f6d8;
+    
+}
+
+#UsuarioRegistrado .container {
+    width: 746px;
+    height: 500px;
+    display: flex;
+    position: relative;
+    background-color: #b0dacd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+    
+    
+}
+
+#UsuarioRegistrado select{
+    background-color: rgb(224, 224, 224);
+    border-radius: 15px;
+    border-style: none;
+    position: relative;
+    display: inline-block;
+    left: 4%;
+    width: 100%;
+    position: absolute;
+    left: 563px;
+    width: auto;
+}
+
+#UsuarioRegistrado .container-label {
+    width: 300px;
+    height: 40px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+}
+
+#UsuarioRegistrado .container-label label {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+}
+
+#UsuarioRegistrado .container-form a {
+    color: black;
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+#UsuarioRegistrado img{
+    width: 211px;
+    margin: 86px
+}
+#UsuarioRegistrado .perfil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -57px;
+}
+#UsuarioRegistrado input{
+    display: flex;
+    background-color: #EEEEEE;
+    border: none;
+}
+#UsuarioRegistrado .selection{
+    margin: 30px;
+}
+#UsuarioRegistrado .espacio{
+    padding: 6px;
+}
+#UsuarioRegistrado label{
+    font-weight: bold;
+}
+
+

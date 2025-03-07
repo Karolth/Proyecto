@@ -1,0 +1,29 @@
+<?php
+include 'conexion.php'; // Asegúrate de que este archivo contiene tu código de conexión
+
+try {
+    $sql = "SELECT 
+                MovimientoMaterial.Estado,
+                MovimientoMaterial.IdMovimiento
+                Material.IdMaterial,
+                Material.Nombre AS NombreMaterial
+            FROM MovimientoMaterial
+            INNER JOIN Material ON MovimientoMaterial.IdMaterial = Material.IdMaterial";
+
+    $stmt = $pdo->prepare($sql); // Preparar la consulta
+    $stmt->execute(); // Ejecutar la consulta
+
+    $resultados = $stmt->fetchAll(); // Obtener todos los resultados
+
+    if ($resultados) {
+        foreach ($resultados as $fila) {
+            echo "Estado: " . $fila["Estado"] . " - IdMovimiento: " . $fila["IdMovimiento"] . 
+                 " - IdMaterial: " . $fila["IdMaterial"] . " - NombreMaterial: " . $fila["NombreMaterial"] . "<br>";
+        }
+    } else {
+        echo "No hay datos disponibles.";
+    }
+} catch (PDOException $e) {
+    echo "Error en la consulta: " . $e->getMessage();
+}
+?>

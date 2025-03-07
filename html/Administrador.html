@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla Principal</title>
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/Administrador.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    }
+    
+    
+    
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 70px;
+      background-color: #437670;
+      padding: 6px 14px;
+      transition: all 0.5s ease;
+      z-index: 99;
+      overflow-y: auto;
+      
+    }
+    
+    .sidebar.active {
+      width: 250px;
+    }
+    
+    .sidebar .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .logo .icon {
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .sidebar.active .logo .icon {
+      opacity: 1;
+    }
+    
+    .logo .text {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .sidebar.active .logo .text {
+      opacity: 1;
+    }
+    
+    .sidebar #btn {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      color: white;
+    }
+    
+    .sidebar.active #btn {
+      left: 90%;
+    }
+    
+    .sidebar ul {
+      margin-top: 20px;
+      list-style: none;
+    }
+    
+    .sidebar ul li {
+      position: relative;
+      height: 50px;
+      width: 100%;
+      margin: 0 5px;
+      list-style: none;
+      line-height: 50px;
+    }
+    
+    .sidebar ul li a {
+      color: white;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    
+    .sidebar ul li a:hover {
+      color: #11101d;
+      background: white;
+    }
+    
+    .sidebar ul li a i {
+      height: 50px;
+      min-width: 50px;
+      border-radius: 12px;
+      line-height: 50px;
+      text-align: center;
+    }
+    
+    .sidebar .link_name {
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+    
+    .sidebar.active .link_name {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .content {
+      position: absolute;
+      height: 100%;
+      width: calc(100% - 70px);
+      left: 70px;
+    background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
+      transition: all 0.5s ease;
+      padding-top: 46px;
+    padding-left: 350px;
+    }
+    
+    .sidebar.active ~ .content {
+      width: calc(100% - 250px);
+      left: 250px;
+    }
+    
+    .content h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu" class="container">
+    <div class="sidebar">
+      <div class="logo">
+        <div class="text">Menu</div>
+      </div>
+      <i class="fas fa-bars" id="btn"></i>
+      <ul class="nav-list">
+        <li>
+          <a href="#">
+            <i class="fas fa-home"></i>
+            <span class="link_name">Perfil</span>
+          </a>
+        </li>
+        <li>
+             <a href="#">
+                <i class="fas fa-user"></i>
+              <span class="link_name" onclick="window.location.href='Formulario.html'">Formulario</span>
+            </a>
+          </li>  
+        <li>
+          <a href="#">
+            <i class="fas fa-user"></i>
+            <span class="link_name" onclick="window.location.href='RegistrarElemento.html'">Registrar Elemento</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-chart-line"></i>
+            <span class="link_name" onclick="window.location.href='Historial.html'">Historial</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="link_name">Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div id="UsuarioRegistrado"  class="content">
+        <div class="container">
+            <div class="row" style="display: flex">
+              <div class="col-md-4">
+                <img src="../img/1058353174.jpg" alt="prueba" />
+                <div class="perfil" id="Perfil" id="#Ficha">
+                  <h2>karolth</h2>
+                </div>
+              </div>
+              <div class="col-md-8" style="align-content: center">
+              <div class="container-form">
+                  <form id="Interfaz" class="interfaz">
+                  <div class="container-label">
+                      <label id="#D"> N° documento</label><!--NUMERO DE DOCUMENTO  -->
+                  </div>
+                  <div class="container-label">
+                      <label id="RH">RH</label>
+                  </div>
+                  <div class="container-label">
+                      <label id="PROGRAMA">Programa de Formación</label>
+                  </div>
+                  </form>
+              </div> 
+              </div>
+          </div>
+          </div>
+    </div>
+  </div>
+
+  <script>
+    let btn = document.querySelector("#btn");
+    let sidebar = document.querySelector(".sidebar");
+    
+    btn.onclick = function() {
+      sidebar.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

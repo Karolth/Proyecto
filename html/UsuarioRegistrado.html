@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interfaz</title>
+    <link rel="stylesheet" href="../css/UsuarioRegistrado.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row" style="display: flex">
+        <div class="col-md-4">
+          <img src="../img/1058353174.jpg" alt="prueba" />
+          <div class="perfil" id="Perfil" id="#Ficha">
+            <h2>karolth</h2>
+          </div>
+        </div>
+        <div class="col-md-8" style="align-content: center">
+        <div class="container-form">
+            <form id="Interfaz" class="interfaz">
+            <div class="container-label">
+                <label id="#D"> N° documento</label><!--NUMERO DE DOCUMENTO  -->
+            </div>
+            <div class="container-label">
+                <label id="RH">RH</label>
+            </div>
+            <div class="container-label">
+                <label id="PROGRAMA">Programa de Formación</label>
+            </div>
+            </form>
+        </div> 
+
+        <div class="botones">
+          <button onclick="registrar('ingreso')">Registrar Entrada</button>
+          <button onclick="registrar('salida')">Registrar Salida</button>
+        </div>
+
+    <script>
+        function registrar(tipo) {
+            fetch('../php/botones.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: movimiento=${tipo}
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+    
+        </div>
+    </div>
+    </div>
+</body>
+</html>
