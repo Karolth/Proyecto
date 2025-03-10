@@ -166,6 +166,7 @@
           <a href="#">
             <i class="fas fa-home"></i>
             <span class="link_name">Perfil</span>
+            
           </a>
         </li>
         <li>
@@ -217,37 +218,17 @@
                   </div>
                   </form>
               </div> 
+
+              
               <div class ="botones">
-                <button class="btn hover" onclick="registrar('ingreso')">Registrar Entrada</button>
-                <button class="btn hover" onclick="registrar('salida')">Registrar Salida</button>
+                <button class="btn hover" onclick="registrar('Ingreso')">Registrar Entrada</button>
+                <button class="btn hover" onclick="registrar('Salida')">Registrar Salida</button>
               </div>
-      
-          <script>
-              function registrar(tipo) {
-                  fetch('../php/botones.php', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                      body: 'movimiento=${tipo}'
-                  })
-                  .then(response => response.text())
-                  .then(data => alert(data))
-                  .catch(error => console.error('Error:', error));
-              }
-          </script>
-          
               </div>
           </div>
           </div>
     </div>
   </div>
-
-  <script>
-    let btn = document.querySelector("#btn");
-    let sidebar = document.querySelector(".sidebar");
-    
-    btn.onclick = function() {
-      sidebar.classList.toggle("active");
-    }
-  </script>
+ <script src="../js/Administrador.js"></script>
 </body>
 </html>

@@ -28,6 +28,7 @@
    
 <div class="overlay" id="overlay" onclick="cerrarFormulario()"></div>
     <div class="card  " id="computadorForm" style="display: none; " >
+        <button class="close-btn" onclick="cerrarFormulario()">X</button>
         <h2>Computador</h2>
         <hr>
         <form id ="formPC">
@@ -51,6 +52,7 @@
     </div>
 
     <div class="card" id="automovilForm" style="display: none;">
+        <button class="close-btn" onclick="cerrarFormulario()">X</button>
         <label for="tipoVehiculo"><strong>Tipo de Vehículo</strong></label>
     <select id="tipoVehiculo" name="tipoVehiculo" class="form-control">
         <option value="">Seleccione un tipo</option>
@@ -69,6 +71,7 @@
     
 
     <div class="card" id="formOtro" style="display: none;">
+        <button class="close-btn" onclick="cerrarFormulario()">X</button>
         <h2>Otro</h2>
         <hr>
         <form id="formRegistro">
@@ -85,12 +88,27 @@
         </form>
         <p id="mensaje"></p>
     </div>
-
+<script>
+    function cerrarFormulario() {
+        const formularioActivo = document.querySelector('.card[style*="display: block;"]');
+        if (formularioActivo) {
+            formularioActivo.style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    }
+    function formulario(tipo) {
+    let formId = tipo + 'Form';
+    if (tipo === 'otro') {
+        formId = 'formOtro';
+    }
+    const formulario = document.getElementById(formId);
+    formulario.style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+}
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/RegistrarComputador.js"></script>
     <script src="../js/RegistrarOtro.js"></script>
     <script src="../js/RegistrarVehiculo.js"></script>
-
-
 </body>
 </html>
