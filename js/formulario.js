@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener("submit", function (event) {
         let isValid = true;
-
         
         const nombre = document.getElementById("Nombre").value.trim();
         const documento = document.getElementById("Documento").value.trim();
