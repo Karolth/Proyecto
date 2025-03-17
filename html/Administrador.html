@@ -166,6 +166,7 @@
           <a href="#">
             <i class="fas fa-home"></i>
             <span class="link_name">Perfil</span>
+            
           </a>
         </li>
         <li>
@@ -194,60 +195,118 @@
         </li>
       </ul>
     </div>
-    <div id="UsuarioRegistrado"  class="content">
-        <div class="container">
-            <div class="row" style="display: flex">
-              <div class="col-md-4">
-                <img src="../img/1058353174.jpg" alt="prueba" />
-                <div class="perfil" id="Perfil" id="#Ficha">
-                  <h2>karolth</h2>
-                </div>
-              </div>
-              <div class="col-md-8" style="align-content: center">
-              <div class="container-form">
-                  <form id="Interfaz" class="interfaz">
-                  <div class="container-label">
-                      <label id="#D"> N° documento</label><!--NUMERO DE DOCUMENTO  -->
-                  </div>
-                  <div class="container-label">
-                      <label id="RH">RH</label> 
-                  </div>
-                  <div class="container-label">
-                      <label id="PROGRAMA">Programa de Formación</label>
-                  </div>
-                  </form>
-              </div> 
-              <div class ="botones">
-                <button class="btn hover" onclick="registrar('ingreso')">Registrar Entrada</button>
-                <button class="btn hover" onclick="registrar('salida')">Registrar Salida</button>
-              </div>
+
+
+    <div id="UsuarioRegistrado" class="content">
+      <div class="container">
+        <div class="row" style="display: flex;justify-content: center;">
+          <div class="col-md-4">
+            <img src="../img/1058353174.jpg" alt="foto aprendiz" />
+            <div class="Nombre" id="Nombre">
+            </div>
+          <div class="col-md-8" style="align-content: center">
+            <div class="container-form">
       
-          <script>
-              function registrar(tipo) {
-                  fetch('../php/botones.php', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                      body: 'movimiento=${tipo}'
-                  })
-                  .then(response => response.text())
-                  .then(data => alert(data))
-                  .catch(error => console.error('Error:', error));
-              }
-          </script>
-          
-              </div>
+                  <div class="container-busqueda" style="margin-bottom: 20px;">
+                  <div style="display: flex; gap: 10px;">
+                    <input type="text" id="buscarDocumento" placeholder="Ingrese documento del aprendiz" style="padding: 8px; flex: 1;">
+                    <button onclick="buscarAprendiz()" style="padding: 8px 15px; background-color: #0066cc; color: white; border: none; cursor: pointer;">Buscar</button>
+                  </div>
+                  <div id="mensaje-busqueda" style="margin-top: 5px; color: #ff0000;"></div>
+                  </div>
+
+
+                <form id="Interfaz" class="interfaz">
+                <div class="container-label">
+                  <label id="D">N° documento: </label>
+                </div>
+                <div class="container-label">
+                  <label id="RH">RH: </label>
+                </div>
+                <div class="container-label">
+                  <label id="Programa">Programa de Formación: </label>
+                </div>
+                
+              </form>
+            </div>
+    
+            <div class="botones">
+              <button class="btn hover" onclick="registrar('Ingreso')">Registrar Entrada</button>
+              <button class="btn hover" onclick="registrar('Salida')">Registrar Salida</button>
+            </div>
           </div>
-          </div>
+        </div>
+      </div>
     </div>
+    
+    <!-- Nuevo div 1 -->
+    <div class="contenedorMaterial" col-10>
+      <div id="Material">
+        <div class="encabezado">
+            <h2>Movimientos de Materiales</h2>
+        </div>
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID </th>
+                        <th>Estado</th>
+                        <th>Referencia</th>
+                        <th>Marca</th>
+                        <th>Tipo Material</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="etiqueta id-movimiento-material"></span></td>
+                        <td><span class="etiqueta Ingreso"></span></td>
+                        <td><span class="etiqueta referencia"></span></td>
+                        <td><span class="etiqueta marca"></span></td>
+                        <td><span class="etiqueta materia"></span></td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    </div>
+  
+    <!-- Nuevo div 2 -->
+    <div class="contenedorVehiculo" col-10>
+      <div id="Vehiculo">
+        <div class="encabezado">
+            <h2>Movimientos Vehiculos</h2>
+        </div>
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID </th>
+                        <th>Estado</th>
+                        <th>Placa</th>
+                        <th>Tipo Vehiculo</th>
+                    </tr>
+                </thead>
+                <tbody id="datosVehiculos">
+                    <tr>
+                        <td><span class="etiqueta id-movimiento-vehiculo"></span></td>
+                        <td><span class="etiqueta estado"></span></td>
+                        <td><span class="etiqueta placa"></span></td>
+                        <td><span class="etiqueta materia"></span></td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </div>
   </div>
 
-  <script>
-    let btn = document.querySelector("#btn");
-    let sidebar = document.querySelector(".sidebar");
-    
-    btn.onclick = function() {
-      sidebar.classList.toggle("active");
-    }
-  </script>
+
+
+ <script src="../js/Administrador.js"></script>
+ <script src="../js/ObtenerDatosAprendiz.js"></script>
+ <script  src="../js/MoviMaterial.js"></script>
+ <script src="../js/MoviVehiculo.js"></script>
 </body>
 </html>

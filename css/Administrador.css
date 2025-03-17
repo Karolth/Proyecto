@@ -1,247 +1,98 @@
-/* #menu * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
-  }
-  
-  
-  
-  #menu  .container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  #menu .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 70px;
-    background-color: #437670;
-    padding: 6px 14px;
-    transition: all 0.5s ease;
-    z-index: 99;
-    overflow-y: auto;
-    
-  }
-  
-  #menu .sidebar.active {
-    width: 250px;
-  }
-  
-  #menu .sidebar .logo {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  
-  #menu .logo .icon {
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-  
-  #menu .sidebar.active .logo .icon {
-    opacity: 1;
-  }
-  
-  #menu .logo .text {
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-  
-  #menu .sidebar.active .logo .text {
-    opacity: 1;
-  }
-  
-  #menu .sidebar #btn {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 22px;
-    transition: all 0.4s ease;
-    cursor: pointer;
-    color: white;
-  }
-  
-  #menu .sidebar.active #btn {
-    left: 90%;
-  }
-  
-  #menu  .sidebar ul {
-    margin-top: 20px;
-    list-style: none;
-  }
-  
-  #menu  .sidebar ul li {
-    position: relative;
-    height: 50px;
-    width: 100%;
-    margin: 0 5px;
-    list-style: none;
-    line-height: 50px;
-  }
-  
-  #menu .sidebar ul li a {
-    color: white;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    transition: all 0.4s ease;
-    border-radius: 12px;
-    white-space: nowrap;
-  }
-  
-  #menu .sidebar ul li a:hover {
-    color: #11101d;
-    background: white;
-  }
-  
-  #menu .sidebar ul li a i {
-    height: 50px;
-    min-width: 50px;
-    border-radius: 12px;
-    line-height: 50px;
-    text-align: center;
-  }
-  
-  #menu .sidebar .link_name {
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s ease;
-  }
-  
-  #menu .sidebar.active .link_name {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  #menu .content {
-    position: absolute;
-    height: 100%;
-    width: calc(100% - 70px);
-    left: 70px;
-  background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
-    transition: all 0.5s ease;
-    padding-top: 46px;
-  padding-left: 350px;
-  }
-  
-  #menu .sidebar.active ~ .content {
-    width: calc(100% - 250px);
-    left: 250px;
-  }
-  
-  #menu  .content h1 {
-    margin-bottom: 20px;
-  font-family: 'Nunito', sans-serif;
-   
-    color: #2c3e50;
-  } */
-
-/* usuario registrado */
-
 #UsuarioRegistrado * {
-    font-family:'Nunito', sans-serif;
-
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
 }
 
 #UsuarioRegistrado body {
-    font-family: 'Nunito', sans-serif;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #d0f6d8;
-    
+  font-family: 'Nunito', sans-serif;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: #d0f6d8;
 }
 
 #UsuarioRegistrado .container {
-    width: 746px;
-    height: 500px;
-    display: flex;
-    position: relative;
-    background-color: #b0dacd;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
-    
-    
+  width: 559px;
+  height: 755px;
+  background-color: #b0dacd;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin-left: 27px;
 }
 
-#UsuarioRegistrado select{
-    background-color: rgb(224, 224, 224);
-    border-radius: 15px;
-    border-style: none;
-    position: relative;
-    display: inline-block;
-    left: 4%;
-    width: 100%;
-    position: absolute;
-    left: 563px;
-    width: auto;
+
+#UsuarioRegistrado select {
+  background-color: rgb(224, 224, 224);
+  border-radius: 15px;
+  border-style: none;
+  position: absolute;
+  left: 563px;
+  width: auto;
 }
 
 #UsuarioRegistrado .container-label {
-    width: 300px;
-    height: 40px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 0 15px;
+  width: 300px;
+  height: 40px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
 }
 
 #UsuarioRegistrado .container-label label {
-    border: none;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    background-color: inherit;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
 }
 
 #UsuarioRegistrado .container-form a {
-    color: black;
-    font-size: 14px;
-    margin-bottom: 20px;
-    margin-top: 5px;
+  color: black;
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-top: 5px;
 }
-#UsuarioRegistrado img{
-    width: 211px;
-    margin: 86px
+
+#UsuarioRegistrado img {
+  width: 211px;
+  margin: 86px;
 }
-#UsuarioRegistrado .perfil{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -57px;
+
+#UsuarioRegistrado .perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -57px;
 }
-#UsuarioRegistrado input{
-    display: flex;
-    background-color: #EEEEEE;
-    border: none;
+
+#UsuarioRegistrado input {
+  display: flex;
+  background-color: #EEEEEE;
+  border: none;
 }
-#UsuarioRegistrado .selection{
-    margin: 30px;
+
+#UsuarioRegistrado .selection {
+  margin: 30px;
 }
-#UsuarioRegistrado .espacio{
-    padding: 6px;
+
+#UsuarioRegistrado .espacio {
+  padding: 6px;
 }
-#UsuarioRegistrado label{
-    font-weight: bold;
+
+#UsuarioRegistrado label {
+  font-weight: bold;
 }
+
 .botones {
   display: flex;
-  gap: 10px; /* Espacio entre los botones */
+  gap: 10px;
 }
 
 .btn {
@@ -255,5 +106,695 @@
 
 .btn:hover {
   background-color: #237754;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 70px;
+  background-color: #437670;
+  padding: 6px 14px;
+  transition: all 0.5s ease;
+  z-index: 99;
+  overflow-y: auto;
+}
+
+.sidebar.active {
+  width: 250px;
+}
+
+.sidebar .logo {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo .icon {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.active .logo .icon {
+  opacity: 1;
+}
+
+.logo .text {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.active .logo .text {
+  opacity: 1;
+}
+
+.sidebar #btn {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  color: white;
+}
+
+.sidebar.active #btn {
+  left: 90%;
+}
+
+.sidebar ul {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.sidebar ul li {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin: 0 5px;
+  list-style: none;
+  line-height: 50px;
+}
+
+.sidebar ul li a {
+  color: white;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.sidebar ul li a:hover {
+  color: #11101d;
+  background: white;
+}
+
+.sidebar ul li a i {
+  height: 50px;
+  min-width: 50px;
+  border-radius: 12px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.sidebar .link_name {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.sidebar.active .link_name {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 70px);
+  left: 70px;
+  background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
+  transition: all 0.5s ease;
+  padding-left: 20px;
+  padding-top: 46px;
+}
+
+.sidebar.active ~ .content {
+  width: calc(100% - 250px);
+  left: 250px;
+}
+
+.content h1 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+#tarjetas-container {
+  display: flex; 
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.container-tarjeta {
+  width: 300px; 
+  height: 200px; 
+  background-color: #b0dacd;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-left: 10px;
+}
+
+.contenedorMaterial{
+  background-color: #b0dacd;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 57px;
+  left: 287px;
+  margin-left: 390px;
+  padding: 20px;
+}
+
+.contenedorVehiculo{
+  background-color: #b0dacd;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 361px;
+  left: 287px;
+  margin-left: 390px;
+}
+
+
+#Material * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#Material body {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+#Material .contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+#Material .encabezado {
+  background-color: #5ca498bf;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#Material .encabezado h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+#Material .barra-herramientas {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#Material .busqueda {
+  display: flex;
+  gap: 10px;
+}
+
+#Material .busqueda input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 250px;
+}
+
+#Material .boton-nuevo {
+  padding: 8px 15px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#Material .boton-nuevo:hover {
+  background-color: #219653;
+}
+
+#Material .tabla-contenedor {
+  overflow-x: auto;
+}
+
+#Material table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#Material th, #Material td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+#Material th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #333;
+  position: sticky;
+  top: 0;
+}
+
+#Material tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Estilos para las etiquetas */
+#Material .etiqueta {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-align: center;
+  min-width: 100px;
+}
+
+/* Estilos para el ID Movimiento Material */
+#Material .id-movimiento-material {
+  background-color: #e8f0fe;
+  color: #1967d2;
+  font-weight: bold;
+}
+
+/* Estilos para estados */
+#Material .pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+#Material .en-proceso {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+#Material .completado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+#Material .cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Estilos para ID Movimiento */
+#Material .id-movimiento {
+  background-color: #f0f0f0;
+  color: #555;
+  font-family: monospace;
+}
+
+/* Estilos para Referencia */
+#Material .referencia {
+  background-color: #e6f7ff;
+  color: #0050b3;
+  font-family: monospace;
+}
+
+/* Estilos para Marca */
+#Material .marca {
+  background-color: #f9f0ff;
+  color: #722ed1;
+}
+
+/* Estilos para Tipo Material */
+#Material .materia-prima {
+  background-color: #e6fffb;
+  color: #006d75;
+}
+
+#Material .producto-terminado {
+  background-color: #f6ffed;
+  color: #389e0d;
+}
+
+#Material .herramienta {
+  background-color: #fff2e8;
+  color: #d4380d;
+}
+
+#Material .consumible {
+  background-color: #fff0f6;
+  color: #c41d7f;
+}
+
+/* Estilos para ID Usuario */
+#Material .id-usuario {
+  background-color: #f2f2f2;
+  color: #333;
+  font-family: monospace;
+}
+
+#Material .acciones {
+  display: flex;
+  gap: 5px;
+}
+
+#Material .btn-accion {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #2c3e50;
+  font-size: 14px;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+#Material .btn-accion:hover {
+  background-color: #f0f0f0;
+}
+
+#Material .paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+#Material .paginas {
+  display: flex;
+  gap: 5px;
+}
+
+#Material .pagina {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+}
+
+#Material .pagina.activa {
+  background-color: #2c3e50;
+  color: white;
+  border-color: #2c3e50;
+}
+
+#Material .pagina:hover:not(.activa) {
+  background-color: #f5f5f5;
+}
+
+#Material .elementos-por-pagina {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#Material .elementos-por-pagina select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+}
+
+
+#Vehiculo * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#Vehiculo body {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+#Vehiculo .contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+#Vehiculo .encabezado {
+  background-color: #5ca498bf;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#Vehiculo .encabezado h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+#Vehiculo .barra-herramientas {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#Vehiculo .busqueda {
+  display: flex;
+  gap: 10px;
+}
+
+#Vehiculo .busqueda input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 250px;
+}
+
+#Vehiculo .boton-nuevo {
+  padding: 8px 15px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#Vehiculo .boton-nuevo:hover {
+  background-color: #219653;
+}
+
+#Vehiculo .tabla-contenedor {
+  overflow-x: auto;
+}
+
+#Vehiculo table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#Vehiculo th, #Vehiculo td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+#Vehiculo th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #333;
+  position: sticky;
+  top: 0;
+}
+
+#Vehiculo tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Estilos para las etiquetas */
+#Vehiculo .etiqueta {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-align: center;
+  min-width: 100px;
+}
+
+/* Estilos para el ID Movimiento Vehiculo */
+#Vehiculo .id-movimiento-Vehiculo {
+  background-color: #e8f0fe;
+  color: #1967d2;
+  font-weight: bold;
+}
+
+/* Estilos para estados */
+#Vehiculo .pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+#Vehiculo .en-proceso {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+#Vehiculo .completado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+#Vehiculo .cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Estilos para ID Movimiento */
+#Vehiculo .id-movimiento {
+  background-color: #f0f0f0;
+  color: #555;
+  font-family: monospace;
+}
+
+/* Estilos para Referencia */
+#Vehiculo .referencia {
+  background-color: #e6f7ff;
+  color: #0050b3;
+  font-family: monospace;
+}
+
+/* Estilos para Marca */
+#Vehiculo .marca {
+  background-color: #f9f0ff;
+  color: #722ed1;
+}
+
+/* Estilos para Tipo Vehiculo */
+#Vehiculo .materia-prima {
+  background-color: #e6fffb;
+  color: #006d75;
+}
+
+#Vehiculo .producto-terminado {
+  background-color: #f6ffed;
+  color: #389e0d;
+}
+
+#Vehiculo .herramienta {
+  background-color: #fff2e8;
+  color: #d4380d;
+}
+
+#Vehiculo .consumible {
+  background-color: #fff0f6;
+  color: #c41d7f;
+}
+
+/* Estilos para ID Usuario */
+#Vehiculo .id-usuario {
+  background-color: #f2f2f2;
+  color: #333;
+  font-family: monospace;
+}
+
+#Vehiculo .acciones {
+  display: flex;
+  gap: 5px;
+}
+
+#Vehiculo .btn-accion {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #2c3e50;
+  font-size: 14px;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+#Vehiculo .btn-accion:hover {
+  background-color: #f0f0f0;
+}
+
+#Vehiculo .paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+#Vehiculo .paginas {
+  display: flex;
+  gap: 5px;
+}
+
+#Vehiculo .pagina {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+}
+
+#Vehiculo .pagina.activa {
+  background-color: #2c3e50;
+  color: white;
+  border-color: #2c3e50;
+}
+
+#Vehiculo .pagina:hover:not(.activa) {
+  background-color: #f5f5f5;
+}
+
+#Vehiculo .elementos-por-pagina {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#Vehiculo .elementos-por-pagina select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
 }
 

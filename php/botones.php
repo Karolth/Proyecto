@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $movimiento = $_POST["movimiento"]; // No hace falta escape con PDO
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO movimiento (movimiento, FechaHora) VALUES (:movimiento, NOW())");
+        $stmt = $pdo->prepare("INSERT INTO movimiento (Movimiento, FechaHora) VALUES (:movimiento, NOW())");
         $stmt->bindParam(':movimiento', $movimiento, PDO::PARAM_STR);
         $stmt->execute();
 
