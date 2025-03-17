@@ -36,6 +36,4 @@ if ($documento && $nombre && $email && $celular && $idRol) {
     echo json_encode(["error" => "Datos incompletos o incorrectos."]);
 }
 
-
-
 ?>
