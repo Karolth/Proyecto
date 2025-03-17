@@ -16,6 +16,7 @@ if ($documento && $nombre && $email && $celular && $idRol) {
     $stmt_usuario->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt_usuario->bindParam(':celular', $celular, PDO::PARAM_INT);
 
+    
     if ($stmt_usuario->execute()) {
         $idUsuario = $pdo->lastInsertId();
 

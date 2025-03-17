@@ -17,6 +17,7 @@ $(document).ready(function () {
         });
     }
 
+    
     cargarRoles();
 
     $('#usuarioForm').submit(function (e) {
