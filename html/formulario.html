@@ -6,15 +6,15 @@
     <title>Formulario de Datos Personales</title>
     <link rel="stylesheet" href="../css/formulario.css">
 </head>
-<body>
 
+<body>
     <div class="form-container">
         <img src="../img/logo.jpg" alt="Logo del Proyecto" class="logo">
         <h2>Formulario de Ingreso</h2>
-        <form action="../php/procesar_formulario.php" method="post">
+        <form id="usuarioForm">
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="nombre">Nombre Completo:</label>
+                    <label for="Nombre">Nombre Completo:</label>
                     <input type="text" id="Nombre" name="Nombre" required>
                 </div>
                 <div class="form-group">
@@ -22,16 +22,27 @@
                     <input type="tel" id="Documento" name="Documento" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
+                    <label for="Email">Correo Electrónico:</label>
                     <input type="email" id="Email" name="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
+                    <label for="Celular">Teléfono:</label>
                     <input type="tel" id="Celular" name="Celular" required>
+                </div>
+                <div class="form-group">
+                    <label for="rol">Rol</label>
+                    <select class="form-control" id="rol" name="Rol" required>
+                        <option value="">Seleccionar</option>
+                        <option value="1">Instructor</option>
+                        <option value="2">Visitante</option>
+                    </select>
                 </div>
             </div>
             <button type="submit">Enviar</button>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/usuarioRol.js"></script>
 </body>
 </html>
