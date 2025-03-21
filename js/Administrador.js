@@ -29,3 +29,44 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error("Sidebar or button element not found.");
   }
 });
+
+
+function buscarDocumento() {
+    var documento = document.getElementById("buscarDocumento").value;
+    var mensajeBusqueda = document.getElementById("mensaje-busqueda");
+
+    if (documento.trim() === "") {
+        mensajeBusqueda.innerHTML = "Por favor, ingrese un documento.";
+        return;
+    }
+
+    fetch("../php/Administrador.php?documento=" + documento)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                mensajeBusqueda.innerHTML = data.error;
+                return;
+            }
+
+            let resultadoHTML = "<ul>";
+
+            if (data.tipo === "aprendiz") {
+                resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
+                resultadoHTML +=  `<p><strong>Rol:</strong> Aprendiz</p>`;
+                resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
+                resultadoHTML += `<p><strong>Tipo de Programa:</strong> ${data.datos.TipoPrograma}</p>`;
+                resultadoHTML += `<p><strong>Programa:</strong> ${data.datos.Programa}</p>`;
+            } else if (data.tipo === "usuario") {
+                resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
+                resultadoHTML += `<p><strong>Rol:</strong> ${data.datos.Rol}</p>`;
+                resultadoHTML += `<p><strong>Email:</strong> ${data.datos.Email}</p>`;
+            }
+
+            resultadoHTML += "</ul>";
+            mensajeBusqueda.innerHTML = resultadoHTML;
+        })
+        .catch(error => {
+            mensajeBusqueda.innerHTML = "Error en la búsqueda.";
+            console.error("Error:", error);
+        });
+}
