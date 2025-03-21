@@ -31,8 +31,9 @@ if (isset($_GET['documento'])) {
                                JOIN ficha f ON fa.IdFicha = f.IdFicha
                                JOIN programa p ON f.IdPrograma = p.IdPrograma
                                JOIN tipoprograma tp ON p.IdTipoPrograma = tp.IdTipoPrograma
-                               WHERE a.Documento = ?");
-        $stmt->execute([$documento]);
+                               WHERE a.Documento = :documento");
+        $stmt->bindParam(':documento', $documento, PDO::PARAM_STR);
+        $stmt->execute();
         $aprendiz = $stmt->fetch();
 
         if ($aprendiz) {
@@ -45,8 +46,9 @@ if (isset($_GET['documento'])) {
                                FROM usuario u
                                JOIN usuariorol ur ON u.IdUsuario = ur.IdUsuario
                                JOIN rol r ON ur.IdRol = r.IdRol
-                               WHERE u.Documento = ?");
-        $stmt->execute([$documento]);
+                               WHERE u.Documento = :documento");
+        $stmt->bindParam(':documento', $documento, PDO::PARAM_STR);
+        $stmt->execute();
         $usuario = $stmt->fetch();
 
         if ($usuario) {
