@@ -1,0 +1,58 @@
+.container-perfil {
+    width: 350px;  /* Ajusta el ancho */
+    max-height: auto; /* Evita altura fija */
+    padding: 15px; /* Reduce el relleno interno */
+    display: block;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-perfil .container {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: auto; /* Ajusta la altura automáticamente */
+}
+
+.container-perfil h3 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #007bff; /* Azul Bootstrap */
+}
+
+.container-perfil .form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.container-perfil .form-group input {
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.container-perfil .botones {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.container-perfil .btn-light {
+    background-color: #ffc107; /* Amarillo bonito */
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.container-perfil .btn-success {
+    border-radius: 8px;
+    font-weight: bold;
+}
