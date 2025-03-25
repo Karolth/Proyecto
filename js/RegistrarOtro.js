@@ -10,9 +10,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Recuperar ID y Tipo de localStorage
+        const idUsuario = localStorage.getItem("Id");
+        const tipoUsuario = localStorage.getItem("Tipo");
+
+        if (!idUsuario) {
+            alert("Error: No se ha iniciado sesión o no se pudo recuperar el ID.");
+            return;
+        }
+
         let formData = new FormData();
         formData.append("NombreOtro", Referencia);
         formData.append("ObservacionesOtro", observaciones);
+        formData.append("IdUsuario", idUsuario);
+        formData.append("TipoUsuario", tipoUsuario);
 
         fetch("../php/RegistrarOtro.php", {
             method: "POST",
