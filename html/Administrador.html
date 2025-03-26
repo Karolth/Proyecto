@@ -3,12 +3,214 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pantalla Principal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Pantalla Principal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/Administrador.css">
   <link rel="stylesheet" href="../css/verPerfil.css">
   <style>
+     
+      .main-content {
+          display: flex;
+          gap: 20px;
+          margin-top: 20px;
+      }
+
+      .right-containers {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+      }
+
+      .container-box {
+          background-color: #bfe3d0;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .left-container {
+          flex: 0 0 300px;
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 2px;
+      }
+
+      .user-photo {
+          text-align: center;
+          margin-bottom: 0px;
+          margin-top: 0px;
+          width: 100%;
+      }
+
+      .user-photo img {
+          width: 200px;
+          height: auto;
+          margin-bottom: 0px;
+          margin-top: 2px;
+      }
+
+      .perfil h2 {
+          margin: 2px 0;
+          font-size: 1.1em;
+      }
+
+      .container-form {
+          width: 100%;
+          margin: 5px 0;
+      }
+
+      .container-label {
+          margin: 2px 0;
+          font-size: 0.9em;
+      }
+
+      
+      .info-title {
+          font-weight: bold;
+          color: #2c7a58;
+          margin-bottom: 2px;
+          font-size: 14px;
+      }
+
+      .container-title {
+          color: #2c7a58;
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 5px;
+          border-bottom: 1px solid #2c7a58;
+          padding-bottom: 2px;
+      }
+
+      .info-item {
+          margin: 2px 0;
+          font-size: 0.9em;
+      }
+
+      .botones {
+          display: flex;
+          gap: 2px;
+          margin: auto 0;
+          justify-content: center;
+          width: 100%;
+      }
+
+      /* Improved Modal Styles */
+      .modal-backdrop {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(5px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .modal-backdrop.active {
+          opacity: 1;
+          visibility: visible;
+      }
+
+      .modal-content {
+          background-color: #fff;
+          width: 90%;
+          max-width: 900px;
+          height: 80vh;
+          max-height: 90vh;
+          border-radius: 15px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          display: flex;
+          flex-direction: column;
+          transform: scale(0.8);
+          transition: transform 0.3s ease;
+      }
+
+      .modal-backdrop.active .modal-content {
+          transform: scale(1);
+      }
+
+
+
+      .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 20px;
+          background-color: #437670;
+          color: white;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          flex-shrink: 0;
+      }
+
+      .modal-title {
+          font-size: 1.2em;
+          font-weight: bold;
+      }
+
+      .close-modal {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5em;
+          cursor: pointer;
+          padding: 0;
+          margin: 0;
+      }
+
+      .modal-body {
+          padding: 0;
+          background-color: #d0f6d8;
+          flex-grow: 1;
+          overflow: hidden;
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+      }
+      
+      .modal-body iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+      }
+
+      #UsuarioRegistrado #buscarDocumento {
+            padding: 8px;
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 14px;
+        }
+
+        #UsuarioRegistrado button[onclick="buscarAprendiz()"] {
+            padding: 8px 15px;
+            background-color: #7cf199;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #UsuarioRegistrado button[onclick="buscarAprendiz()"]:hover {
+            background-color: #81e478;
+        }
+
+        #UsuarioRegistrado #mensaje-busqueda {
+            margin-top: 5px;
+            color: #ff0000;
+            font-size: 0.9em; 
+        }
     * {
       margin: 0;
       padding: 0;
@@ -158,10 +360,78 @@
 
 <body>
   <div id="menu" class="container">
-    <div class="sidebar">
-      <div class="logo">
-        <div class="text">Menu</div>
+      <div class="sidebar">
+          <div class="logo">
+              <div class="text">Menu</div>
+          </div>
+          <i class="fas fa-bars" id="btn"></i>
+          <ul class="nav-list">
+              <li>
+                  <a href="#" id="profile-link">
+                      <i class="fas fa-home"></i>
+                      <span class="link_name">Perfil</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-modal="formulario">
+                      <i class="fas fa-user"></i>
+                      <span class="link_name">Formulario</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-modal="registrar-elemento">
+                      <i class="fas fa-user"></i>
+                      <span class="link_name">Registrar Elemento</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-modal="historial">
+                      <i class="fas fa-chart-line"></i>
+                      <span class="link_name">Historial</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" id="logout-link">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <span class="link_name">Cerrar Sesión</span>
+                  </a>
+              </li>
+          </ul>
       </div>
+      <div id="formulario-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Formulario</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe src="Formulario.html" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="registrar-elemento-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Registrar Elemento</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe src="RegistrarElemento.html" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="historial-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Historial</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe src="Historial.html" frameborder="0"></iframe>
+            </div>
+        </div>
       <i class="fas fa-bars" id="btn"></i>
       <ul class="nav-list">
         <li >
@@ -320,6 +590,15 @@
       </div>
 
 
+<<<<<<< HEAD
+ <script src="../js/Administrador.js"></script>
+ <script src="../js/MostrarElemento.js"></script>
+ <script src="../js/Menu_desplegable.js"></script>
+ <script src="../js/ObtenerDatosAprendiz.js"></script>
+ <script  src="../js/MoviMaterial.js"></script>
+ <script src="../js/MoviVehiculo.js"></script>
+ <script src="../js/verPerfil.js"></script>
+=======
       <script src="../js/Administrador.js"></script>
      
       
@@ -329,6 +608,7 @@
       <!-- <script src="../js/MoviMaterial.js"></script> -->
       <!-- <script src="../js/MoviVehiculo.js"></script> -->
       <script src="../js/verPerfil.js"></script>
+>>>>>>> 1282d14698ef14f3cd8a4681d0839c323eb2758d
 </body>
 
 </html>
