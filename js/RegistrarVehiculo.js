@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost/Easycode/php/RegistrarVehiculo.php?action=cargarTipo")
+    fetch("../php/RegistrarVehiculo.php?action=cargarTipo")
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                let selectTipo = document.getElementById("tipoVehiculo");
+                const selectTipo = document.getElementById("tipoVehiculo");
                 selectTipo.innerHTML = "<option value=''>Seleccione un tipo</option>";
 
                 data.TipoVehiculo.forEach(tipo => {
-                    let option = document.createElement("option");
+                    const option = document.createElement("option");
                     option.value = tipo.IdTipoVehiculo;
                     option.text = tipo.Tipo;
                     selectTipo.appendChild(option);
@@ -18,37 +18,38 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error en la petición:", error));
 });
-function Vehiculo() {
-    // event.preventDefault(); // Evita la recarga del formulario
 
-    const action = "Vehiculo";
-    const Placa = document.getElementById("Placa").value;
-    const IdTipoVehiculo = document.getElementById("tipoVehiculo").value; // Corregido el ID
+function registrarVehiculo() {
+    
+    const idUsuario = localStorage.getItem("Id");
+    const tipoUsuario = localStorage.getItem("Tipo");
 
-    if (!Placa || !IdTipoVehiculo) {
+    if (!idUsuario) {
+        alert("Error: No se ha iniciado sesión o no se pudo recuperar el ID.");
+        return;
+    }
+
+    const placa = document.getElementById("Placa").value;
+    const idTipoVehiculo = document.getElementById("tipoVehiculo").value;
+
+    if (!placa.trim()  === "" ) {
         alert("Por favor, complete todos los campos.");
         return;
     }
 
+    // Determinar el ID de aprendiz o usuario
+    const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
+    const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
+
     fetch("../php/RegistrarVehiculo.php", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ action, Placa, IdTipoVehiculo })
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `action=Vehiculo&placa=${placa}&idTipoVehiculo=${idTipoVehiculo}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error en la respuesta del servidor");
-        }
-        return response.json();
-    })
+    .then(response => response.text())
     .then(data => {
-        if (data.success) {
-            alert("¡Vehículo registrado exitosamente!");
-        } else {
-            alert("Error: " + data.mensaje);
-        }
+        document.getElementById("mensaje").innerText = data;
+        alert("¡Vehículo registrado exitosamente!");
     })
     .catch(error => {
         alert("Error en el registro del vehículo");
