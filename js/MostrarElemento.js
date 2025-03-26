@@ -1,7 +1,6 @@
-
-
 document.addEventListener("DOMContentLoaded", function () {
     cargarMateriales();
+    cargarVehiculo(); // Llamar a la función para cargar vehículos al iniciar
 });
 
 function cargarMateriales() {
@@ -60,14 +59,65 @@ function cargarMateriales() {
         });
 }
 
-// Cargar materiales al iniciar
-// cargarMateriales();
+function cargarVehiculo() {
+    const idUsuario = localStorage.getItem("Id");
+    const tipoUsuario = localStorage.getItem("Tipo");
 
-// Opcional: Añadir botón de actualización
-const botonActualizar = document.createElement('button');
-botonActualizar.textContent = 'Actualizar Materiales';
-botonActualizar.classList.add('btn', 'btn-primary', 'mt-3');
-botonActualizar.addEventListener('click', cargarMateriales);
+    if (!idUsuario) {
+        console.error("No se encontró ID de usuario");
+        return;
+    }
 
-const contenedorMaterial = document.querySelector('.contenedorMaterial');
-contenedorMaterial.appendChild(botonActualizar);
+    fetch(`../php/MostrarVehiculo.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error al obtener vehículos:", data.error);
+                return;
+            }
+
+            const tbody = document.querySelector("#Vehiculo tbody");
+            tbody.innerHTML = ""; // Limpiar filas existentes
+
+            if (data.vehiculos.length === 0) {
+                const filaVacia = `
+                    <tr>
+                        <td colspan="3" class="text-center">No se han registrado vehículos</td>
+                    </tr>
+                `;
+                tbody.innerHTML = filaVacia;
+                return;
+            }
+
+            // Generar filas para cada vehículo
+            data.vehiculos.forEach(vehiculo => {
+                const fila = `
+                    <tr>
+                        <td><span class="etiqueta id-movimiento-vehiculo">${vehiculo.idVehiculo || 'N/A'}</span></td>
+                        <td><span class="etiqueta placa">${vehiculo.placa || 'N/A'}</span></td>
+                        <td><span class="etiqueta tipo">${vehiculo.tipoVehiculo || 'N/A'}</span></td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
+            });
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error);
+            const tbody = document.querySelector("#datosVehiculos");
+            const filaError = `
+                <tr>
+                    <td colspan="3" class="text-center">Error al cargar vehículos</td>
+                </tr>
+            `;
+            tbody.innerHTML = filaError;
+        });
+}
+
+// Opcional: Añadir botón de actualización para vehículos
+const botonActualizarVehiculos = document.createElement('button');
+botonActualizarVehiculos.textContent = 'Actualizar Vehículos';
+botonActualizarVehiculos.classList.add('btn', 'btn-primary', 'mt-3');
+botonActualizarVehiculos.addEventListener('click', cargarVehiculos);
+
+const contenedorVehiculo = document.querySelector('.contenedorVehiculo');
+contenedorVehiculo.appendChild(botonActualizarVehiculos);
