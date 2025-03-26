@@ -36,6 +36,7 @@ if (isset($_GET['documento'])) {
         $stmt->execute();
         $aprendiz = $stmt->fetch();
 
+        
         if ($aprendiz) {
             echo json_encode(['tipo' => 'aprendiz', 'datos' => $aprendiz]);
             exit;
