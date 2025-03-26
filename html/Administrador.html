@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -210,8 +211,153 @@
             color: #ff0000;
             font-size: 0.9em; 
         }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Nunito', sans-serif;
+    }
+
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 70px;
+      background-color: #437670;
+      padding: 6px 14px;
+      transition: all 0.5s ease;
+      z-index: 99;
+      overflow-y: auto;
+
+    }
+
+    .sidebar.active {
+      width: 250px;
+    }
+
+    .sidebar .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo .icon {
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .sidebar.active .logo .icon {
+      opacity: 1;
+    }
+
+    .logo .text {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .sidebar.active .logo .text {
+      opacity: 1;
+    }
+
+    .sidebar #btn {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      color: white;
+    }
+
+    .sidebar.active #btn {
+      left: 90%;
+    }
+
+    .sidebar ul {
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      position: relative;
+      height: 50px;
+      width: 100%;
+      margin: 0 5px;
+      list-style: none;
+      line-height: 50px;
+    }
+
+    .sidebar ul li a {
+      color: white;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    .sidebar ul li a:hover {
+      color: #11101d;
+      background: white;
+    }
+
+    .sidebar ul li a i {
+      height: 50px;
+      min-width: 50px;
+      border-radius: 12px;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    .sidebar .link_name {
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+
+    .sidebar.active .link_name {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .content {
+      position: absolute;
+      height: 100%;
+      width: calc(100% - 70px);
+      left: 70px;
+      background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
+      transition: all 0.5s ease;
+      padding-top: 46px;
+      padding-left: 350px;
+    }
+
+    .sidebar.active~.content {
+      width: calc(100% - 250px);
+      left: 250px;
+    }
+
+    .content h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
   </style>
 </head>
+
 <body>
   <div id="menu" class="container">
       <div class="sidebar">
@@ -286,6 +432,42 @@
                 <iframe src="Historial.html" frameborder="0"></iframe>
             </div>
         </div>
+      <i class="fas fa-bars" id="btn"></i>
+      <ul class="nav-list">
+        <li >
+          <a href="#">
+            <i class="fas fa-home"></i>
+            <span class="link_name" onclick="mostrarPerfil()">Perfil</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-user"></i>
+            <span class="link_name"
+              onclick="window.open('Formulario.html', 'popup', 'width=800,height=600')">Formulario</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-user"></i>
+            <span class="link_name"
+              onclick="window.open('RegistrarElemento.html', 'popup', 'width=800,height=600')">Registrar Elemento</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-chart-line"></i>
+            <span class="link_name"
+              onclick="window.open('Historial.html', 'popup', 'width=800,height=600')">Historial</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="link_name">Cerrar Sesión</span>
+          </a>
+        </li>
+      </ul>
     </div>
 
 
@@ -296,118 +478,119 @@
             <img src="../img/1058353174.jpg" alt="foto aprendiz" />
             <div class="Nombre" id="Nombre">
             </div>
-          <div class="col-md-8" style="align-content: center">
-            <div class="container-form">
-      
-                  <div class="container-busqueda" style="margin-bottom: 20px;">
+            <div class="col-md-8" style="align-content: center">
+              <div class="container-form">
+
+                <div class="container-busqueda" style="margin-bottom: 20px;">
                   <div style="display: flex; gap: 10px;">
-                    <input type="text" id="buscarDocumento" placeholder="Ingrese documento del aprendiz" style="padding: 8px; flex: 1;">
-                    <button onclick="buscarDocumento()" style="padding: 8px 15px; background-color: #0066cc; color: white; border: none; cursor: pointer;">Buscar</button>
+                    <input type="text" id="buscarDocumento" placeholder="Ingrese documento del aprendiz"
+                    style="padding: 8px; flex: 1;" 
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
+                    <button onclick="buscarDocumento()"
+                      style="padding: 8px 15px; background-color: #0066cc; color: white; border: none; cursor: pointer;">Buscar</button>
                   </div>
                   <div id="mensaje-busqueda" style="margin-top: 5px; color: #121111;"></div>
-                  </div>
-            </div>
-    
-            <div class="botones">
-              <button class="btn hover" onclick="registrar('Ingreso')">Registrar Entrada</button>
-              <button class="btn hover" onclick="registrar('Salida')">Registrar Salida</button>
+                </div>
+              </div>
+
+              <div class="botones">
+                <button class="btn hover" onclick="registrar('Ingreso')">Registrar Entrada</button>
+                <button class="btn hover" onclick="registrar('Salida')">Registrar Salida</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Nuevo div 1 -->
-    <div class="contenedorMaterial" col-10>
-      <div id="Material">
-        <div class="encabezado">
+
+      <!-- Nuevo div 1 -->
+      <div class="contenedorMaterial" col-10>
+        <div id="Material">
+          <div class="encabezado">
             <h2>Movimientos de Materiales</h2>
-        </div>
-        <div class="tabla-contenedor">
+          </div>
+          <div class="tabla-contenedor">
             <table>
-                <thead>
-                    <tr>
-                        <th>ID </th>
-                        <th>Estado</th>
-                        <th>Referencia</th>
-                        <th>Marca</th>
-                        <th>Tipo Material</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="etiqueta id-movimiento-material"></span></td>
-                        <td><span class="etiqueta Ingreso"></span></td>
-                        <td><span class="etiqueta referencia"></span></td>
-                        <td><span class="etiqueta marca"></span></td>
-                        <td><span class="etiqueta materia"></span></td>
-                        </td>
-                    </tr>
-                </tbody>
+              <thead>
+                <tr>
+                  <th>ID </th>
+                  <th>Referencia</th>
+                  <th>Marca</th>
+                  <th>Tipo Material</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="etiqueta id-movimiento-material"></span></td>
+                  <td><span class="etiqueta Ingreso"></span></td>
+                  <td><span class="etiqueta referencia"></span></td>
+                  <td><span class="etiqueta marca"></span></td>
+                  <td><span class="etiqueta materia"></span></td>
+                  </td>
+                </tr>
+              </tbody>
             </table>
+          </div>
+
         </div>
-        
-    </div>
-    </div>
-  
-    <!-- Nuevo div 2 -->
-    <div class="contenedorVehiculo" col-10>
-      <div id="Vehiculo">
-        <div class="encabezado">
+      </div>
+
+      <!-- Nuevo div 2 -->
+      <div class="contenedorVehiculo" col-10>
+        <div id="Vehiculo">
+          <div class="encabezado">
             <h2>Movimientos Vehiculos</h2>
-        </div>
-        <div class="tabla-contenedor">
+          </div>
+          <div class="tabla-contenedor">
             <table>
-                <thead>
-                    <tr>
-                        <th>ID </th>
-                        <th>Estado</th>
-                        <th>Placa</th>
-                        <th>Tipo Vehiculo</th>
-                    </tr>
-                </thead>
-                <tbody id="datosVehiculos">
-                    <tr>
-                        <td><span class="etiqueta id-movimiento-vehiculo"></span></td>
-                        <td><span class="etiqueta estado"></span></td>
-                        <td><span class="etiqueta placa"></span></td>
-                        <td><span class="etiqueta materia"></span></td>
-                        </td>
-                    </tr>
-                </tbody>
+              <thead>
+                <tr>
+                  <th>ID </th>
+                  <th>Placa</th>
+                  <th>Tipo Vehiculo</th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr>
+                  <td><span class="etiqueta id-movimiento-vehiculo"></span></td>
+                  <td><span class="etiqueta placa"></span></td>
+                  <td><span class="etiqueta materia"></span></td>
+                  </td>
+                </tr>
+              </tbody>
             </table>
+          </div>
         </div>
-  </div>
-  </div>
-   <!-- Contenedor del perfil del usuario (inicialmente oculto) -->
-   <div class="container-perfil" id="perfilDatos" style="display: none;">
-    <div class="container p-4 bg-dark text-white rounded">
-      <div class="mb-3 text-end">
-        <button type="button" class="btn-close btn-close-white" onclick="cerrarPerfilDatos()"></button>  
       </div>
-      <h3 class="text-center">Perfil del Usuario</h3>
-      <div class="form-group">
-        <label for="perfilNombre">Nombre:</label>
-        <input type="text" id="perfilNombre" class="form-control" disabled></input>
+      <!-- Contenedor del perfil del usuario (inicialmente oculto) -->
+      <div class="container-perfil" id="perfilDatos" style="display: none;">
+        <div class="container p-4 bg-dark text-white rounded">
+          <div class="mb-3 text-end">
+            <button type="button" class="btn-close btn-close-white" onclick="cerrarPerfilDatos()"></button>
+          </div>
+          <h3 class="text-center">Perfil del Usuario</h3>
+          <div class="form-group">
+            <label for="perfilNombre">Nombre:</label>
+            <input type="text" id="perfilNombre" class="form-control" disabled></input>
 
-        <label for="perfilDocumento">Documento:</label>
-        <input type="text" id="perfilDocumento" class="form-control" disabled></input>
+            <label for="perfilDocumento">Documento:</label>
+            <input type="text" id="perfilDocumento" class="form-control" disabled></input>
 
-        <label for="perfilTelefono">Telefono:</label>
-        <input type="number" id="perfilTelefono" class="form-control" disabled></input>
+            <label for="perfilTelefono">Telefono:</label>
+            <input type="number" id="perfilTelefono" class="form-control" disabled></input>
 
-        <label for="perfilEmail">Email:</label>
-        <input type="text" id="perfilEmail" class="form-control" disabled></input>
+            <label for="perfilEmail">Email:</label>
+            <input type="text" id="perfilEmail" class="form-control" disabled></input>
+          </div>
+          <br>
+          <div class="mt-3 text-center">
+            <button type="button" class="btn btn-light" onclick="habilitar()">Editar</button>
+            <button type="button" class="btn btn-success">Guardar</button>
+          </div>
+        </div>
       </div>
-      <br>
-      <div class="mt-3 text-center">
-        <button type="button" class="btn btn-light" onclick="habilitar()">Editar</button>
-        <button type="button" class="btn btn-success">Guardar</button>
-      </div>
-    </div>
-  </div>
 
 
+<<<<<<< HEAD
  <script src="../js/Administrador.js"></script>
  <script src="../js/MostrarElemento.js"></script>
  <script src="../js/Menu_desplegable.js"></script>
@@ -415,6 +598,17 @@
  <script  src="../js/MoviMaterial.js"></script>
  <script src="../js/MoviVehiculo.js"></script>
  <script src="../js/verPerfil.js"></script>
-</body>
-</html>
+=======
+      <script src="../js/Administrador.js"></script>
+     
+      
+      <!-- <script src="../js/MostrarElemento.js"></script> -->
 
+      <script src="../js/ObtenerDatosAprendiz.js"></script>
+      <!-- <script src="../js/MoviMaterial.js"></script> -->
+      <!-- <script src="../js/MoviVehiculo.js"></script> -->
+      <script src="../js/verPerfil.js"></script>
+>>>>>>> 1282d14698ef14f3cd8a4681d0839c323eb2758d
+</body>
+
+</html>

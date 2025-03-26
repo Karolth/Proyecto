@@ -1,30 +1,46 @@
 <?php
-include "conexion.php";
+include 'conexion.php'; // Asegura que la conexión se incluya correctamente
 
-header("Content-Type: application/json");
-$input = json_decode(file_get_contents("php://input"), true);
-$action = isset($_GET['action']) ? $_GET['action'] : (isset($input['action']) ? $input['action'] : '');
-
-if ($action == "Vehiculo") {
-    if (!$input || !isset($input['Placa']) || !isset($input['IdTipoVehiculo'])) {
-        echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (
+        !isset($_POST['placa'], $_POST['idTipoVehiculo'],
+                $_POST['idUsuario'], $_POST['idAprendiz'])
+    ) {
+        echo "Error: Faltan datos obligatorios.";
         exit;
     }
 
-    $Placa = htmlspecialchars($input['Placa']);
-    $IdTipoVehiculo = htmlspecialchars($input['IdTipoVehiculo']);
+    // Obtener los datos del formulario
+    $Placa = trim(htmlspecialchars($_POST['placa']));
+    $IdTipoVehiculo = trim(htmlspecialchars($_POST['idTipoVehiculo']));
+    $idUsuario = trim($_POST['idUsuario']);
+    $idAprendiz = trim($_POST['idAprendiz']);
 
-    try {
-        $stmt = $pdo->prepare("INSERT INTO Vehiculo (Placa, IdTipoVehiculo) VALUES (:Placa, :IdTipoVehiculo)");
-        $stmt->bindParam(':Placa', $Placa);
-        $stmt->bindParam(':IdTipoVehiculo', $IdTipoVehiculo);
-        $stmt->execute();
-
-        echo json_encode(['success' => true, 'message' => 'Vehículo registrado correctamente']);
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Error en la base de datos: ' . $e->getMessage()]);
+    // Validar que no estén vacíos
+    if (empty($Placa) || empty($IdTipoVehiculo) || empty($idUsuario) || empty($idAprendiz)) {
+        echo "Error: Todos los campos son obligatorios.";
+        exit;
     }
-} elseif ($action == "cargarTipo") {
+
+    // Consulta para insertar el vehículo
+
+    $sql = "INSERT INTO vehiculo (Placa, IdTipoVehiculo, IdUsuario, IdAprendiz) VALUES (:placa, :idTipoVehiculo, :idUsuario, :idAprendiz)";    
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':placa', $Placa);
+        $stmt->bindParam(':idTipoVehiculo', $IdTipoVehiculo);
+        $stmt->bindParam(':idUsuario', $idUsuario);
+        $stmt->bindParam(':idAprendiz', $idAprendiz);
+
+        if ($stmt->execute()) {
+            echo "Vehículo registrado correctamente.";
+        } else {
+            echo "Error al registrar el vehículo.";
+        }
+    } catch (PDOException $e) {
+        echo "Error en la consulta: " . $e->getMessage();
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'cargarTipo') {
     try {
         $sql_TipoVehiculo = $pdo->query("SELECT * FROM tipovehiculo");
         $TipoVehiculo = $sql_TipoVehiculo->fetchAll(PDO::FETCH_ASSOC);
@@ -34,6 +50,5 @@ if ($action == "Vehiculo") {
         echo json_encode(['success' => false, 'message' => 'Error en la base de datos: ' . $e->getMessage()]);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Acción no válida']);
+    echo "Método no permitido.";
 }
-?>

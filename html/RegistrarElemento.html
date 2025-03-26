@@ -31,7 +31,7 @@
         <button class="close-btn" onclick="cerrarFormulario()">X</button>
         <h2>Computador</h2>
         <hr>
-        <form id ="formPC">
+        <form id ="formPC" onsubmit="event.preventDefault(); registrarComputador();">
             <strong>Referencia</strong>
             <div class="input-container">
                 <i class="fas fa-user"></i>
@@ -47,7 +47,7 @@
                 <i class="fas fa-lock"></i>
                 <input  type="text" placeholder="Ej:#########" class="form-control" id="observaciones" name="observaciones" maxlength="100">
             </div>
-            <button type="submit" class="btn btn-primary mt-3" id="guardarBtn">Guardar</button>
+            <button type="submit" class="btn btn-primary mt-3" id="guardarBtn" >Guardar</button>
         </form>
     </div>
 
@@ -59,13 +59,14 @@
     </select>
         <h2>Vehiculo</h2>
         <hr>
-        <form id="Formautomovil" method="POST">
+        <form id="Formautomovil" >
             <strong>Placa</strong>
             <div class="input-container">
                 <i class="fas fa-user"></i>
                 <input type="text" class="form-control" id="Placa" name="Placa" maxlength="45" placeholder="Ej: #########">
             </div>
-            <button  class="btn btn-primary mt-3" type="button" id="btnRegistrarVehiculo" onclick="Vehiculo()">Guardar</button>
+            <button  class="btn btn-primary mt-3" type="button" onclick="registrarVehiculo()" id="btnRegistrarVehiculo">Guardar</button>
+            <div id="mensaje"></div>
         </form>
     </div>
     
@@ -74,7 +75,7 @@
         <button class="close-btn" onclick="cerrarFormulario()">X</button>
         <h2>Otro</h2>
         <hr>
-        <form id="formRegistro">
+        <form id ="formRegistro" onsubmit="event.preventDefault(); registrarOtro();" >
             <strong>Nombre del elemento</strong>
             <div class="input-container">
                 <i class="fas fa-envelope"></i>
@@ -107,8 +108,7 @@
 }
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/RegistrarComputador.js"></script>
-    <script src="../js/RegistrarOtro.js"></script>
+    <script src="../js/RegistrarMaterial.js"></script>
     <script src="../js/RegistrarVehiculo.js"></script>
 </body>
 </html>
