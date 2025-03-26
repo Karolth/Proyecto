@@ -1,4 +1,3 @@
-
 let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");
 
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
 function buscarDocumento() {
     var documento = document.getElementById("buscarDocumento").value;
     var mensajeBusqueda = document.getElementById("mensaje-busqueda");
@@ -48,12 +46,14 @@ function buscarDocumento() {
                 mensajeBusqueda.innerHTML = data.error;
                 return;
             }
+
             let resultadoHTML = "<ul>";
 
             if (data.tipo === "aprendiz") {
                 // Guardar datos de aprendiz
                 localStorage.setItem("Id", data.datos.IdAprendiz);
                 localStorage.setItem("Tipo", data.tipo);
+                
 
                 // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
@@ -61,11 +61,13 @@ function buscarDocumento() {
                 resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
                 resultadoHTML += `<p><strong>Tipo de Programa:</strong> ${data.datos.TipoPrograma}</p>`;
                 resultadoHTML += `<p><strong>Programa:</strong> ${data.datos.Programa}</p>`;
+                
 
             } else if (data.tipo === "usuario") {
                 // Guardar datos de usuario
                 localStorage.setItem("Id", data.datos.IdUsuario);
                 localStorage.setItem("Tipo", data.tipo);
+                
 
                 // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
