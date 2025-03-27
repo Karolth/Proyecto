@@ -437,7 +437,7 @@
         <li >
           <a href="#">
             <i class="fas fa-home"></i>
-            <span class="link_name" onclick="mostrarPerfil()">Perfil</span>
+            <span class="link_name" onclick="window.open('verPerfil.html', 'popup', 'width=800,height=600')">Ver Perfil</span> 
           </a>
         </li>
         <li>
@@ -555,7 +555,9 @@
             </table>
           </div>
         </div>
-      </div>
+  </div>
+  </div>
+
       <!-- Contenedor del perfil del usuario (inicialmente oculto) -->
       <div class="container-perfil" id="perfilDatos" style="display: none;">
         <div class="container p-4 bg-dark text-white rounded">
@@ -586,6 +588,9 @@
 
  <script src="../js/Administrador.js"></script>
  <script src="../js/Menu_desplegable.js"></script>
+ <script src="../js/ObtenerDatosAprendiz.js"></script>
+ <script  src="../js/MoviMaterial.js"></script>
+ <script src="../js/MoviVehiculo.js"></script>
  <script src="../js/verPerfil.js"></script>
 </body>
 

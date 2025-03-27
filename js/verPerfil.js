@@ -35,3 +35,16 @@ function cerrarPerfilDatos() {
     document.getElementById("perfilTelefono").disabled = true;
     
 }
+
+function habilitar(){
+    document.getElementById("perfilEmail").disabled= false;
+    document.getElementById("perfilTelefono").disabled= false;
+    
+}
+
+function modificarPerfil(){
+    const action ="modificar";
+    const perfilEmail = document.getElementById("perfilEmail").value;
+    const perfilTelefono = document.getElementById("perfilTelefono").value;
+
+} 
