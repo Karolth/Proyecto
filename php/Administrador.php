@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $movimiento = $_POST["movimiento"]; // No hace falta escape con PDO
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO movimiento (Movimiento, FechaHora) VALUES (:movimiento, NOW())");
+        $stmt = $pdo->prepare("INSERT INTO movimiento (Movimiento, FechaHora ) VALUES (:movimiento, NOW())");
         $stmt->bindParam(':movimiento', $movimiento, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -25,7 +25,7 @@ if (isset($_GET['documento'])) {
 
     try {
         // Buscar en la tabla aprendiz
-        $stmt = $pdo->prepare("SELECT a.Nombre, a.RH, tp.TipoPrograma, p.Nombre AS Programa
+        $stmt = $pdo->prepare("SELECT a.IdAprendiz, a.Nombre, a.RH, tp.TipoPrograma, p.Nombre AS Programa
                                FROM aprendiz a
                                JOIN fichaaprendiz fa ON a.IdAprendiz = fa.IdAprendiz
                                JOIN ficha f ON fa.IdFicha = f.IdFicha
@@ -36,13 +36,14 @@ if (isset($_GET['documento'])) {
         $stmt->execute();
         $aprendiz = $stmt->fetch();
 
+        
         if ($aprendiz) {
             echo json_encode(['tipo' => 'aprendiz', 'datos' => $aprendiz]);
             exit;
         }
 
         // Buscar en la tabla usuario
-        $stmt = $pdo->prepare("SELECT u.Nombre, u.Email, r.Rol
+        $stmt = $pdo->prepare("SELECT u.IdUsuario , u.Nombre, u.Email, r.Rol
                                FROM usuario u
                                JOIN usuariorol ur ON u.IdUsuario = ur.IdUsuario
                                JOIN rol r ON ur.IdRol = r.IdRol
