@@ -19,19 +19,20 @@
         <div class="logo-container">
             <img src="../img/ImagenEasyCode.jpeg" alt="Logo">
         </div>
-        <h4 class="text-center mb-4">INICIO DE SESION</h4>
+        <h4 class="text-center mb-4">INICIO DE SESIÓN</h4>
         <form id="loginForm">
             <div class="mb-3">
-                <label for="Documento" class="form-label">Número de Documento</label>
-                <input type="number" class="form-control" id="Documento" placeholder="Ingrese su Documento" required>
+                <label for="Documento" class="form-label">Número de Documento</label>
+                <input type="text" class="form-control" id="Documento" placeholder="Ingrese su numero de documento" 
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="number" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
             </div>
+                <div id="message" class="message"></div>
+            <button type="button" class="btn btn-success w-100" onclick="verificarLogin()">INGRESAR</button>
         </form>
-        <button type="submit" class="btn btn-success w-100" onclick="verificarLogin()">INGRESAR</button>
-        <div id="message" class="message"></div>
     </div>
 
     <script src="../js/scriptIS.js"></script> 
