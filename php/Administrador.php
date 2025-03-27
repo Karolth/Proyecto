@@ -25,7 +25,7 @@ if (isset($_GET['documento'])) {
 
     try {
         // Buscar en la tabla aprendiz
-        $stmt = $pdo->prepare("SELECT a.IdAprendiz, a.Nombre, a.RH, tp.TipoPrograma, p.Nombre AS Programa
+        $stmt = $pdo->prepare("SELECT a.IdAprendiz, a.Nombre, a.RH, a.Documento, tp.TipoPrograma, p.Nombre AS Programa
                                FROM aprendiz a
                                JOIN fichaaprendiz fa ON a.IdAprendiz = fa.IdAprendiz
                                JOIN ficha f ON fa.IdFicha = f.IdFicha
@@ -34,30 +34,29 @@ if (isset($_GET['documento'])) {
                                WHERE a.Documento = :documento");
         $stmt->bindParam(':documento', $documento, PDO::PARAM_STR);
         $stmt->execute();
-        $aprendiz = $stmt->fetch();
+        $aprendiz = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($aprendiz) {
-            echo json_encode(['tipo' => 'aprendiz', 'datos' => $aprendiz]);
+            // Construir la ruta de la imagen
+            $rutaImagen = "../Imagenes/$documento.jpg";
+
+            // Verificar si la imagen existe
+            if (!file_exists($rutaImagen)) {
+                $rutaImagen = "../Imagenes/default-user.png"; // Imagen por defecto
+            }
+
+            // Enviar los datos al frontend
+            echo json_encode([
+                'tipo' => 'aprendiz',
+                'datos' => $aprendiz,
+                'imagen' => $rutaImagen
+            ]);
             exit;
         }
 
-        // Buscar en la tabla usuario
-        $stmt = $pdo->prepare("SELECT u.IdUsuario , u.Nombre, u.Email, r.Rol
-                               FROM usuario u
-                               JOIN usuariorol ur ON u.IdUsuario = ur.IdUsuario
-                               JOIN rol r ON ur.IdRol = r.IdRol
-                               WHERE u.Documento = :documento");
-        $stmt->bindParam(':documento', $documento, PDO::PARAM_STR);
-        $stmt->execute();
-        $usuario = $stmt->fetch();
-
-        if ($usuario) {
-            echo json_encode(['tipo' => 'usuario', 'datos' => $usuario]);
-            exit;
-        }
-
-        // Si no se encuentra en ninguna tabla
-        echo json_encode(['error' => 'No se encontró el documento']);
+        // Si no se encuentra el aprendiz
+        echo json_encode(['error' => 'No se encontró el aprendiz con el documento proporcionado.']);
+        exit;
     } catch (PDOException $e) {
         echo json_encode(['error' => 'Error en la consulta: ' . $e->getMessage()]);
     }

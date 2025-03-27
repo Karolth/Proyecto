@@ -16,6 +16,7 @@ function registrar(tipo) {
         .catch(error => console.error('Error:', error));
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     let btn = document.querySelector("#btn");
     let sidebar = document.querySelector(".sidebar");
@@ -28,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Sidebar or button element not found.");
     }
 });
+
+function ejecutarBusqueda(event) {
+    if (event.key === "Enter") {
+      buscarDocumento(); // Llama a tu función buscarDocumento()
+    }
+  }
 
 function buscarDocumento() {
     var documento = document.getElementById("buscarDocumento").value;
@@ -52,7 +59,9 @@ function buscarDocumento() {
                 // Guardar datos de aprendiz
                 localStorage.setItem("Id", data.datos.IdAprendiz);
                 localStorage.setItem("Tipo", data.tipo);
-                
+
+                // Mostrar la imagen
+                resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" width="150">`;
 
                 // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
@@ -60,20 +69,16 @@ function buscarDocumento() {
                 resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
                 resultadoHTML += `<p><strong>Tipo de Programa:</strong> ${data.datos.TipoPrograma}</p>`;
                 resultadoHTML += `<p><strong>Programa:</strong> ${data.datos.Programa}</p>`;
-                
-
             } else if (data.tipo === "usuario") {
                 // Guardar datos de usuario
                 localStorage.setItem("Id", data.datos.IdUsuario);
                 localStorage.setItem("Tipo", data.tipo);
-                
 
                 // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
                 resultadoHTML += `<p><strong>Rol:</strong> ${data.datos.Rol}</p>`;
                 resultadoHTML += `<p><strong>Email:</strong> ${data.datos.Email}</p>`;
             }
-
 
             resultadoHTML += "</ul>";
             mensajeBusqueda.innerHTML = resultadoHTML;
@@ -85,7 +90,6 @@ function buscarDocumento() {
             console.error("Error:", error);
         });
 }
-
 
 function cargarMateriales() {
 

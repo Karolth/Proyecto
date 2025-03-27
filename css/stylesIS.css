@@ -71,3 +71,7 @@ body {
 .logo-container img {
     max-width: 200px;
 }
+.error {
+    color: red;
+    font-size: 12px;
+}
