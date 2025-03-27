@@ -53,6 +53,20 @@ if (isset($_GET['documento'])) {
             ]);
             exit;
         }
+         // Buscar en la tabla usuario
+         $stmt = $pdo->prepare("SELECT u.IdUsuario , u.Nombre, u.Email, r.Rol
+         FROM usuario u
+         JOIN usuariorol ur ON u.IdUsuario = ur.IdUsuario
+         JOIN rol r ON ur.IdRol = r.IdRol
+         WHERE u.Documento = :documento");
+        $stmt->bindParam(':documento', $documento, PDO::PARAM_STR);
+        $stmt->execute();
+        $usuario = $stmt->fetch();
+
+        if ($usuario) {
+        echo json_encode(['tipo' => 'usuario', 'datos' => $usuario]);
+        exit;
+        }
 
         // Si no se encuentra el aprendiz
         echo json_encode(['error' => 'No se encontró el aprendiz con el documento proporcionado.']);
