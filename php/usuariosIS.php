@@ -13,34 +13,59 @@ if (!$input || !isset($input['action'])) {
 $action = htmlspecialchars($input['action']);
 
 if ($action === "login") {
-    if (!isset($input['Documento']) || !isset($input['password'])) { // Asegurar que coincida con el JSON
-        echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
+    if (empty($input['Documento']) || empty($input['password'])) {
+        echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios']);
         exit;
     }
 
     $Documento = htmlspecialchars($input['Documento']);
-    $pass = htmlspecialchars($input['password']); // Se asume que es igual al Documento
+    $pass = htmlspecialchars($input['password']);
 
     try {
-        // Consulta SQL corregida
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE Documento = :Documento AND Documento = :password");
+        // Verificar si el Documento existe en la tabla 'usuario'
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE Documento = :Documento");
         $stmt->bindParam(':Documento', $Documento);
-        $stmt->bindParam(':password', $pass);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Verificar si el usuario existe y si el "password" (Documento) coincide
-        if ($user && $user['Documento'] === $pass) {
-            $_SESSION['user_id'] = $user['IdUsuario'];
-            $_SESSION['Documento'] = $user['Documento'];
-            echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Documento o contraseña incorrectos']);
+        if (!$user) {
+            echo json_encode(['success' => false, 'message' => 'El documento no está registrado']);
+            exit;
         }
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Error al iniciar sesión: ' . $e->getMessage()]);
-    }
 
+        // Verificar si la contraseña es correcta
+        if ($user['Documento'] !== $pass) { 
+            echo json_encode(['success' => false, 'message' => 'La contraseña es incorrecta']);
+            exit;
+        }
+
+        // **MOVER LA CONSULTA DEL ROL AQUÍ ANTES DE INICIAR SESIÓN**
+        $stmt = $pdo->prepare("
+            SELECT r.Rol FROM usuarioRol ur
+            INNER JOIN rol r ON ur.IdRol = r.IdRol
+            WHERE ur.IdUsuario = :IdUsuario");
+        $stmt->bindParam(':IdUsuario', $user['IdUsuario']);
+        $stmt->execute();
+        $role = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$role) {
+            echo json_encode(['success' => false, 'message' => 'Error al obtener el rol del usuario.']);
+            exit;
+        }
+
+        if (strtolower($role['Rol']) !== 'administrador') {
+            echo json_encode(['success' => false, 'message' => 'Acceso denegado. Solo los administradores pueden ingresar.']);
+            exit;
+        }
+
+        // Si es administrador, iniciar sesión
+        $_SESSION['user_id'] = $user['IdUsuario'];
+        $_SESSION['Documento'] = $user['Documento'];
+        echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso']);
+
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'message' => 'Error al iniciar sesión']);
+    }
 } elseif ($action === "getPerfil") {
     // Verificar si el usuario está autenticado
     if (!isset($_SESSION['user_id'])) {

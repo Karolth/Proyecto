@@ -6,8 +6,17 @@ function verificarLogin() {
     let action = "login";
     let Documento = document.getElementById("Documento").value;
     let password = document.getElementById("password").value;
-    let message= document.getElementById("message");
-    
+    let message = document.getElementById("message");
+
+    // Validación de campos vacíos
+    if (Documento === "") {
+        docError.textContent = "El documento es obligatorio";
+        hasError = true;
+    }
+    if (password === "") {
+        passError.textContent = "La contraseña es obligatoria";
+        hasError = true;
+    }
 
     fetch("../php/usuariosIS.php", {
         method: "POST",
@@ -18,22 +27,18 @@ function verificarLogin() {
     })
     .then(response => response.json())
     .then(data => {
+        message.style.color = data.success ? "green" : "red";
+        message.textContent = data.message;
+
         if (data.success) {
-            message.style.color = "green";
-            message.textContent = "Inicio de sesión exitoso";
             setTimeout(() => {
                 window.location.href = "../html/Administrador.html";
             }, 1000);
-        } else {
-            if (data.message.includes("Documento")) {
-                message.textContent = data.message;
-            } else if (data.message.includes("password")) {
-                message.textContent = data.message;
-            }
         }
     })
     .catch(error => {
         console.error("Error:", error);
+        message.style.color = "red";
         message.textContent = "Error al iniciar sesión";
     });
 }
