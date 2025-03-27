@@ -411,26 +411,6 @@
   font-weight: bold;
 }
 
-/* Estilos para estados */
-#Material .pendiente {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-#Material .en-proceso {
-  background-color: #cce5ff;
-  color: #004085;
-}
-
-#Material .completado {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-#Material .cancelado {
-  background-color: #f8d7da;
-  color: #721c24;
-}
 
 /* Estilos para ID Movimiento */
 #Material .id-movimiento {
@@ -452,26 +432,13 @@
   color: #722ed1;
 }
 
-/* Estilos para Tipo Material */
-#Material .materia-prima {
-  background-color: #e6fffb;
-  color: #006d75;
+/* estilos tipo */
+#Material .materia {
+  background-color: #f9f0ff;
+  color: #7ccfc1;
 }
 
-#Material .producto-terminado {
-  background-color: #f6ffed;
-  color: #389e0d;
-}
 
-#Material .herramienta {
-  background-color: #fff2e8;
-  color: #d4380d;
-}
-
-#Material .consumible {
-  background-color: #fff0f6;
-  color: #c41d7f;
-}
 
 /* Estilos para ID Usuario */
 #Material .id-usuario {
@@ -591,31 +558,6 @@
   align-items: center;
 }
 
-#Vehiculo .busqueda {
-  display: flex;
-  gap: 10px;
-}
-
-#Vehiculo .busqueda input {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 250px;
-}
-
-#Vehiculo .boton-nuevo {
-  padding: 8px 15px;
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
 
 #Vehiculo .boton-nuevo:hover {
   background-color: #219653;
@@ -798,4 +740,23 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: white;
+}
+
+#Vehiculo .id-movimiento-vehiculo {
+  background-color: #f0f0f0;
+  color: #555;
+  font-family: monospace;
+}
+
+/* Estilos para Referencia */
+#Vehiculo .placa {
+  background-color: #e6f7ff;
+  color: #0050b3;
+  font-family: monospace;
+}
+
+/* Estilos para Marca */
+#Vehiculo .materia {
+  background-color: #f9f0ff;
+  color: #722ed1;
 }
