@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Crear Nueva Ficha</title>
+    <link rel="stylesheet" href="../css/Modulo.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Nueva Ficha</h1>
+
+        
+
+        <form id="formCrearSalon">
+            <div class="form-group">
+                <label for="nombreSalon">Nombre del Programa de Formacion:</label>
+                <input type="text" id="nombreSalon" name="nombreSalon" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="jornada">Jornada:</label>
+                <select id="jornada" name="jornada" required>
+                    <option value="">Seleccionar Jornada</option>
+                    <option value="mañana">Mañana</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noche">Noche</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tipoPrograma">Tipo de Programa:</label>
+                <select id="tipoPrograma" name="tipoPrograma" required>
+                    <option value="">Seleccionar Tipo de Programa</option>
+                    <option value="auxiliar">Auxiliar</option>
+                    <option value="tecnico">Técnico</option>
+                    <option value="operario">Operario</option>
+                    <option value="tecnologo">Tecnólogo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaInicio">Fecha de Inicio:</label>
+                <input type="date" id="fechaInicio" name="fechaInicio" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaFin">Fecha de Fin:</label>
+                <input type="date" id="fechaFin" name="fechaFin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numeroFicha">Número de la Ficha:</label>
+                <input type="text" id="numeroFicha" name="numeroFicha" required autocomplete="off" style="resize: none;">
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="archivo">Subir Lista de Aprendices:</label>
+                <input type="file" id="archivo" name="archivo" accept=".csv,.xls,.xlsx">
+                <p class="help-text">Formatos aceptados: Excel (.xls, .xlsx), CSV (.csv)</p>
+            </div> -->
+
+    
+        </form>
+            <div class="button-group">
+                <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
+                <button type="submit" class="btn-submit">Crear Ficha</button>
+            </div>
+            <div id="mensajeExito" class="success-message">
+            ¡Ficha creada exitosamente!
+        </div>
+    </div>
+
+    <script src="../js/Modulo.js"> </script>
+</body>
+</html>
