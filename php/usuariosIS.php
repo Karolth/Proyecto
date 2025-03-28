@@ -75,6 +75,7 @@ if ($action === "login") {
 
     $userId = $_SESSION['user_id'];
 
+    
     try {
         // Obtener los datos del usuario desde la base de datos
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE IdUsuario = :id");

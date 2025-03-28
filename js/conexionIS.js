@@ -6,7 +6,16 @@ function verificarLogin() {
     let action = "login";
     let Documento = document.getElementById("Documento").value;
     let password = document.getElementById("password").value;
+    let docError = document.getElementById("docError");
+    let passError = document.getElementById("passError");
     let message = document.getElementById("message");
+
+    docError.textContent = "";
+    passError.textContent = "";
+    message.textContent = "";
+
+    let hasError = false;
+
 
     // Validación de campos vacíos
     if (Documento === "") {
@@ -45,33 +54,36 @@ function verificarLogin() {
 
 
 function mostrarPerfil() {
-    
-    const action="getPerfil";
-    fetch("../php/verPerfil.php", {
+    const action = "getPerfil";
+
+    fetch("../php/usuariosIS.php", {
         method: "POST",
         headers: {
-            "Content-Type": "aplication/json"
+            "Content-Type": "application/json"  
         },
-        body: JSON.stringify({action})
+        body: JSON.stringify({ action })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             document.getElementById("perfilNombre").value = data.Nombre;
-            document.getElementById("perfilDocumento").value = data.Documento; 
+            document.getElementById("perfilDocumento").value = data.Documento;
             document.getElementById("perfilEmail").value = data.Email;
             document.getElementById("perfilTelefono").value = data.Telefono;
-            
+
+            // Mostrar modal después de obtener los datos
+            document.getElementById("perfilDatos").style.display = "block"; 
         } else {
-            alert("Error: " + data.messsage);
+            alert("Error: " + data.message); 
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert ("Hubo un problema al obtener los datos del perfil.");
+        alert("Hubo un problema al obtener los datos del perfil.");
     });
 }
-function cerrarPerfilDatos(){
+
+function cerrarPerfilDatos() {
     document.getElementById("perfilDatos").style.display = "none";
     document.getElementById("perfilNombre").disabled = true;
     document.getElementById("perfilDocumento").disabled = true;
