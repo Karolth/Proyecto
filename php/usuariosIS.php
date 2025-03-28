@@ -86,7 +86,10 @@ if ($action === "login") {
         if ($user) {
             echo json_encode([
                 'success' => true,
-                'Documento' => $user['Documento']
+                'Nombre' => $user['Nombre'],
+                'Documento' => $user['Documento'],
+                'Telefono' => $user['Telefono'],
+                'Email' => $user['Email']
             ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);
