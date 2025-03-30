@@ -6,16 +6,25 @@ btn.onclick = function () {
 }
 
 function registrar(tipo) {
+    // Obtener el ID del usuario o aprendiz desde localStorage
+    const id = localStorage.getItem("Id");
+    const tipoUsuario = localStorage.getItem("Tipo");
+
+    if (!id || !tipoUsuario) {
+        alert("No se encontró información del usuario o aprendiz. Por favor, realice una búsqueda primero.");
+        return;
+    }
+
+    // Enviar el ID y el tipo de movimiento al backend
     fetch('../php/Administrador.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `movimiento=${tipo}`
+        body: `movimiento=${tipo}&id=${id}&tipoUsuario=${tipoUsuario}`
     })
         .then(response => response.text())
         .then(data => alert(data))
         .catch(error => console.error('Error:', error));
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     let btn = document.querySelector("#btn");
@@ -92,11 +101,8 @@ function buscarDocumento() {
 }
 
 function cargarMateriales() {
-
     const idUsuario = localStorage.getItem("Id");
     const tipoUsuario = localStorage.getItem("Tipo");
-    
-    
 
     if (!idUsuario) {
         console.error("No se encontró ID de usuario");
@@ -117,7 +123,7 @@ function cargarMateriales() {
             if (data.length === 0) {
                 const filaVacia = `
                     <tr>
-                        <td colspan="5" class="text-center">No se han registrado materiales</td>
+                        <td colspan="6" class="text-center">No se han registrado materiales</td>
                     </tr>
                 `;
                 tbody.innerHTML = filaVacia;
@@ -126,12 +132,19 @@ function cargarMateriales() {
 
             // Generar filas para cada material
             data.forEach(material => {
+                const checked = material.Estado === "Ingreso" ? "checked" : ""; // Verificar el estado
                 const fila = `
                     <tr>
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" class="checkbox-material" ${checked} onchange="registrarMovimiento(this, '${material.IdMaterial}')">
+                                <span class="slider"></span>
+                            </label>
+                        </td>
                         <td><span class="etiqueta id-movimiento-material">${material.IdMaterial}</span></td>
-                        <td><span class="etiqueta referencia">${material.Referencia  }</span></td>
+                        <td><span class="etiqueta referencia">${material.Referencia}</span></td>
                         <td><span class="etiqueta marca">${material.Marca}</span></td>
-                        <td><span class="etiqueta materia">${material.Tipo }</span></td>
+                        <td><span class="etiqueta materia">${material.Tipo}</span></td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;
@@ -139,10 +152,9 @@ function cargarMateriales() {
         })
         .catch(error => {
             console.error("Error en la solicitud:", error);
-            // const tbody = document.querySelector("#Material tbody");
             const filaError = `
                 <tr>
-                    <td colspan="5" class="text-center">Error al cargar materiales</td>
+                    <td colspan="6" class="text-center">Error al cargar materiales</td>
                 </tr>
             `;
             tbody.innerHTML = filaError;
@@ -201,4 +213,25 @@ function cargarVehiculos() {
         `;
         tbody.innerHTML = filaError;
     });
+}
+function registrarMovimiento(checkbox, idMaterial) {
+    const estado = checkbox.checked ? "Ingreso" : "Salida";
+    const idMovimiento = 1; // Cambia esto según el ID del movimiento correspondiente
+
+    // Verificar los datos antes de enviarlos
+    console.log(`Enviando datos: idMaterial=${idMaterial}, estado=${estado}, idMovimiento=${idMovimiento}`);
+
+    fetch('../php/MovimientoMaterial.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `idMaterial=${idMaterial}&estado=${estado}&idMovimiento=${idMovimiento}`
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(`Movimiento registrado: ${estado}\nRespuesta del servidor: ${data}`);
+        })
+        .catch(error => {
+            console.error('Error al registrar el movimiento:', error);
+            alert('Error al registrar el movimiento.');
+        });
 }

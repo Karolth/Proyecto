@@ -760,3 +760,66 @@
   background-color: #f9f0ff;
   color: #722ed1;
 }
+
+#miCheckboxPersonalizado { /* Agregamos el id al selector */
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 34px;
+}
+
+#miCheckboxPersonalizado input { /* Agregamos el id al selector */
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#miCheckboxPersonalizado .slider { /* Agregamos el id al selector */
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+#miCheckboxPersonalizado .slider:before { /* Agregamos el id al selector */
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+#miCheckboxPersonalizado input:checked + .slider { /* Agregamos el id al selector */
+  background-color: #f00; 
+}
+
+#miCheckboxPersonalizado input:focus + .slider { /* Agregamos el id al selector */
+  box-shadow: 0 0 1px #2196F3;
+}
+
+#miCheckboxPersonalizado input:checked + .slider:before { /* Agregamos el id al selector */
+  transform: translateX(46px);
+}
+
+#miCheckboxPersonalizado .slider::after { /* Agregamos el id al selector */
+  content: "0";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+}
+
+#miCheckboxPersonalizado input:checked + .slider::after { /* Agregamos el id al selector */
+  content: "1";
+}

@@ -518,7 +518,8 @@
             <table>
               <thead>
                 <tr>
-                  <th>ID </th>
+                  <th>Seleccionar</th>
+                  <th>ID</th>
                   <th>Referencia</th>
                   <th>Marca</th>
                   <th>Tipo Material</th>
@@ -526,16 +527,20 @@
               </thead>
               <tbody>
                 <tr>
+                  <td>
+                    <label id="checkbox" class="switch">
+                      <input id="checkbox" type="checkbox" class="checkbox-material" onchange="registrarMovimiento(this)">
+                      <span id="checkbox" class="slider"></span>
+                    </label>
+                  </td>
                   <td><span class="etiqueta id-movimiento-material"></span></td>
                   <td><span class="etiqueta referencia"></span></td>
                   <td><span class="etiqueta marca"></span></td>
                   <td><span class="etiqueta materia"></span></td>
-                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
 
@@ -549,6 +554,7 @@
             <table>
               <thead>
                 <tr>
+                  <th></th>
                   <th>ID </th>
                   <th>Placa</th>
                   <th>Tipo Vehiculo</th>
@@ -556,6 +562,10 @@
               </thead>
               <tbody >
                 <tr>
+                  <td><label class="switch" id="miCheckboxPersonalizado"> 
+                    <input type="checkbox" id="myCheckbox">
+                    <span id="" class="slider"></span>
+                </label></td>
                   <td><span class="etiqueta id-movimiento-vehiculo"></span></td>
                   <td><span class="etiqueta placa"></span></td>
                   <td><span class="etiqueta materia"></span></td>
@@ -599,9 +609,6 @@
  <script src="../js/Administrador.js"></script>
  <script src="../js/conexionIS.js"></script>
  <script src="../js/Menu_desplegable.js"></script>
- <script src="../js/ObtenerDatosAprendiz.js"></script>
- <script  src="../js/MoviMaterial.js"></script>
- <script src="../js/MoviVehiculo.js"></script>
 </body>
 
 </html>

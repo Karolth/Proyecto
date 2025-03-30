@@ -5,20 +5,38 @@ if (!isset($pdo)) {
     die("Error: No se pudo conectar a la base de datos.");
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $movimiento = $_POST["movimiento"]; // No hace falta escape con PDO
 
-    try {
-        $stmt = $pdo->prepare("INSERT INTO movimiento (Movimiento, FechaHora ) VALUES (:movimiento, NOW())");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $movimiento = $_POST['movimiento'];
+    $id = $_POST['id'];
+    $tipoUsuario = $_POST['tipoUsuario'];
+
+    // Validar los datos recibidos
+    if (empty($movimiento) || empty($id) || empty($tipoUsuario)) {
+        echo "Datos incompletos.";
+        exit;
+    }
+
+    // Procesar el movimiento según el tipo de usuario
+    if ($tipoUsuario === 'aprendiz') {
+        // Lógica para registrar el movimiento del aprendiz
+        $stmt = $pdo->prepare("INSERT INTO movimiento (IdAprendiz, Movimiento) VALUES (:id, :movimiento)");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':movimiento', $movimiento, PDO::PARAM_STR);
         $stmt->execute();
-
-        echo "Registro de $movimiento guardado correctamente.";
-    } catch (PDOException $e) {
-        echo "Error en la consulta: " . $e->getMessage();
+        echo "Movimiento registrado para el aprendiz.";
+    } elseif ($tipoUsuario === 'usuario') {
+        // Lógica para registrar el movimiento del usuario
+        $stmt = $pdo->prepare("INSERT INTO movimientos (IdUsuario, Movimiento) VALUES (:id, :movimiento)");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':movimiento', $movimiento, PDO::PARAM_STR);
+        $stmt->execute();
+        echo "Movimiento registrado para el usuario.";
+    } else {
+        echo "Tipo de usuario no válido.";
     }
+    exit;
 }
-
 
 if (isset($_GET['documento'])) {
     $documento = $_GET['documento'];
