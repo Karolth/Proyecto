@@ -70,17 +70,27 @@ function registrarOtro() {
     .catch(error => console.error('Error:', error));
 }
 
-
 function formulario(tipo) {
-    const overlay = document.getElementById('overlay');
-    const formularioComputador = document.getElementById('computadorForm');
-    const formularioAutomovil = document.getElementById('automovilForm');
-    const formulariOtro = document.getElementById('formOtro');
+    // Verificar si hay un ID almacenado en localStorage (indica que se buscó un documento)
+    const idUsuario = localStorage.getItem("Id");
 
-    overlay.style.display = 'block';
-    formularioComputador.style.display = tipo === "pc" ? 'block' : 'none';
-    formularioAutomovil.style.display = tipo === "automovil" ? 'block' : 'none';
-    formulariOtro.style.display = tipo === "otro" ? 'block' : 'none';
+    if (!idUsuario) {
+        // Mostrar mensaje de advertencia si no se ha buscado un documento
+        const mensajeError = document.createElement("div");
+        mensajeError.classList.add("alert", "alert-danger", "text-center", "mt-3");
+        mensajeError.innerText = "Debe buscar un documento antes de registrar un elemento.";
+        document.getElementById("elementos").appendChild(mensajeError);
+
+        // Eliminar el mensaje después de 3 segundos
+        setTimeout(() => mensajeError.remove(), 3000);
+        return;
+    }
+
+    // Mostrar el formulario correspondiente si se ha buscado un documento
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('computadorForm').style.display = tipo === "pc" ? 'block' : 'none';
+    document.getElementById('automovilForm').style.display = tipo === "automovil" ? 'block' : 'none';
+    document.getElementById('formOtro').style.display = tipo === "otro" ? 'block' : 'none';
 }
 
 function cerrarFormulario() {
