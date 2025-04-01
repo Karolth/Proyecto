@@ -10,10 +10,9 @@
   display: flex;
   background-color: #d0f6d8;
 }
-
 #UsuarioRegistrado .container {
   width: 559px;
-  height: 755px;
+  height: 815px;
   background-color: #b0dacd;
   border-radius: 15px;
   overflow: hidden;
@@ -23,7 +22,6 @@
   left: 20px;
   margin-left: 27px;
 }
-
 
 #UsuarioRegistrado select {
   background-color: rgb(224, 224, 224);
@@ -760,3 +758,4 @@
   background-color: #f9f0ff;
   color: #722ed1;
 }
+
