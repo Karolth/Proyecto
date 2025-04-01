@@ -498,15 +498,11 @@
                   <div id="mensaje-busqueda" style="margin-top: 5px; color: #121111;"></div>
                 </div>
               </div>
-
-              <div class="botones">
-                <button class="btn hover" onclick="registrar('Ingreso')">Registrar Entrada</button>
-                <button class="btn hover" onclick="registrar('Salida')">Registrar Salida</button>
-              </div>
             </div>
           </div>
         </div>
-      </div>
+        <!-- Botón para registrar movimientos de materiales y vehículos -->
+        <button id="registrarAmbos" class="btn botones"  onclick="registrarMovimientosAmbos()">Registrar Movimientos</button>      </div>
 
       <!-- Nuevo div 1 -->
       <div class="contenedorMaterial" col-10>
@@ -520,6 +516,7 @@
                 <tr>
                   <th>Seleccionar</th>
                   <th>ID</th>
+                  <th>Nombre</th>
                   <th>Referencia</th>
                   <th>Marca</th>
                   <th>Tipo Material</th>
@@ -529,11 +526,12 @@
                 <tr>
                   <td>
                     <label id="checkbox" class="switch">
-                      <input id="checkbox" type="checkbox" class="checkbox-material" onchange="registrarMovimiento(this)">
+                      <input id="checkbox" type="checkbox" class="checkbox-material" onchange="registrarMovimientoMaterial(this)">
                       <span id="checkbox" class="slider"></span>
                     </label>
                   </td>
                   <td><span class="etiqueta id-movimiento-material"></span></td>
+                  <td><span class="etiqueta nombre"></span></td>
                   <td><span class="etiqueta referencia"></span></td>
                   <td><span class="etiqueta marca"></span></td>
                   <td><span class="etiqueta materia"></span></td>
@@ -554,27 +552,19 @@
             <table>
               <thead>
                 <tr>
-                  <th></th>
+                  <th>Seleccionar</th>
                   <th>ID </th>
                   <th>Placa</th>
                   <th>Tipo Vehiculo</th>
                 </tr>
               </thead>
-              <tbody >
-                <tr>
-                  <td><label class="switch" id="miCheckboxPersonalizado"> 
-                    <input type="checkbox" id="myCheckbox">
-                    <span id="" class="slider"></span>
-                </label></td>
-                  <td><span class="etiqueta id-movimiento-vehiculo"></span></td>
-                  <td><span class="etiqueta placa"></span></td>
-                  <td><span class="etiqueta materia"></span></td>
-                  </td>
-                </tr>
+              <tbody id="tbodyVehiculo">
+                
               </tbody>
             </table>
           </div>
         </div>
+        
   </div>
   </div>
 
