@@ -6,16 +6,25 @@ btn.onclick = function () {
 }
 
 function registrar(tipo) {
+    // Obtener el ID del usuario o aprendiz desde localStorage
+    const id = localStorage.getItem("Id");
+    const tipoUsuario = localStorage.getItem("Tipo");
+
+    if (!id || !tipoUsuario) {
+        alert("No se encontró información del usuario o aprendiz. Por favor, realice una búsqueda primero.");
+        return;
+    }
+
+    // Enviar el ID y el tipo de movimiento al backend
     fetch('../php/Administrador.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `movimiento=${tipo}`
+        body: `movimiento=${tipo}&id=${id}&tipoUsuario=${tipoUsuario}`
     })
         .then(response => response.text())
         .then(data => alert(data))
         .catch(error => console.error('Error:', error));
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     let btn = document.querySelector("#btn");
@@ -29,13 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Sidebar or button element not found.");
     }
 });
-
-function ejecutarBusqueda(event) {
-    if (event.key === "Enter") {
-      buscarDocumento(); // Llama a tu función buscarDocumento()
-    }
-  }
-
 function buscarDocumento() {
     var documento = document.getElementById("buscarDocumento").value;
     var mensajeBusqueda = document.getElementById("mensaje-busqueda");
@@ -56,29 +58,26 @@ function buscarDocumento() {
             let resultadoHTML = "<ul>";
 
             if (data.tipo === "aprendiz") {
-                // Guardar datos de aprendiz
                 localStorage.setItem("Id", data.datos.IdAprendiz);
                 localStorage.setItem("Tipo", data.tipo);
 
-                // Mostrar la imagen
                 resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" width="150">`;
-
-                // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
                 resultadoHTML += `<p><strong>Rol:</strong> Aprendiz</p>`;
                 resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
                 resultadoHTML += `<p><strong>Tipo de Programa:</strong> ${data.datos.TipoPrograma}</p>`;
                 resultadoHTML += `<p><strong>Programa:</strong> ${data.datos.Programa}</p>`;
             } else if (data.tipo === "usuario") {
-                // Guardar datos de usuario
                 localStorage.setItem("Id", data.datos.IdUsuario);
                 localStorage.setItem("Tipo", data.tipo);
 
-                // Desplegar información
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
                 resultadoHTML += `<p><strong>Rol:</strong> ${data.datos.Rol}</p>`;
                 resultadoHTML += `<p><strong>Email:</strong> ${data.datos.Email}</p>`;
             }
+
+            // Agregar el estado del movimiento (Entrada/Salida)
+            resultadoHTML += `<p><strong>Último Movimiento:</strong> ${data.movimiento}</p>`;
 
             resultadoHTML += "</ul>";
             mensajeBusqueda.innerHTML = resultadoHTML;
@@ -92,11 +91,10 @@ function buscarDocumento() {
 }
 
 function cargarMateriales() {
-
+    const tbody = document.querySelector("#Material tbody");
+    tbody.innerHTML = ""; // Limpiar filas existentes
     const idUsuario = localStorage.getItem("Id");
     const tipoUsuario = localStorage.getItem("Tipo");
-    
-    
 
     if (!idUsuario) {
         console.error("No se encontró ID de usuario");
@@ -111,27 +109,33 @@ function cargarMateriales() {
                 return;
             }
 
-            const tbody = document.querySelector("#Material tbody");
-            tbody.innerHTML = ""; // Limpiar filas existentes
+            
 
             if (data.length === 0) {
-                const filaVacia = `
+                tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" class="text-center">No se han registrado materiales</td>
+                        <td colspan="6" class="text-center">No se han registrado materiales</td>
                     </tr>
                 `;
-                tbody.innerHTML = filaVacia;
                 return;
             }
 
-            // Generar filas para cada material
             data.forEach(material => {
+                const checked = material.Estado === "Ingreso" ? "checked" : ""; // Estado basado en la base de datos
+
                 const fila = `
                     <tr>
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" class="checkbox-material" ${checked} onchange="registrarMovimientoMaterial(this, '${material.IdMaterial}')">
+                                <span class="slider"></span>
+                            </label>
+                        </td>
                         <td><span class="etiqueta id-movimiento-material">${material.IdMaterial}</span></td>
-                        <td><span class="etiqueta referencia">${material.Referencia  }</span></td>
+                        <td><span class="etiqueta nombre">${material.Nombre}</span></td>
+                        <td><span class="etiqueta referencia">${material.Referencia}</span></td>
                         <td><span class="etiqueta marca">${material.Marca}</span></td>
-                        <td><span class="etiqueta materia">${material.Tipo }</span></td>
+                        <td><span class="etiqueta materia">${material.Tipo}</span></td>
                     </tr>
                 `;
                 tbody.innerHTML += fila;
@@ -139,66 +143,132 @@ function cargarMateriales() {
         })
         .catch(error => {
             console.error("Error en la solicitud:", error);
-            // const tbody = document.querySelector("#Material tbody");
-            const filaError = `
+            tbody.innerHTML = `
                 <tr>
-                    <td colspan="5" class="text-center">Error al cargar materiales</td>
+                    <td colspan="6" class="text-center">Error al cargar materiales</td>
                 </tr>
             `;
-            tbody.innerHTML = filaError;
         });
 }
-
+     
 function cargarVehiculos() {
+    const tbodyV = document.getElementById("tbodyVehiculo");
+
+    tbodyV.innerHTML = ""; 
     const idUsuario = localStorage.getItem("Id");
     const tipoUsuario = localStorage.getItem("Tipo");
+    const tipoConsulta = "vehiculo"; // Cambia esto si es necesario
 
     if (!idUsuario) {
         console.error("No se encontró ID de usuario");
         return;
     }
 
-    fetch(`../php/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}&tipoConsulta=vehiculo`)
-    .then(response => response.json())
-    .then(data => {
-        console.log("Respuesta del servidor:", data); // Verifica qué datos devuelve el servidor
-        if (data.error) {
-            console.error("Error al obtener vehículos:", data.error);
-            return;
-        }
+    fetch(`../php/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}&tipoConsulta=${tipoConsulta}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error al obtener materiales:", data.error);
+                return;
+            }
 
-        const tbody = document.querySelector("#Vehiculo tbody");
-        tbody.innerHTML = ""; // Limpiar filas existentes
+            // Limpiar filas existentes
 
-        if (data.vehiculo.length === 0) {
-            const filaVacia = `
+            if (data.length === 0) {
+                tbodyV.innerHTML = `
                 <tr>
-                    <td colspan="3" class="text-center">No se han registrado vehículos</td>
+                    <td colspan="6" class="text-center">No se han registrado materiales</td>
                 </tr>
             `;
-            tbody.innerHTML = filaVacia;
-            return;
-        }
+                return;
+            }
 
-        // Generar filas para cada vehículo
-        data.vehiculo.forEach(vehiculo => {
-            const fila = `
-                <tr>
-                    <td><span class="etiqueta id-movimiento-vehiculo">${vehiculo.IdVehiculo}</span></td>
-                    <td><span class="etiqueta placa">${vehiculo.Placa}</span></td>
-                    <td><span class="etiqueta tipo">${vehiculo.Tipo}</span></td>
-                </tr>
+            // Generar filas para cada vehículo
+            data.vehiculo.forEach(vehiculo => {
+                const checked = vehiculo.Estado === "ingreso" ? "checked" : ""; // Estado basado en la base de datos
+
+                const fila = `
+                    <tr>
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" class="checkbox-vehiculo" ${checked} onchange="registrarMovimientoVehiculo(this, '${vehiculo.IdVehiculo}')">
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                        <td><span class="etiqueta id-movimiento-vehiculo">${vehiculo.IdVehiculo}</span></td>
+                        <td><span class="etiqueta placa">${vehiculo.Placa}</span></td>
+                        <td><span class="etiqueta tipo">${vehiculo.Tipo}</span></td>
+                    </tr>
             `;
-            tbody.innerHTML += fila;
-        });
-    })
-    .catch(error => {
-        console.error("Error en la solicitud:", error);
-        const filaError = `
+                tbodyV.innerHTML += fila;
+            });
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error);
+            const filaError = `
             <tr>
                 <td colspan="3" class="text-center">Error al cargar vehículos</td>
             </tr>
         `;
-        tbody.innerHTML = filaError;
-    });
+            tbodyV.innerHTML = filaError;
+        });
+}
+
+async function registrarMovimientosAmbos() {
+    const checkboxesMateriales = document.querySelectorAll(".checkbox-material:checked");
+    const checkboxesVehiculos = document.querySelectorAll(".checkbox-vehiculo:checked");
+
+    const idMaterial = Array.from(checkboxesMateriales).map(checkbox => {
+        const fila = checkbox.closest('tr');
+        return fila.querySelector('.id-movimiento-material')?.textContent;
+    }).filter(id => id !== null);
+
+    const idVehiculo = Array.from(checkboxesVehiculos).map(checkbox => {
+        const fila = checkbox.closest('tr');
+        return fila.querySelector('.id-movimiento-vehiculo')?.textContent;
+    }).filter(id => id !== null);
+
+    if (idMaterial.length === 0 && idVehiculo.length === 0) {
+        alert("Por favor, seleccione al menos un material o vehículo.");
+        return;
+    }
+
+    try {
+        // Consultar estado actual antes de registrar
+        let response = await fetch(`../php/ConsultarEstado.php?materiales=${idMaterial.join(",")}&vehiculos=${idVehiculo.join(",")}`);
+        let data = await response.json();
+
+        if (!data.success) {
+            alert("Error al consultar estado: " + data.message);
+            return;
+        }
+
+        // Cambiar estado según la última acción
+        const nuevoEstado = data.estado === "Ingreso" ? "Salida" : "Ingreso";
+
+        const body = {
+            materiales: idMaterial,
+            vehiculos: idVehiculo,
+            estado: nuevoEstado
+        };
+
+        console.log("Enviando datos al backend:", body);
+
+        response = await fetch('../php/MovimientoElementos.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        data = await response.json();
+
+        if (data.success) {
+            alert(data.message);
+        } else {
+            alert("Error: " + data.message);
+        }
+    } catch (error) {
+        console.error("Error al registrar los movimientos:", error);
+        alert("Error al registrar los movimientos.");
+    }
 }

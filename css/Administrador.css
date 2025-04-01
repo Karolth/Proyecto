@@ -91,6 +91,7 @@
 .botones {
   display: flex;
   gap: 10px;
+  position: sticky;
 }
 
 .btn {
@@ -102,9 +103,7 @@
   cursor: pointer;
 }
 
-.btn:hover {
-  background-color: #237754;
-}
+
 
 * {
   margin: 0;
@@ -413,6 +412,12 @@
 /* Estilos para ID Movimiento */
 #Material .id-movimiento {
   background-color: #f0f0f0;
+  color: #555;
+  font-family: monospace;
+}
+
+#Material .nombre {
+  background-color: #ccdeef;
   color: #555;
   font-family: monospace;
 }

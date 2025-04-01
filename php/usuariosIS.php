@@ -75,6 +75,7 @@ if ($action === "login") {
 
     $userId = $_SESSION['user_id'];
 
+    
     try {
         // Obtener los datos del usuario desde la base de datos
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE IdUsuario = :id");
@@ -85,7 +86,10 @@ if ($action === "login") {
         if ($user) {
             echo json_encode([
                 'success' => true,
-                'Documento' => $user['Documento']
+                'Nombre' => $user['Nombre'],
+                'Documento' => $user['Documento'],
+                'Telefono' => $user['Telefono'],
+                'Email' => $user['Email']
             ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);

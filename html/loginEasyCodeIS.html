@@ -15,6 +15,7 @@
             <div class="image" style="background-image: url('../img/LetrasEasyCode.jpeg');"></div>
         </div>
     </div>
+    
     <div class="login-container shadow">
         <div class="logo-container">
             <img src="../img/ImagenEasyCode.jpeg" alt="Logo">
@@ -29,7 +30,8 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="10">
                 <span id="passError" class="error"></span> 
             </div>
                 <div id="message" class="message"></div>
