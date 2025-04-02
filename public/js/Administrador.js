@@ -16,7 +16,7 @@ function registrar(tipo) {
     }
 
     // Enviar el ID y el tipo de movimiento al backend
-    fetch('../php/Administrador.php', {
+    fetch('../controllers/Administrador.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `movimiento=${tipo}&id=${id}&tipoUsuario=${tipoUsuario}`
@@ -47,7 +47,7 @@ function buscarDocumento() {
         return;
     }
 
-    fetch("../php/Administrador.php?documento=" + documento)
+    fetch("../controllers/Administrador.php?documento=" + documento)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -101,7 +101,7 @@ function cargarMateriales() {
         return;
     }
 
-    fetch(`../php/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}`)
+    fetch(`../controllers/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -164,7 +164,7 @@ function cargarVehiculos() {
         return;
     }
 
-    fetch(`../php/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}&tipoConsulta=${tipoConsulta}`)
+    fetch(`../controllers/MostrarElemento.php?idUsuario=${idUsuario}&tipoUsuario=${tipoUsuario}&tipoConsulta=${tipoConsulta}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -235,7 +235,7 @@ async function registrarMovimientosAmbos() {
 
     try {
         // Consultar estado actual antes de registrar
-        let response = await fetch(`../php/ConsultarEstado.php?materiales=${idMaterial.join(",")}&vehiculos=${idVehiculo.join(",")}`);
+        let response = await fetch(`../controllers/ConsultarEstado.php?materiales=${idMaterial.join(",")}&vehiculos=${idVehiculo.join(",")}`);
         let data = await response.json();
 
         if (!data.success) {
@@ -254,7 +254,7 @@ async function registrarMovimientosAmbos() {
 
         console.log("Enviando datos al backend:", body);
 
-        response = await fetch('../php/MovimientoElementos.php', {
+        response = await fetch('../controllers/MovimientoElementos.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

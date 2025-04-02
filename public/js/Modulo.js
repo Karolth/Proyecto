@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
        
-        fetch('../php/guardar_ficha.php', {
+        fetch('../controllers/guardar_ficha.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

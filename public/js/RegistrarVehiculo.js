@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("../php/RegistrarVehiculo.php?action=cargarTipo")
+    fetch("../controllers/RegistrarVehiculo.php?action=cargarTipo")
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -41,7 +41,7 @@ function registrarVehiculo() {
     const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
     const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
 
-    fetch("../php/RegistrarVehiculo.php", {
+    fetch("../controllers/RegistrarVehiculo.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `action=Vehiculo&placa=${placa}&idTipoVehiculo=${idTipoVehiculo}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`

@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php'; // Asegura que la conexión se incluya correctamente
+include '../config/conexion.php'; // Asegura que la conexión se incluya correctamente
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (

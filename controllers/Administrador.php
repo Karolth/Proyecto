@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php"; // Conexión a la base de datos
+require_once "../config/conexion.php"; // Conexión a la base de datos
 
 if (isset($_GET['documento'])) {
     $documento = $_GET['documento'];
@@ -26,9 +26,9 @@ if (isset($_GET['documento'])) {
             $idAprendiz = $aprendiz['IdAprendiz'];
 
             // Imagen
-            $rutaImagen = "../Imagenes/$documento.jpg";
+            $rutaImagen = "../public/Imagenes/$documento.jpg";
             if (!file_exists($rutaImagen)) {
-                $rutaImagen = "../Imagenes/default-user.png";
+                $rutaImagen = "../public/Imagenes/default-user.png";
             }
         } else {
             // Buscar en la tabla usuario
@@ -44,7 +44,7 @@ if (isset($_GET['documento'])) {
             if ($usuario) {
                 $tipoPersona = 'usuario';
                 $idUsuario = $usuario['IdUsuario'];
-                $rutaImagen = "../Imagenes/default-user.png";
+                $rutaImagen = "../public/Imagenes/default-user.png";
             } else {
                 echo json_encode(['error' => 'No se encontró el documento en la base de datos.']);
                 exit;

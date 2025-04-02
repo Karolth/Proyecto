@@ -1,6 +1,6 @@
 <?php
 // Incluir el archivo de conexión
-include_once 'conexion.php';
+include_once '../config/conexion.php';
 
 // Iniciar sesión si no está iniciada
 session_start();

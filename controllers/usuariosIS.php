@@ -1,6 +1,6 @@
 <?php
 // Incluir la conexión
-include_once 'conexion.php';
+include_once '../config/conexion.php';
 session_start();
 
 // Obtener y decodificar la entrada JSON

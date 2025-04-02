@@ -48,6 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
         
         // Redireccionar a la página de inicio de sesión
-        window.location.href = 'loginEasyCodeIS.html';
+        window.location.href = '../views/loginEasyCodeIS.html';
     });
 });

@@ -27,7 +27,7 @@ function verificarLogin() {
         hasError = true;
     }
 
-    fetch("../php/usuariosIS.php", {
+    fetch("../controllers/usuariosIS.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -41,7 +41,7 @@ function verificarLogin() {
 
         if (data.success) {
             setTimeout(() => {
-                window.location.href = "../html/Administrador.html";
+                window.location.href = "../views/Administrador.html";
             }, 1000);
         }
     })
@@ -56,7 +56,7 @@ function verificarLogin() {
 function mostrarPerfil() {
     const action = "getPerfil";
 
-    fetch("../php/usuariosIS.php", {
+    fetch("../controllers/usuariosIS.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"  
