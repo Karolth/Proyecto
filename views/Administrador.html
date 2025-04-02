@@ -572,10 +572,11 @@
   
       <!-- Contenedor del perfil del usuario (inicialmente oculto) -->
       <div class="container-perfil" id="perfilDatos" style="display: none;">
+        <div class="mb-3 text-end">
+          <button type="button" class="btn-close btn-close-white" onclick="cerrarPerfilDatos()">✖</button>
+        </div>
+        <br>
         <div class="container p-4 bg-dark text-white rounded">
-          <div class="mb-3 text-end">
-            <button type="button" class="btn-close btn-close-white" onclick="cerrarPerfilDatos()">✖</button>
-          </div>
           <h3 class="text-center">Perfil del Usuario</h3>
           <div class="form-group">
                   <label>Nombre:</label>
@@ -589,6 +590,7 @@
                   
                   <label>Email:</label>
                   <input type="text" id="perfilEmail" disabled>
+          <br>
           <br>
           <div class="mt-3 text-center">
             <button type="button" class="btn btn-light" onclick="habilitar()">Editar</button>

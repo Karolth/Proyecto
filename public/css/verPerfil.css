@@ -1,58 +1,117 @@
-/* Contenedor principal del perfil */
-.container-perfil {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Oscurece el fondo */
-    z-index: 1050; /* Para que esté por encima */
-}
-
-
-/* Estilo del contenedor interno */
-.container-perfil .container {
-    background: #b7dbb0 !important; /* Mismo verde de los otros contenedores */
-    color: #333;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 90%;
-    max-width: 400px; /* Ajusta el tamaño al contenido */
-    height: auto;
-}
-
-/* Botón de cierre */
-.container-perfil .btn-close {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    width: auto;
-    height: auto;
-}
-
-/* Campos de texto */
-.container-perfil .form-group input {
-    width: 100%;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-    margin-bottom: 10px;
-}
-
-/* Botones */
-.container-perfil .btn-light {
-    background: #fff;
-    color: #333;
-    border: 1px solid #ccc;
-}
-
-.container-perfil .btn-success {
-    background: #4CAF50;
+.text-end .btn-close {
+    background: transparent;
+    font-size: 22px;
+    color: #28a745;
     border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.text-end .btn-close:hover {
+    color: #218838;
+    transform: scale(1.2);
+}
+
+.container-perfil {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: auto;
+    min-width: 320px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    z-index: 10;
+    max-height: 50vh;
+    overflow-y: hidden;
+}
+
+.container-perfil h3 {
+    text-align: center;
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative; /* Importante para el posicionamiento absoluto del botón de cierre */
+}
+
+.container-perfil h3 .btn-close {
+    position: absolute;
+    top: -5px; /* Ajusta la posición vertical */
+    right: 5px; /* Ajusta la posición horizontal para menos centrado */
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #d1e7dd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.8);
+    transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    width: 48%;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+    .container-perfil {
+        width: auto;
+        min-width: 80%;
+        padding: 15px;
+    }
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    button {
+        width: 100%;
+        margin-bottom: 8px;
+    }
 }
