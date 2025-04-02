@@ -18,7 +18,7 @@ function registrarComputador() {
     const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
     const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
     
-    fetch('../php/RegistrarMaterial.php', {
+    fetch('../controllers/RegistrarMaterial.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `nombre=Computador&referencia=${referencia}&marca=${marca}&observaciones=${observaciones}&idTipoMaterial=${idTipoMaterial}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`
@@ -56,7 +56,7 @@ function registrarOtro() {
         const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
         const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
 
-        fetch('../php/RegistrarOtro.php', {
+        fetch('../controllers/RegistrarOtro.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `nombre=otro&observaciones=${observaciones}&idTipoMaterial=${idTipoMaterial}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`

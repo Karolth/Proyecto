@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php'; // Conexión a la base de datos
+require '../config/conexion.php'; // Conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagenes'])) {
     $imagenes = $_FILES['imagenes'];

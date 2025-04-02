@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include '../config/conexion.php';
 
 // Asegurar que los valores tienen el tipo correcto
 $documento = isset($_POST['documento']) ? intval($_POST['documento']) : null;

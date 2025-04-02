@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php';
+require '../config/conexion.php';
 
 $materiales = $_GET['materiales'] ?? "";
 $vehiculos = $_GET['vehiculos'] ?? "";

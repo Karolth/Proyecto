@@ -1,7 +1,7 @@
 $(document).ready(function () {
     function cargarRoles() {
         $.ajax({
-            url: '../php/usuarioRol.php',
+            url: '../controllers/usuarioRol.php',
             type: 'POST',
             success: function (data) {
                 let roles = JSON.parse(data);
@@ -30,7 +30,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '../php/usuarioRol.php',
+            url: '../controllers/usuarioRol.php',
             type: 'POST',
             data: usuarioData,
             success: function (response) {

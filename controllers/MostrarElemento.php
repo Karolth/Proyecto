@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include '../config/conexion.php';
 
 $idUsuario = $_GET['idUsuario'] ?? null;
 $tipoUsuario = $_GET['tipoUsuario'] ?? null;

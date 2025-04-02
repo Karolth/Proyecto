@@ -1,6 +1,6 @@
 <?php
 // filepath: c:\xampp\htdocs\EasyCode\php\MovimientoMaterial.php
-require_once '../php/conexion.php'; // Asegura que la conexión a la base de datos esté incluida
+require_once '../config/conexion.php'; // Asegura que la conexión a la base de datos esté incluida
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar si todos los campos están presentes
