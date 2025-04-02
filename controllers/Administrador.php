@@ -44,7 +44,7 @@ if (isset($_GET['documento'])) {
             if ($usuario) {
                 $tipoPersona = 'usuario';
                 $idUsuario = $usuario['IdUsuario'];
-                $rutaImagen = "../Imagenes/default-user.png";
+                $rutaImagen = "../public/Imagenes/default-user.png";
             } else {
                 echo json_encode(['error' => 'No se encontró el documento en la base de datos.']);
                 exit;
