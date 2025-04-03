@@ -73,7 +73,7 @@ try {
                 'success' => true,
                 'Nombre' => $user['Nombre'],
                 'Documento' => $user['Documento'],
-                'Telefono' => $user['Telefono'],
+                'Celular' => $user['Celular'],
                 'Email' => $user['Email']
             ]);
         } else {

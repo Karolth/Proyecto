@@ -69,7 +69,7 @@ function mostrarPerfil() {
             document.getElementById("perfilNombre").value = data.Nombre;
             document.getElementById("perfilDocumento").value = data.Documento;
             document.getElementById("perfilEmail").value = data.Email;
-            document.getElementById("perfilTelefono").value = data.Telefono;
+            document.getElementById("perfilCelular").value = data.Celular;
 
             // Mostrar modal después de obtener los datos
             document.getElementById("perfilDatos").style.display = "block"; 
@@ -88,19 +88,19 @@ function cerrarPerfilDatos() {
     document.getElementById("perfilNombre").disabled = true;
     document.getElementById("perfilDocumento").disabled = true;
     document.getElementById("perfilEmail").disabled = true;
-    document.getElementById("perfilTelefono").disabled = true;
+    document.getElementById("perfilCelular").disabled = true;
 }
 
 
 function habilitar(){
     document.getElementById("perfilEmail").disabled= false;
-    document.getElementById("perfilTelefono").disabled= false;
+    document.getElementById("perfilCelular").disabled= false;
     
 }
 
 function modificarPerfil(){
     const action ="modificar";
     const perfilEmail = document.getElementById("perfilEmail").value;
-    const perfilTelefono = document.getElementById("perfilTelefono").value;
+    const perfilCelular = document.getElementById("perfilCelular").value;
 
 } 
