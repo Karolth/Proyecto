@@ -1,5 +1,6 @@
 <?php
 include '../config/conexion.php';
+require_once "../models/ModelousuarioRol.php";
 
 header('Content-Type: application/json');
 
@@ -16,33 +17,25 @@ if (!$documento || !$nombre || !$email || !$celular || !$idRol) {
 }
 
 try {
+    $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
     $pdo->beginTransaction();
 
-    // Insertar usuario
-    $stmt_usuario = $pdo->prepare("INSERT INTO usuario (Documento, Nombre, Email, Celular) VALUES (:documento, :nombre, :email, :celular)");
-    $stmt_usuario->bindParam(':documento', $documento, PDO::PARAM_INT);
-    $stmt_usuario->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt_usuario->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt_usuario->bindParam(':celular', $celular, PDO::PARAM_INT);
+    $model = new UsuarioRolModel($pdo);
 
-    if ($stmt_usuario->execute()) {
-        $idUsuario = $pdo->lastInsertId();
-
-        // Insertar en la tabla usuarioRol
-        $stmt_usuarioRol = $pdo->prepare("INSERT INTO usuarioRol (IdUsuario, IdRol) VALUES (:idUsuario, :idRol)");
-        $stmt_usuarioRol->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
-        $stmt_usuarioRol->bindParam(':idRol', $idRol, PDO::PARAM_INT);
-
-        if ($stmt_usuarioRol->execute()) {
+    // Registrar usuario
+    $idUsuario = $model->registrarUsuario($documento, $nombre, $email, $celular);
+    if ($idUsuario) {
+        // Asignar rol
+        if ($model->asignarRol($idUsuario, $idRol)) {
             $pdo->commit();
             echo json_encode(["success" => "Usuario registrado y rol asignado correctamente."]);
         } else {
             $pdo->rollBack();
-            echo json_encode(["error" => "Error al asignar el rol: " . implode(" ", $stmt_usuarioRol->errorInfo())]);
+            echo json_encode(["error" => "Error al asignar el rol."]);
         }
     } else {
         $pdo->rollBack();
-        echo json_encode(["error" => "Error al registrar el usuario: " . implode(" ", $stmt_usuario->errorInfo())]);
+        echo json_encode(["error" => "Error al registrar el usuario."]);
     }
 } catch (Exception $e) {
     $pdo->rollBack();

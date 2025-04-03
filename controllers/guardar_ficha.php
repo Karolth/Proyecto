@@ -1,9 +1,6 @@
 <?php
-// Configuración de conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "easycode";
+require_once "../config/conexion.php";
+require_once "../models/ModeloGuardar_ficha.php";
 
 // Cabeceras para manejar JSON
 header('Content-Type: application/json');
@@ -12,7 +9,7 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli("localhost", "root", "", "easycode");
 
 // Verificar conexión
 if ($conn->connect_error) {
@@ -36,28 +33,19 @@ if (!$data) {
 try {
     // Comenzar transacción
     $conn->begin_transaction();
+    $model = new FichaModel($conn);
 
     // Insertar programa
-    $stmt = $conn->prepare("INSERT INTO programa (Nombre, Version, Fecha, IdTipoPrograma) 
-                             VALUES (?, '1', CURRENT_DATE, 
-                             (SELECT IdTipoPrograma FROM tipoprograma WHERE TipoPrograma = ?))");
-    $stmt->bind_param("ss", $data['nombrePrograma'], $data['tipoPrograma']);
-    $stmt->execute();
-    $idPrograma = $conn->insert_id;
-    $stmt->close();
+    $idPrograma = $model->insertarPrograma($data['nombrePrograma'], $data['tipoPrograma']);
 
     // Insertar ficha
-    $stmt = $conn->prepare("INSERT INTO ficha (Numficha, FechaInicio, FechaFinal, Jornada, IdPrograma) 
-                             VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssi", 
+    $model->insertarFicha(
         $data['numeroFicha'], 
         $data['fechaInicio'], 
         $data['fechaFin'], 
         $data['jornada'], 
         $idPrograma
     );
-    $stmt->execute();
-    $stmt->close();
 
     // Confirmar transacción
     $conn->commit();

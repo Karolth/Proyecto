@@ -1,5 +1,6 @@
 <?php
 include '../config/conexion.php';
+require_once "../models/ModeloMostrarElemento.php";
 
 $idUsuario = $_GET['idUsuario'] ?? null;
 $tipoUsuario = $_GET['tipoUsuario'] ?? null;
@@ -11,29 +12,13 @@ if (!$idUsuario) {
 }
 
 try {
+    $model = new ElementoModel($pdo);
+
     if ($tipoConsulta === 'materiales') {
-        $consulta = "";
-        if ($tipoUsuario === 'aprendiz') {
-            $consulta = "SELECT m.*, tm.Tipo AS tipomaterial, mm.Estado AS EstadoMovimiento
-            FROM material m
-            JOIN tipomaterial tm ON m.idTipoMaterial = tm.idTipoMaterial
-            LEFT JOIN movimientomaterial mm ON m.IdMaterial = mm.IdMaterial
-            WHERE m.idAprendiz = :i
-            ORDER BY m.IdMaterial DESC";
-        } elseif ($tipoUsuario === 'usuario') {
-            $consulta = "SELECT m.*, tm.Tipo AS tipomaterial, mm.Estado AS EstadoMovimiento
-            FROM material m
-            JOIN tipomaterial tm ON m.idTipoMaterial = tm.idTipoMaterial
-            LEFT JOIN movimientomaterial mm ON m.IdMaterial = mm.IdMaterial
-            WHERE m.idUsuario = :i
-            ORDER BY m.IdMaterial DESC";
-        }
-        $stmt = $pdo->prepare($consulta);
-        $stmt->bindParam("i", $idUsuario);
-        $stmt->execute();
-        $materiales = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $materiales[] = [
+        $materiales = $model->obtenerMaterialesPorUsuario($idUsuario, $tipoUsuario);
+        $resultado = [];
+        foreach ($materiales as $row) {
+            $resultado[] = [
                 'IdMaterial' => $row['IdMaterial'],
                 'Nombre' => $row['Nombre'],
                 'Referencia' => $row['Referencia'],
@@ -42,36 +27,19 @@ try {
                 'Estado' => $row['EstadoMovimiento'],
             ];
         }
-        echo json_encode($materiales);
+        echo json_encode($resultado);
     } elseif ($tipoConsulta === 'vehiculo') {
-        $consulta = "";
-        if ($tipoUsuario === 'aprendiz') {
-            $consulta = "SELECT v.*, tv.Tipo AS tipovehiculo, mv.Estado AS EstadoMovimientoVehiculo
-            FROM vehiculo v
-            JOIN tipovehiculo tv ON v.idTipoVehiculo = tv.idTipoVehiculo
-            LEFT JOIN movimientovehiculo mv ON v.IdVehiculo = mv.IdVehiculo
-            WHERE v.idAprendiz = :i
-            ORDER BY v.IdVehiculo DESC";
-        } elseif ($tipoUsuario === 'usuario') {
-            $consulta = "SELECT v.*, tv.Tipo AS tipoVehiculo 
-            FROM vehiculo v
-            JOIN tipovehiculo tv ON v.idTipoVehiculo = tv.idTipoVehiculo
-            WHERE v.idUsuario = :i
-            ORDER BY v.IdVehiculo DESC";
-        }
-        $stmt = $pdo->prepare($consulta);
-        $stmt->bindParam("i", $idUsuario);
-        $stmt->execute();
-        $vehiculo = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $vehiculo[] = [
+        $vehiculos = $model->obtenerVehiculosPorUsuario($idUsuario, $tipoUsuario);
+        $resultado = [];
+        foreach ($vehiculos as $row) {
+            $resultado[] = [
                 'IdVehiculo' => $row['IdVehiculo'],
                 'Placa' => $row['Placa'],
                 'Tipo' => $row['tipovehiculo'],
-                'Estado' => $row['EstadoMovimientoVehiculo'],
+                'Estado' => $row['EstadoMovimientoVehiculo'] ?? null,
             ];
         }
-        echo json_encode(['vehiculo' => $vehiculo]);
+        echo json_encode(['vehiculo' => $resultado]);
     } else {
         echo json_encode(['error' => 'Tipo de consulta no válido']);
     }

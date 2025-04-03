@@ -1,5 +1,5 @@
 <?php
-require_once '../php/conexion.php'; // Asegura la conexión a la base de datos
+require_once "../models/MovimientoVehiculoModel.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['idVehiculo'], $_POST['estado'], $_POST['idMovimiento'])) {
@@ -17,21 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-            // Si no existe, insertar un nuevo registro
-            $sqlInsert = "INSERT INTO movimientovehiculo (Estado, IdMovimiento, idVehiculo) VALUES (:estado, :idMovimiento, :idVehiculo)";
-            $stmtInsert = $pdo->prepare($sqlInsert);
-            $stmtInsert->bindParam(':estado', $estado);
-            $stmtInsert->bindParam(':idMovimiento', $idMovimiento);
-            $stmtInsert->bindParam(':idVehiculo', $idVehiculo);
+        // $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
+        $model = new MovimientoVehiculoModel($pdo);
 
-            if ($stmtInsert->execute()) {
-                echo "Movimiento registrado exitosamente.";
-            } else {
-                echo "Error al registrar el movimiento.";
-            }
-        }catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+        if ($model->registrarMovimientoVehiculo($estado, $idMovimiento, $idVehiculo)) {
+            echo "Movimiento registrado exitosamente.";
+        } else {
+            echo "Error al registrar el movimiento.";
         }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 } else {
     echo "Error: Método de solicitud no permitido.";
 }

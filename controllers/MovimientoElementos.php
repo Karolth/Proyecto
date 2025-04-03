@@ -1,5 +1,6 @@
 <?php
 require '../config/conexion.php';
+require_once "../models/ModeloMovimientosElementos.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -13,57 +14,30 @@ if (!$estado) {
 }
 
 try {
+    $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
     $pdo->beginTransaction();
 
-    // Obtener el último ID de movimiento para evitar duplicados
-    $stmtUltimoMovimiento = $pdo->prepare("SELECT IdMovimiento FROM movimiento ORDER BY IdMovimiento DESC LIMIT 1");
-    $stmtUltimoMovimiento->execute();
-    $ultimoMovimiento = $stmtUltimoMovimiento->fetch(PDO::FETCH_ASSOC);
+    $model = new MovimientoModel($pdo);
+
+    // Obtener el último ID de movimiento
+    $ultimoMovimiento = $model->obtenerUltimoMovimiento();
 
     if (!$ultimoMovimiento) {
         // Crear un nuevo movimiento si no existe
-        $stmtCrearMovimiento = $pdo->prepare("INSERT INTO movimiento (Movimiento, Fecha) VALUES (:movimiento, NOW())");
-        $stmtCrearMovimiento->execute([':movimiento' => $estado]);
-        $idMovimiento = $pdo->lastInsertId();
+        $idMovimiento = $model->crearMovimiento($estado);
     } else {
         // Usar el ID del último movimiento
         $idMovimiento = $ultimoMovimiento['IdMovimiento'];
     }
 
-    // Insertar materiales si no existe un registro igual
-    if (!empty($materiales)) {
-        $stmtMateriales = $pdo->prepare("INSERT INTO movimientomaterial (Estado, IdMovimiento, IdMaterial) 
-                                         SELECT :estado, :idMovimiento, :idMaterial 
-                                         WHERE NOT EXISTS (
-                                            SELECT 1 FROM movimientomaterial 
-                                            WHERE Estado = :estado AND IdMovimiento = :idMovimiento AND IdMaterial = :idMaterial
-                                         )");
-
-        foreach ($materiales as $idMaterial) {
-            $stmtMateriales->execute([
-                ':estado' => $estado,
-                ':idMovimiento' => $idMovimiento,
-                ':idMaterial' => $idMaterial
-            ]);
-        }
+    // Insertar materiales
+    foreach ($materiales as $idMaterial) {
+        $model->insertarMaterial($estado, $idMovimiento, $idMaterial);
     }
 
-    // Insertar vehículos si no existe un registro igual
-    if (!empty($vehiculos)) {
-        $stmtVehiculos = $pdo->prepare("INSERT INTO movimientovehiculo (Estado, IdMovimiento, IdVehiculo) 
-                                        SELECT :estado, :idMovimiento, :idVehiculo 
-                                        WHERE NOT EXISTS (
-                                            SELECT 1 FROM movimientovehiculo 
-                                            WHERE Estado = :estado AND IdMovimiento = :idMovimiento AND IdVehiculo = :idVehiculo
-                                        )");
-
-        foreach ($vehiculos as $idVehiculo) {
-            $stmtVehiculos->execute([
-                ':estado' => $estado,
-                ':idMovimiento' => $idMovimiento,
-                ':idVehiculo' => $idVehiculo
-            ]);
-        }
+    // Insertar vehículos
+    foreach ($vehiculos as $idVehiculo) {
+        $model->insertarVehiculo($estado, $idMovimiento, $idVehiculo);
     }
 
     $pdo->commit();

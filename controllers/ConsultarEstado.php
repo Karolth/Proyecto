@@ -1,5 +1,6 @@
 <?php
-require '../config/conexion.php';
+require_once "../config/conexion.php";
+require_once "../models/ModeloConsultarEstado.php";
 
 $materiales = $_GET['materiales'] ?? "";
 $vehiculos = $_GET['vehiculos'] ?? "";
@@ -10,28 +11,19 @@ $idsVehiculos = explode(",", $vehiculos);
 $estado = "Ingreso"; // Por defecto, si no hay registros previos
 
 try {
-    // Verificar el estado más reciente para los materiales
-    if (!empty($idsMateriales)) {
-        $placeholders = implode(",", array_fill(0, count($idsMateriales), "?"));
-        $stmt = $pdo->prepare("SELECT Estado FROM movimientomaterial WHERE IdMaterial IN ($placeholders) ORDER BY IdMovimientoMaterial DESC LIMIT 1");
-        $stmt->execute($idsMateriales);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
+    $model = new EstadoModel($pdo);
 
-        if ($result) {
-            $estado = $result['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
-        }
+    // Verificar el estado más reciente para los materiales
+    $estadoMateriales = $model->obtenerEstadoMateriales($idsMateriales);
+    if ($estadoMateriales) {
+        $estado = $estadoMateriales['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
     }
 
     // Verificar el estado más reciente para los vehículos
-    if (!empty($idsVehiculos)) {
-        $placeholders = implode(",", array_fill(0, count($idsVehiculos), "?"));
-        $stmt = $pdo->prepare("SELECT Estado FROM movimientovehiculo WHERE IdVehiculo IN ($placeholders) ORDER BY IdMovimientoVehiculo DESC LIMIT 1");
-        $stmt->execute($idsVehiculos);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            $estado = $result['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
-        }
+    $estadoVehiculos = $model->obtenerEstadoVehiculos($idsVehiculos);
+    if ($estadoVehiculos) {
+        $estado = $estadoVehiculos['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
     }
 
     echo json_encode(["success" => true, "estado" => $estado]);

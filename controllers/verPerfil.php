@@ -1,6 +1,6 @@
 <?php
-// Incluir el archivo de conexión
 include_once '../config/conexion.php';
+require_once "../models/PerfilModel.php";
 
 // Iniciar sesión si no está iniciada
 session_start();
@@ -13,16 +13,16 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM usuario WHERE IdUsuario = :id");
-    $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
+    $model = new PerfilModel($pdo);
 
+    // Obtener los datos del perfil
+    $user = $model->obtenerPerfilPorId($userId);
     if ($user) {
         echo json_encode([
             'success' => true,
             'Nombre' => $user['Nombre'],
-            'Documento' => $user['Documento'], 
+            'Documento' => $user['Documento'],
             'Email' => $user['Email'],
             'Telefono' => $user['Telefono']
         ]);

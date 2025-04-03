@@ -1,5 +1,6 @@
 <?php
 require_once '../config/conexion.php'; // Asegura que la conexión se incluya correctamente
+require_once "../models/ModeloRegistrarMaterial.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar si todos los campos están presentes
@@ -26,21 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Consulta para insertar el material
-    $sql = "INSERT INTO material (Nombre, Referencia, Marca, Observaciones, IdTipoMaterial, IdUsuario, IdAprendiz) 
-            VALUES (:nombre, :referencia, :marca, :observaciones, :idTipoMaterial, :idUsuario, :idAprendiz)";
-    
     try {
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':referencia', $referencia);
-        $stmt->bindParam(':marca', $marca);
-        $stmt->bindParam(':observaciones', $observaciones);
-        $stmt->bindParam(':idTipoMaterial', $idTipoMaterial);
-        $stmt->bindParam(':idUsuario', $idUsuario);
-        $stmt->bindParam(':idAprendiz', $idAprendiz);
+        $model = new MaterialModel($pdo);
 
-        if ($stmt->execute()) {
+        if ($model->registrarMaterial($nombre, $referencia, $marca, $observaciones, $idTipoMaterial, $idUsuario, $idAprendiz)) {
             echo "Material registrado exitosamente.";
         } else {
             echo "Error al registrar el material.";
@@ -51,6 +41,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Método no permitido.";
 }
-
-
 ?>
