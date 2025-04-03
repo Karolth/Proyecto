@@ -24,7 +24,7 @@ try {
             'Nombre' => $user['Nombre'],
             'Documento' => $user['Documento'], 
             'Email' => $user['Email'],
-            'Telefono' => $user['Telefono']
+            'Celular' => $user['Celular']
         ]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);
