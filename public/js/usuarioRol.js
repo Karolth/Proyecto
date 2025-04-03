@@ -1,26 +1,4 @@
 $(document).ready(function () {
-    function cargarRoles() {
-        $.ajax({
-            url: '../controllers/cargarRoles.php', // Archivo que obtiene los roles desde la BD
-            type: 'POST',
-            dataType: 'json', // Especificamos que esperamos JSON
-            success: function (roles) {
-                let select = $('#rol');
-                select.empty();
-                select.append('<option value="">Seleccionar</option>');
-
-                roles.forEach(function (rol) {
-                    select.append(`<option value="${rol.IdRol}">${rol.Rol}</option>`);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error("Error al cargar roles:", error);
-            }
-        });
-    }
-
-    cargarRoles(); // Cargar los roles al iniciar la página
-
     $('#usuarioForm').submit(function (e) {
         e.preventDefault();
 
