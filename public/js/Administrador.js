@@ -234,33 +234,22 @@ async function registrarMovimientosAmbos() {
     }
 
     try {
-        // Consultar estado actual antes de registrar
-        let response = await fetch(`../controllers/ConsultarEstado.php?materiales=${idMaterial.join(",")}&vehiculos=${idVehiculo.join(",")}`);
-        let data = await response.json();
-
-        if (!data.success) {
-            alert("Error al consultar estado: " + data.message);
-            return;
-        }
-
-        // Cambiar estado según la última acción
-        const nuevoEstado = data.estado === "Ingreso" ? "Salida" : "Ingreso";
-
+        // Crear el cuerpo de la solicitud
         const body = {
             materiales: idMaterial,
             vehiculos: idVehiculo,
-            estado: nuevoEstado
         };
 
         console.log("Enviando datos al backend:", body);
 
-        response = await fetch('../controllers/MovimientoElementos.php', {
+        // Realizar un único llamado al backend
+        const response = await fetch('../controllers/MovimientoElementos.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
 
-        data = await response.json();
+        const data = await response.json();
 
         if (data.success) {
             alert(data.message);

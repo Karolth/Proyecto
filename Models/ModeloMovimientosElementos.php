@@ -9,7 +9,7 @@ class MovimientoModel {
     }
 
     public function obtenerUltimoMovimiento() {
-        $stmt = $this->pdo->prepare("SELECT IdMovimiento FROM movimiento ORDER BY IdMovimiento DESC LIMIT 1");
+        $stmt = $this->pdo->prepare("SELECT IdMovimiento,Movimiento FROM movimiento ORDER BY IdMovimiento DESC LIMIT 1");
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -20,7 +20,7 @@ class MovimientoModel {
         return $this->pdo->lastInsertId();
     }
 
-    public function insertarMaterial($estado, $idMovimiento, $idMaterial) {
+    public function insertarMaterial($movimiento, $idMovimiento, $idMaterial) {
         $stmt = $this->pdo->prepare("INSERT INTO movimientomaterial (Estado, IdMovimiento, IdMaterial) 
                                      SELECT :estado, :idMovimiento, :idMaterial 
                                      WHERE NOT EXISTS (
@@ -28,10 +28,11 @@ class MovimientoModel {
                                         WHERE Estado = :estado AND IdMovimiento = :idMovimiento AND IdMaterial = :idMaterial
                                      )");
         $stmt->execute([
-            ':estado' => $estado,
+            ':estado' => $movimiento,
             ':idMovimiento' => $idMovimiento,
             ':idMaterial' => $idMaterial
         ]);
+        
     }
 
     public function insertarVehiculo($estado, $idMovimiento, $idVehiculo) {
