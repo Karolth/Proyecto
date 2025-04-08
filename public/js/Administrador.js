@@ -121,7 +121,7 @@ function cargarMateriales() {
             }
 
             data.forEach(material => {
-                const checked = material.Estado === "Ingreso" ? "checked" : ""; // Estado basado en la base de datos
+                const checked = material.Estado === "Entrada" ? "checked" : ""; // Estado basado en la base de datos
 
                 const fila = `
                     <tr>
@@ -187,7 +187,7 @@ function cargarVehiculos() {
 
             // Generar filas para cada vehículo
             data.vehiculo.forEach(vehiculo => {
-                const checked = vehiculo.Estado === "ingreso" ? "checked" : ""; // Estado basado en la base de datos
+                const checked = vehiculo.Estado === "Entrada" ? "checked" : ""; // Estado basado en la base de datos
 
                 const fila = `
                     <tr>
