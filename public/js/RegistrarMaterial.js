@@ -65,7 +65,7 @@ function registrarOtro() {
         .then(response => response.text())
     .then(data => {
         document.getElementById("mensaje").innerText = data;
-        alert("Computador registrado correctamente");
+        alert("Elemento registrado correctamente");
     })
     .catch(error => console.error('Error:', error));
 }
@@ -98,4 +98,44 @@ function cerrarFormulario() {
     document.getElementById('computadorForm').style.display = 'none';
     document.getElementById('automovilForm').style.display = 'none';
     document.getElementById('formOtro').style.display = 'none';
+}
+
+// Seleccionar el botón de cerrar del modal de "Registrar Elemento"
+const closeRegistrarElementoModal = document.querySelector('#registrar-elemento-modal .close-modal');
+
+// Agregar el evento para recargar la tabla al cerrar el modal
+if (closeRegistrarElementoModal) {
+    closeRegistrarElementoModal.addEventListener('click', () => {
+        recargarTabla(); // Llamar a la función para recargar la tabla
+    });
+}
+function recargarTabla() {
+    // Realizar una solicitud para obtener los datos actualizados
+    fetch('../controllers/MostrarElemento.php') // Cambia esta URL por la correcta
+        .then(response => response.json())
+        .then(data => {
+            // Seleccionar el cuerpo de la tabla
+            const tbody = document.querySelector('#tbodyVehiculo'); // Cambia el selector si es necesario
+            tbody.innerHTML = ''; // Limpiar el contenido actual de la tabla
+
+            // Iterar sobre los datos y agregarlos a la tabla
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" class="checkbox-material">
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>${item.id}</td>
+                    <td>${item.nombre}</td>
+                    <td>${item.referencia}</td>
+                    <td>${item.marca}</td>
+                    <td>${item.tipoMaterial}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error al recargar la tabla:', error));
 }
