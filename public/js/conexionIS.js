@@ -52,14 +52,13 @@ function verificarLogin() {
     });
 }
 
-
 function mostrarPerfil() {
     const action = "getPerfil";
 
-    fetch("../controllers/usuariosIS.php", {
+    fetch("../controllers/verPerfil.php", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"  
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({ action })
     })
@@ -71,7 +70,6 @@ function mostrarPerfil() {
             document.getElementById("perfilEmail").value = data.Email;
             document.getElementById("perfilCelular").value = data.Celular;
 
-            // Mostrar modal después de obtener los datos
             document.getElementById("perfilDatos").style.display = "block"; 
         } else {
             alert("Error: " + data.message); 
@@ -83,6 +81,11 @@ function mostrarPerfil() {
     });
 }
 
+function habilitar() {
+    document.getElementById("perfilEmail").disabled = false;
+    document.getElementById("perfilCelular").disabled = false;
+}
+
 function cerrarPerfilDatos() {
     document.getElementById("perfilDatos").style.display = "none";
     document.getElementById("perfilNombre").disabled = true;
@@ -91,16 +94,34 @@ function cerrarPerfilDatos() {
     document.getElementById("perfilCelular").disabled = true;
 }
 
+function modificarPerfil() {
+    const action = "modificar";
+    const email = document.getElementById("perfilEmail").value;
+    const celular = document.getElementById("perfilCelular").value;
 
-function habilitar(){
-    document.getElementById("perfilEmail").disabled= false;
-    document.getElementById("perfilCelular").disabled= false;
-    
+    fetch("../controllers/verPerfil.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            action,
+            email,
+            celular
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("✅ " + data.message);
+            document.getElementById("perfilEmail").disabled = true;
+            document.getElementById("perfilCelular").disabled = true;
+        } else {
+            alert("❌ " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error inesperado.");
+    });
 }
-
-function modificarPerfil(){
-    const action ="modificar";
-    const perfilEmail = document.getElementById("perfilEmail").value;
-    const perfilCelular = document.getElementById("perfilCelular").value;
-
-} 

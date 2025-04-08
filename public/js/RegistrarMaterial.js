@@ -27,45 +27,66 @@ function registrarComputador() {
     .then(data => {
         document.getElementById("mensaje").innerText = data;
         alert("Computador registrado correctamente");
+        
+        // Recargar la tabla de materiales después de un registro exitoso
+        if (typeof cargarMateriales === 'function') {
+            cargarMateriales();
+        } else if (window.parent && typeof window.parent.cargarMateriales === 'function') {
+            window.parent.cargarMateriales();
+        }
+        
+        // Cerrar el formulario después del registro
+        if (typeof cerrarFormulario === 'function') {
+            cerrarFormulario();
+        }
     })
     .catch(error => console.error('Error:', error));
 }
 
 function registrarOtro() {
+    // Recuperar ID y Tipo de localStorage
+    const idUsuario = localStorage.getItem("Id");
+    const tipoUsuario = localStorage.getItem("Tipo");
 
-        // Recuperar ID y Tipo de localStorage
-        const idUsuario = localStorage.getItem("Id");
-        const tipoUsuario = localStorage.getItem("Tipo");
+    if (!idUsuario) {
+        alert("Error: No se ha iniciado sesión o no se pudo recuperar el ID.");
+        return;
+    }
 
-        if (!idUsuario) {
-            alert("Error: No se ha iniciado sesión o no se pudo recuperar el ID.");
-            return;
-        }
+    const nombre = document.getElementById("NombreOtro").value;
+    const observaciones = document.getElementById("ObservacionesOtro").value;
+    const idTipoMaterial = "2"; // ID para Otro elemento
 
-        const nombre = document.getElementById("NombreOtro").value;
-        const observaciones = document.getElementById("ObservacionesOtro").value;
-        const idTipoMaterial = "2"; // ID para Computador
+    if (nombre.trim() === "") {
+        alert("El nombre del elemento es obligatorio.");
+        return;
+    }
 
+    // Determinar el ID de aprendiz o usuario
+    const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
+    const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
 
-        if (nombre.trim() === "") {
-            alert("El nombre del elemento es obligatorio.");
-            return;
-        }
-
-          // Determinar el ID de aprendiz o usuario
-        const idAprendiz = tipoUsuario === "aprendiz" ? idUsuario : null;
-        const idUsuarioFinal = tipoUsuario === "usuario" ? idUsuario : null;
-
-        fetch('../controllers/RegistrarOtro.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `nombre=otro&observaciones=${observaciones}&idTipoMaterial=${idTipoMaterial}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`
-
-        })
-        .then(response => response.text())
+    fetch('../controllers/RegistrarOtro.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `nombre=otro&observaciones=${observaciones}&idTipoMaterial=${idTipoMaterial}&idUsuario=${idUsuarioFinal}&idAprendiz=${idAprendiz}`
+    })
+    .then(response => response.text())
     .then(data => {
         document.getElementById("mensaje").innerText = data;
-        alert("Computador registrado correctamente");
+        alert("Elemento registrado correctamente");
+        
+        // Recargar la tabla de materiales después de un registro exitoso
+        if (typeof cargarMateriales === 'function') {
+            cargarMateriales();
+        } else if (window.parent && typeof window.parent.cargarMateriales === 'function') {
+            window.parent.cargarMateriales();
+        }
+        
+        // Cerrar el formulario después del registro
+        if (typeof cerrarFormulario === 'function') {
+            cerrarFormulario();
+        }
     })
     .catch(error => console.error('Error:', error));
 }

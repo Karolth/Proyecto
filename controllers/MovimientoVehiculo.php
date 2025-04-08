@@ -1,5 +1,5 @@
 <?php
-require_once "../models/MovimientoVehiculoModel.php";
+require_once "../models/ModeloMovimientoVehiculo.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['idVehiculo'], $_POST['estado'], $_POST['idMovimiento'])) {

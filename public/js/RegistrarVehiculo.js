@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function registrarVehiculo() {
-    
     const idUsuario = localStorage.getItem("Id");
     const tipoUsuario = localStorage.getItem("Tipo");
 
@@ -32,7 +31,7 @@ function registrarVehiculo() {
     const placa = document.getElementById("Placa").value;
     const idTipoVehiculo = document.getElementById("tipoVehiculo").value;
 
-    if (!placa.trim()  === "" ) {
+    if (placa.trim() === "") {
         alert("Por favor, complete todos los campos.");
         return;
     }
@@ -50,6 +49,18 @@ function registrarVehiculo() {
     .then(data => {
         document.getElementById("mensaje").innerText = data;
         alert("¡Vehículo registrado exitosamente!");
+        
+        // Recargar la tabla de vehículos después de un registro exitoso
+        if (typeof cargarVehiculos === 'function') {
+            cargarVehiculos();
+        } else if (window.parent && typeof window.parent.cargarVehiculos === 'function') {
+            window.parent.cargarVehiculos();
+        }
+        
+        // Cerrar el formulario si existe la función
+        if (typeof cerrarFormulario === 'function') {
+            cerrarFormulario();
+        }
     })
     .catch(error => {
         alert("Error en el registro del vehículo");

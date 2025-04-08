@@ -63,24 +63,6 @@ try {
             echo json_encode(['success' => false, 'message' => 'Acción no válida']);
             exit;
         }
-
-        $userId = $_SESSION['user_id'];
-
-        // Obtener los datos del perfil
-        $user = $model->obtenerPerfilPorId($userId);
-        if ($user) {
-            echo json_encode([
-                'success' => true,
-                'Nombre' => $user['Nombre'],
-                'Documento' => $user['Documento'],
-                'Celular' => $user['Celular'],
-                'Email' => $user['Email']
-            ]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Usuario no encontrado']);
-        }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Acción no válida']);
     }
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
