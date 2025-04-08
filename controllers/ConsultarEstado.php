@@ -2,31 +2,40 @@
 require_once "../config/conexion.php";
 require_once "../models/ModeloConsultarEstado.php";
 
-$materiales = $_GET['materiales'] ?? "";
-$vehiculos = $_GET['vehiculos'] ?? "";
+$idUsuario = $_GET['idUsuario'] ?? null; // ID del usuario a verificar
+$idAprendiz = $_GET['idAprendiz'] ?? null; // ID del aprendiz a verificar
 
-$idsMateriales = explode(",", $materiales);
-$idsVehiculos = explode(",", $vehiculos);
-
-$estado = "Ingreso"; // Por defecto, si no hay registros previos
+if (!$idUsuario && !$idAprendiz) {
+    echo json_encode(["success" => false, "message" => "Debe proporcionar un IdUsuario o un IdAprendiz."]);
+    exit;
+}
 
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=easycode", "root", ""); // Ajusta las credenciales
     $model = new EstadoModel($pdo);
 
-    // Verificar el estado más reciente para los materiales
-    $estadoMateriales = $model->obtenerEstadoMateriales($idsMateriales);
-    if ($estadoMateriales) {
-        $estado = $estadoMateriales['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
+    $estado = null;
+
+    // Verificar el estado más reciente para el usuario
+    if ($idUsuario) {
+        $estadoUsuario = $model->obtenerEstadoPorUsuario($idUsuario);
+        if ($estadoUsuario) {
+            $estado = $estadoUsuario['Movimiento']; // Obtener el estado directamente de la tabla movimiento
+        }
     }
 
-    // Verificar el estado más reciente para los vehículos
-    $estadoVehiculos = $model->obtenerEstadoVehiculos($idsVehiculos);
-    if ($estadoVehiculos) {
-        $estado = $estadoVehiculos['Estado'] === "Ingreso" ? "Salida" : "Ingreso";
+    // Verificar el estado más reciente para el aprendiz
+    if ($idAprendiz) {
+        $estadoAprendiz = $model->obtenerEstadoPorAprendiz($idAprendiz);
+        if ($estadoAprendiz) {
+            $estado = $estadoAprendiz['Movimiento']; // Obtener el estado directamente de la tabla movimiento
+        }
     }
 
-    echo json_encode(["success" => true, "estado" => $estado]);
+    if ($estado === null) {
+        echo json_encode(["success" => false, "message" => "No se encontró estado para la persona seleccionada."]);
+    } else {
+        echo json_encode(["success" => true, "estado" => $estado]);
+    }
 } catch (Exception $e) {
     echo json_encode(["success" => false, "message" => "Error al consultar estado: " . $e->getMessage()]);
 }
