@@ -1,90 +1,143 @@
-/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 20px;
-    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
 h1 {
     color: #333;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-/* Contenedor de la tabla */
-.table-container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.table-container:hover {
-    transform: scale(1.02);
-}
-
-/* Estilos de la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
     text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulario de búsqueda */
+#searchForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#searchForm input,
+#searchForm select,
+#searchForm button {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+#searchForm button {
+    background-color: #28a745; /* Color azul */
+    color: white;
+    border: none;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
-th {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
+#searchForm button:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar el cursor */
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #28a745; /* Color azul para encabezados */
+    color: white;
+    font-weight: bold;
 }
 
 tr:hover {
-    background-color: #e0e0e0;
+    background-color: #f1f1f1; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos para las filas de datos */
+td {
+    background-color: #ffffff; /* Color de fondo blanco para las celdas */
+    transition: background-color 0.3s; /* Transición suave para el fondo */
+}
+
+/* Estilos para mensajes de error o éxito */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Estilos para el pie de página */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+}
+
+/* Estilos para botones adicionales */
+.button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.container{
-    background-color: #1fb925;
-    border-radius: 20px;
+.button.primary {
+    background-color: #28a745;
+    color: white;
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.button.primary:hover {
+    background-color: #28a745;
 }
 
-/* Efecto de vibración para texto */
-.shake {
-    display: inline-block;
-    animation: shake 0.5s infinite alternate;
+.button.secondary {
+    background-color: #28a745;
+    color: white;
 }
 
-@keyframes shake {
-    from { transform: translateX(-2px); }
-    to { transform: translateX(2px); }
+.button.secondary:hover {
+    background-color: #28a745;
 }
-

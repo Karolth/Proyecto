@@ -7,9 +7,26 @@
     <link rel="stylesheet" href="../public/css/HistorialUsuario.css">
 </head>
 <body>
-<div class="container">
-    <div>
+    <div class="container">
         <h1>Historial de Usuario</h1>
+        
+        <!-- Formulario de búsqueda -->
+        <form id="searchForm">
+            <input type="text" id="searchTerm" placeholder="Buscar...">
+            
+            <select id="filterField">
+                <option value="">Seleccionar Filtro</option>
+                <option value="Nombre">Nombre</option>
+                <option value="Documento">Documento</option>
+                <option value="Material">Material</option>
+                <option value="Referencia">Referencia</option>
+                <option value="Placa">Placa</option>
+                <option value="TipoVehiculo">Tipo de Vehículo</option>
+            </select>
+            
+            <button type="submit">Buscar</button>
+        </form>
+    
         <table>
             <thead>
                 <tr>
@@ -27,7 +44,6 @@
             </tbody>
         </table>
     </div>
-</div>
 <script src="../public/js/historial.js"></script>
 </body>
 </html>
