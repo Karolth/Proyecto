@@ -20,15 +20,21 @@ if ($conn->connect_error) {
 }
 
 // Recibir datos JSON
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Validar datos recibidos
-if (!$data) {
-    die(json_encode([
-        'success' => false, 
-        'message' => 'No se recibieron datos válidos'
-    ]));
+if (!isset($_POST['nombreFicha'], $_POST['jornada'], $_POST['tipoPrograma'], $_POST['fechaInicio'], $_POST['fechaFin'], $_POST['numeroFicha'], $_FILES['archivoExcel'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Faltan datos del formulario o el archivo Excel'
+    ]);
+    exit;
 }
+
+$nombrePrograma = $_POST['nombreFicha'];
+$jornada = $_POST['jornada'];
+$tipoPrograma = $_POST['tipoPrograma'];
+$fechaInicio = $_POST['fechaInicio'];
+$fechaFin = $_POST['fechaFin'];
+$numeroFicha = $_POST['numeroFicha'];
+$archivoExcel = $_FILES['archivoExcel'];
 
 try {
     // Comenzar transacción
