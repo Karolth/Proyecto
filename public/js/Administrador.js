@@ -121,7 +121,7 @@ function cargarMateriales() {
             }
 
             data.forEach(material => {
-                const checked = material.Estado === "Ingreso" ? "checked" : ""; // Estado basado en la base de datos
+                const checked = material.Estado === "Entrada" ? "checked" : ""; // Estado basado en la base de datos
 
                 const fila = `
                     <tr>
@@ -137,6 +137,7 @@ function cargarMateriales() {
                         <td><span class="etiqueta marca">${material.Marca}</span></td>
                         <td><span class="etiqueta materia">${material.Tipo}</span></td>
                     </tr>
+
                 `;
                 tbody.innerHTML += fila;
             });
@@ -150,6 +151,7 @@ function cargarMateriales() {
             `;
         });
 }
+
      
 function cargarVehiculos() {
     const tbodyV = document.getElementById("tbodyVehiculo");
@@ -185,7 +187,7 @@ function cargarVehiculos() {
 
             // Generar filas para cada vehículo
             data.vehiculo.forEach(vehiculo => {
-                const checked = vehiculo.Estado === "ingreso" ? "checked" : ""; // Estado basado en la base de datos
+                const checked = vehiculo.Estado === "Entrada" ? "checked" : ""; // Estado basado en la base de datos
 
                 const fila = `
                     <tr>
@@ -261,3 +263,30 @@ async function registrarMovimientosAmbos() {
         alert("Error al registrar los movimientos.");
     }
 }
+
+
+
+window.cargarMateriales = cargarMateriales;
+window.cargarVehiculos = cargarVehiculos;
+
+function ejecutarBusqueda(event) {
+    if (event.key === "Enter") {
+        buscarDocumento();
+    }
+}
+
+function recargarTabla(tipo) {
+    if (tipo === "material" || tipo === "ambos") {
+        cargarMateriales();
+    }
+    
+    if (tipo === "vehiculo" || tipo === "ambos") {
+        cargarVehiculos();
+    }
+}
+
+window.addEventListener('message', function(event) {
+    if (event.data.action === "recargarTabla") {
+        recargarTabla(event.data.tipo);
+    }
+});
