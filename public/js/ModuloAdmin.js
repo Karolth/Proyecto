@@ -29,3 +29,9 @@ window.addEventListener('click', function(event) {
         }
     });
 });
+
+// Cerrar session
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        window.location.href = "../views/loginEasyCodeIS.html";
+    });
+

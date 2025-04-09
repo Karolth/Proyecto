@@ -1,7 +1,6 @@
 //const usuarioValido ="admin";
 //const passValida ="1234";
 let intentosRestantes =3;
-
 function verificarLogin() {
     let action = "login";
     let Documento = document.getElementById("Documento").value;
@@ -16,7 +15,6 @@ function verificarLogin() {
 
     let hasError = false;
 
-
     // Validación de campos vacíos
     if (Documento === "") {
         docError.textContent = "El documento es obligatorio";
@@ -27,6 +25,22 @@ function verificarLogin() {
         hasError = true;
     }
 
+    // Si hay errores, detener la función
+    if (hasError) {
+        return;
+    }
+
+    // Validación para el administrador
+    if (Documento === "0000000000" && password === "0000000000") {
+        message.style.color = "green";
+        message.textContent = "Inicio de sesión exitoso";
+        setTimeout(() => {
+            window.location.href = "../views/ModuloAdmin.html";
+        }, 1000);
+        return;
+    }
+
+    // Si no es el administrador, verificar en la base de datos
     fetch("../controllers/usuariosIS.php", {
         method: "POST",
         headers: {
@@ -51,7 +65,6 @@ function verificarLogin() {
         message.textContent = "Error al iniciar sesión";
     });
 }
-
 function mostrarPerfil() {
     const action = "getPerfil";
 

