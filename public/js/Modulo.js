@@ -1,62 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnSubmit = document.querySelector('.btn-submit');
-    
-    btnSubmit.addEventListener('click', function(event) {
+
+    btnSubmit.addEventListener('click', function (event) {
         event.preventDefault();
-        
-        const nombrePrograma = document.getElementById('nombreSalon').value;
+
+        const form = document.getElementById('formFichaCompleta');
+        const nombrePrograma = document.getElementById('nombreFicha').value;
         const jornada = document.getElementById('jornada').value;
         const tipoPrograma = document.getElementById('tipoPrograma').value;
         const fechaInicio = document.getElementById('fechaInicio').value;
         const fechaFin = document.getElementById('fechaFin').value;
         const numeroFicha = document.getElementById('numeroFicha').value;
+        const archivoExcel = document.getElementById('archivoExcel').files[0];
 
-      
-        if (!nombrePrograma || !jornada || !tipoPrograma || !fechaInicio || !fechaFin || !numeroFicha) {
-            alert('Por favor, complete todos los campos');
+        if (!nombrePrograma || !jornada || !tipoPrograma || !fechaInicio || !fechaFin || !numeroFicha || !archivoExcel) {
+            alert('Por favor, complete todos los campos y seleccione un archivo.');
             return;
         }
 
-      
-        const fichaData = {
-            nombrePrograma: nombrePrograma,
-            jornada: jornada,
-            tipoPrograma: tipoPrograma,
-            fechaInicio: fechaInicio,
-            fechaFin: fechaFin,
-            numeroFicha: numeroFicha
-        };
+        // ✅ FormData para enviar archivos + datos
+        const formData = new FormData();
+        formData.append('nombreFicha', nombrePrograma);
+        formData.append('jornada', jornada);
+        formData.append('tipoPrograma', tipoPrograma);
+        formData.append('fechaInicio', fechaInicio);
+        formData.append('fechaFin', fechaFin);
+        formData.append('numeroFicha', numeroFicha);
+        formData.append('archivoExcel', archivoExcel); // archivo
 
-       
         fetch('../controllers/guardar_ficha.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(fichaData)
+            body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-              
-                document.getElementById('mensajeExito').style.display = 'block';
-                
-                
-                document.getElementById('formCrearSalon').reset();
-            } else {
-                
-                alert('Error al crear la ficha: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un problema al guardar la ficha');
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Ficha creada exitosamente con aprendices.');
+                    document.getElementById('mensajeExito').style.display = 'block';
+                    form.reset();
+                } else {
+                    alert('Error al crear la ficha: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al guardar la ficha.');
+            });
     });
 
-    
-    document.getElementById('btnCancelar').addEventListener('click', function() {
-        
-        document.getElementById('formCrearSalon').reset();
+    // Botón cancelar
+    document.getElementById('btnCancelar').addEventListener('click', function () {
+        document.getElementById('formFichaCompleta').reset();
     });
 });
