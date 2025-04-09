@@ -60,8 +60,8 @@ function buscarDocumento() {
             if (data.tipo === "aprendiz") {
                 localStorage.setItem("Id", data.datos.IdAprendiz);
                 localStorage.setItem("Tipo", data.tipo);
-
-                resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" width="150">`;
+                
+                resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" style= width="150">`;
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
                 resultadoHTML += `<p><strong>Rol:</strong> Aprendiz</p>`;
                 resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
@@ -269,11 +269,7 @@ async function registrarMovimientosAmbos() {
 window.cargarMateriales = cargarMateriales;
 window.cargarVehiculos = cargarVehiculos;
 
-function ejecutarBusqueda(event) {
-    if (event.key === "Enter") {
-        buscarDocumento();
-    }
-}
+
 
 function recargarTabla(tipo) {
     if (tipo === "material" || tipo === "ambos") {
