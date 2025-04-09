@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link rel="stylesheet" href="../public/css/ModuloAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="content">
+        <div class="header">
+            Panel de Control
+        </div>
+        
+        <div class="main-actions">
+            <div class="action-card" id="subirImagen">
+                <div class="action-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="action-title">Subir Imagen</div>
+            </div>
+            
+            <div class="action-card" id="crearFicha">
+                <div class="action-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="action-title">Crear Ficha</div>
+            </div>
+            
+            <div class="action-card" id="historial">
+                <div class="action-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="action-title">Historial</div>
+            </div>
+        </div>
+        
+    <!-- Modal para Subir Imagen -->
+    <div id="modalSubirImagen" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modalSubirImagen">&times;</span>
+            <h2>Subir Imagen</h2>
+            <div class="iframe-container">
+                <iframe src="SubirImagen.html"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Crear Ficha -->
+    <div id="modalCrearFicha" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modalCrearFicha">&times;</span>
+            <h2>Crear Ficha</h2>
+            <div class="iframe-container">
+                <iframe src="CrearFicha.html"></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="../public/js/ModuloAdmin.js"></script>
+</body>
+</html>
