@@ -10,8 +10,8 @@ class ProgramaModel {
     }
 
     public function obtenerProgramas() {
-        $stmt = $this->pdo->query("SELECT Nombre FROM programa");
-        return $stmt->fetchAll();
+        $stmt = $this->pdo->query("SELECT IdPrograma, Nombre FROM programa");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 

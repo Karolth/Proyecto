@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result.success && result.data.length > 0) {
                 result.data.forEach(programa => {
                     const option = document.createElement('option');
-                    option.value = programa.Nombre;
+                    option.value = programa.IdPrograma;
                     option.textContent = programa.Nombre;
                     select.appendChild(option);
                 });

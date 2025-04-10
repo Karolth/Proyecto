@@ -26,7 +26,7 @@ if (!isset($_POST['programaFormacion'], $_POST['jornada'], $_POST['tipoPrograma'
 }
 
 // Asignar los datos del formulario
-$nombrePrograma = trim($_POST['programaFormacion']);
+$idPrograma = intval($_POST['programaFormacion']);
 $jornada = trim($_POST['jornada']);
 $tipoPrograma = trim($_POST['tipoPrograma']);
 $fechaInicio = trim($_POST['fechaInicio']);
@@ -35,7 +35,7 @@ $numeroFicha = trim($_POST['numeroFicha']);
 $archivoExcel = $_FILES['archivoExcel'];
 
 // Validar que no haya campos vacíos
-if (empty($nombrePrograma) || empty($jornada) || empty($tipoPrograma) || empty($fechaInicio) || empty($fechaFin) || empty($numeroFicha) || $archivoExcel['error'] === UPLOAD_ERR_NO_FILE) {
+if (empty($idPrograma) || empty($jornada) || empty($tipoPrograma) || empty($fechaInicio) || empty($fechaFin) || empty($numeroFicha) || $archivoExcel['error'] === UPLOAD_ERR_NO_FILE) {
     echo json_encode([
         'success' => false,
         'message' => 'Todos los campos del formulario y el archivo Excel son obligatorios.'
@@ -60,12 +60,6 @@ try {
     $pdo->beginTransaction();
 
     $model = new FichaModel($pdo);
-
-    // Insertar programa
-    $idPrograma = $model->insertarPrograma($nombrePrograma, $tipoPrograma);
-    if (!$idPrograma) {
-        throw new Exception("Error al insertar el programa.");
-    }
 
     // Insertar ficha
     $fichaInsertada = $model->insertarFicha($numeroFicha, $fechaInicio, $fechaFin, $jornada, $idPrograma);
