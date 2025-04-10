@@ -22,7 +22,16 @@ if ($action === "obtenerHistorial") {
         JOIN vehiculo v ON v.IdVehiculo = v.IdVehiculo
         JOIN tipovehiculo tv ON v.IdTipoVehiculo = tv.IdTipoVehiculo");
 
-        echo json_encode(['success' => true, 'data' => $stmt->fetchAll(PDO::FETCH_ASSOC)]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Reemplazar valores null por "-"
+        $data = array_map(function($row) {
+            return array_map(function($value) {
+                return $value === null ? '-' : $value;
+            }, $row);
+        }, $data);
+
+        echo json_encode(['success' => true, 'data' => $data]);
     } catch (PDOException $e) {
         echo json_encode(['success' => false, 'message' => 'Error al obtener historial: ' . $e->getMessage()]);
     }
