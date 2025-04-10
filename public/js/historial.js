@@ -88,7 +88,7 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
         data.forEach(registro => {
             let fila = document.createElement('tr');
             fila.innerHTML = `
-                <td>${registro.NombreAprendiz}</td>
+                <td>${registro.Nombre}</td>
                 <td>${registro.Documento}</td>
                 <td>${registro.NombreMaterial}</td>
                 <td>${registro.Referencia}</td>
