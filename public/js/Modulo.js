@@ -1,11 +1,36 @@
 document.addEventListener('DOMContentLoaded', function () {
+    fetch('../controllers/cargarProgramas.php') 
+        .then(response => response.json())
+        .then(result => {
+            const select = document.getElementById('programaFormacion');
+            if (result.success && result.data.length > 0) {
+                result.data.forEach(programa => {
+                    const option = document.createElement('option');
+                    option.value = programa.Nombre;
+                    option.textContent = programa.Nombre;
+                    select.appendChild(option);
+                });
+            } else {
+                const option = document.createElement('option');
+                option.textContent = 'No se encontraron programas de formación';
+                option.disabled = true;
+                select.appendChild(option);
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar los programas:', error);
+        });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const btnSubmit = document.querySelector('.btn-submit');
 
     btnSubmit.addEventListener('click', function (event) {
         event.preventDefault();
 
         const form = document.getElementById('formFichaCompleta');
-        const nombrePrograma = document.getElementById('nombreFicha').value;
+        const nombrePrograma = document.getElementById('programaFormacion').value;
         const jornada = document.getElementById('jornada').value;
         const tipoPrograma = document.getElementById('tipoPrograma').value;
         const fechaInicio = document.getElementById('fechaInicio').value;
@@ -20,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // ✅ FormData para enviar archivos + datos
         const formData = new FormData();
-        formData.append('nombreFicha', nombrePrograma);
+        formData.append('programaFormacion', nombrePrograma);
         formData.append('jornada', jornada);
         formData.append('tipoPrograma', tipoPrograma);
         formData.append('fechaInicio', fechaInicio);

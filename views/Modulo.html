@@ -12,8 +12,10 @@
 
         <form id="formFichaCompleta" action="../controllers/guardar_ficha.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="nombreFicha">Nombre del Programa de Formación:</label>
-                <input type="text" id="nombreFicha" name="nombreFicha" required autocomplete="off">
+                <label for="programaFormacion">Programa de Formación:</label>
+                    <select id="programaFormacion"  action="../models/ModeloGuardar_ficha.php">
+                        <option value="">Seleccione un programa</option>
+                    </select>
             </div>
         
             <div class="form-group">
@@ -58,7 +60,7 @@
             </div>
         
             <div class="button-group">
-                <button type="submit" class="btn-submit">Crear Ficha</button>
+                <button type="submit" class="btn-submit" id="btnSubmit">Crear Ficha</button>
                 <button type="button" id="btnCancelar">Cancelar</button>
             </div>
         
