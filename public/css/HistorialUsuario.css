@@ -173,3 +173,28 @@ footer {
     font-weight: bold;
     background-color: yellow;
 }
+/* Reducir tamaño de letra en la tabla */
+table {
+    font-size: 14px;
+}
+
+/* Encabezados con mejor apariencia */
+th {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Celdas del cuerpo con sombra y separación */
+td {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* Estilo para filas alternas */
+tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+

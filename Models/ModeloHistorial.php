@@ -1,40 +1,67 @@
 <?php
-include_once '../config/conexion.php'; 
-header('Content-Type: application/json');
+require_once '../config/conexion.php'; // Incluir el archivo de conexión
 
-// Obtener el parámetro 'action' desde la URL
-$action = $_GET['action'] ?? '';
+class HistorialModel {
+    public function fetchHistorial() {
+        global $pdo; // Usar la variable $pdo definida en conexion.php
 
-if ($action === "obtenerHistorial") {
-    try {
-        $stmt = $pdo->query("SELECT 
-            a.Nombre AS NombreAprendiz,
-            a.Documento,
-            m.Nombre AS NombreMaterial,
-            m.Referencia,
-            v.Placa,
-            tv.Tipo AS TipoVehiculo,
-            mo.FechaHora,
-            mo.movimiento
-        FROM movimiento mo
-        JOIN aprendiz a ON mo.IdAprendiz = a.IdAprendiz
-        JOIN material m ON m.IdMaterial = m.IdMaterial
-        JOIN vehiculo v ON v.IdVehiculo = v.IdVehiculo
-        JOIN tipovehiculo tv ON v.IdTipoVehiculo = tv.IdTipoVehiculo");
+        $query = "
+            SELECT
+                DATE(m.FechaHora) AS Fecha,
+                a.Nombre AS Nombre,
+                'Aprendiz' AS TipoActor,
+                a.Documento,
+                m.FechaHora,
+                m.Movimiento AS Movimiento,
+                mat.Nombre AS NombreMaterial,
+                mat.Referencia,
+                v.Placa,
+                tv.Tipo AS TipoVehiculo
+            FROM movimiento m
+            JOIN aprendiz a ON a.idAprendiz = m.idAprendiz
+            LEFT JOIN movimientoMaterial mm ON m.idMovimiento = mm.idMovimiento
+            LEFT JOIN material mat ON mm.idMaterial = mat.idMaterial
+            LEFT JOIN movimientoVehiculo mv ON m.idMovimiento = mv.idMovimiento
+            LEFT JOIN vehiculo v ON mv.idVehiculo = v.idVehiculo
+            LEFT JOIN tipovehiculo tv ON v.idTipoVehiculo = tv.idTipoVehiculo
 
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            UNION ALL
 
-        // Reemplazar valores null por "-"
-        $data = array_map(function($row) {
-            return array_map(function($value) {
-                return $value === null ? '-' : $value;
-            }, $row);
-        }, $data);
+            SELECT
+                DATE(m.FechaHora) AS Fecha,
+                u.Nombre AS Nombre,
+                'Usuario' AS TipoActor,
+                u.Documento,
+                m.FechaHora,
+                m.Movimiento AS Movimiento,
+                mat.Nombre AS NombreMaterial,
+                mat.Referencia,
+                v.Placa,
+                tv.Tipo AS TipoVehiculo
+            FROM movimiento m
+            JOIN usuario u ON u.idUsuario = m.idUsuario
+            LEFT JOIN movimientoMaterial mm ON m.idMovimiento = mm.idMovimiento
+            LEFT JOIN material mat ON mm.idMaterial = mat.idMaterial
+            LEFT JOIN movimientoVehiculo mv ON m.idMovimiento = mv.idMovimiento
+            LEFT JOIN vehiculo v ON mv.idVehiculo = v.idVehiculo
+            LEFT JOIN tipovehiculo tv ON v.idTipoVehiculo = tv.idTipoVehiculo
 
-        echo json_encode(['success' => true, 'data' => $data]);
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Error al obtener historial: ' . $e->getMessage()]);
+            ORDER BY Fecha DESC, FechaHora DESC;
+        ";
+
+        $stmt = $pdo->prepare($query); // Usar $pdo para preparar la consulta
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(); // Obtener los resultados
+
+        // Reemplazar valores null o vacíos por "-"
+        foreach ($resultados as &$fila) {
+            foreach ($fila as $key => $value) {
+                if (is_null($value) || $value === '') {
+                    $fila[$key] = '-';
+                }
+            }
+        }
+
+        return $resultados;
     }
-    exit();
 }
-?>
