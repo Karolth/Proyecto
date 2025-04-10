@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #a8d5a8;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2a8e76;
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #2a8e76;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #3a7a6f;
+}
+
+input[type="file"] {
+    border: 2px dashed #3a7a6f;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+input[type="file"]:hover {
+    background-color: #eaf5ea;
+}
+
+#previewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#previewContainer img {
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid white;
+    transition: transform 0.2s;
+}
+
+#previewContainer img:hover {
+    transform: scale(1.05);
+}
+
+button {
+    background-color: #2a8e76;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    align-self: center;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #236e5c;
+}
+
+.preview-title {
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #3a7a6f;
+}
+
+.info-text {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.drag-text {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #888;
+}
+
+.drop-zone {
+    border: 2px dashed #3a7a6f;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.drop-zone.dragover {
+    background-color: #d4edda;
+    border-color: #2a8e76;
+}
+
+.file-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}

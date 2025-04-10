@@ -10,13 +10,12 @@
     <div class="container">
         <h1>Crear Nueva Ficha</h1>
 
-        
-
-        <form id="formCrearSalon">
+        <form id="formFichaCompleta" action="../controllers/guardar_ficha.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="nombreSalon">Nombre del Programa de Formacion:</label>
-                <input type="text" id="nombreSalon" name="nombreSalon" required autocomplete="off">
+                <label for="nombreFicha">Nombre del Programa de Formación:</label>
+                <input type="text" id="nombreFicha" name="nombreFicha" required autocomplete="off">
             </div>
+        
             <div class="form-group">
                 <label for="jornada">Jornada:</label>
                 <select id="jornada" name="jornada" required>
@@ -26,7 +25,7 @@
                     <option value="noche">Noche</option>
                 </select>
             </div>
-
+        
             <div class="form-group">
                 <label for="tipoPrograma">Tipo de Programa:</label>
                 <select id="tipoPrograma" name="tipoPrograma" required>
@@ -37,39 +36,36 @@
                     <option value="tecnologo">Tecnólogo</option>
                 </select>
             </div>
-
+        
             <div class="form-group">
                 <label for="fechaInicio">Fecha de Inicio:</label>
                 <input type="date" id="fechaInicio" name="fechaInicio" required>
             </div>
-
+        
             <div class="form-group">
                 <label for="fechaFin">Fecha de Fin:</label>
                 <input type="date" id="fechaFin" name="fechaFin" required>
             </div>
-
+        
             <div class="form-group">
                 <label for="numeroFicha">Número de la Ficha:</label>
-                <input type="text" id="numeroFicha" name="numeroFicha" required autocomplete="off" style="resize: none;">
+                <input type="text" id="numeroFicha" name="numeroFicha" required autocomplete="off">
             </div>
-
-            
-            <!-- <div class="form-group">
-                <label for="archivo">Subir Lista de Aprendices:</label>
-                <input type="file" id="archivo" name="archivo" accept=".csv,.xls,.xlsx">
-                <p class="help-text">Formatos aceptados: Excel (.xls, .xlsx), CSV (.csv)</p>
-            </div> -->
-
-    
-        </form>
+        
+            <div class="form-group">
+                <label for="archivoExcel">Archivo de aprendices (.csv):</label>
+                <input type="file" id="archivoExcel" name="archivoExcel" accept=".csv,.xlsx" required>
+            </div>
+        
             <div class="button-group">
-                <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
                 <button type="submit" class="btn-submit">Crear Ficha</button>
+                <button type="button" id="btnCancelar">Cancelar</button>
             </div>
-            <div id="mensajeExito" class="success-message">
-            ¡Ficha creada exitosamente!
-        </div>
-    </div>
+        
+            <div id="mensajeExito" class="success-message" style="display: none;">
+                ¡Ficha creada exitosamente con aprendices!
+            </div>
+        </form>
 
     <script src="../public/js/Modulo.js"> </script>
 </body>

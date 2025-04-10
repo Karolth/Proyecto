@@ -60,13 +60,14 @@ function buscarDocumento() {
             if (data.tipo === "aprendiz") {
                 localStorage.setItem("Id", data.datos.IdAprendiz);
                 localStorage.setItem("Tipo", data.tipo);
-
-                resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" width="150">`;
+                resultadoHTML += `<div style=" font-size: 14px; line-height: 1.4;">`
+                resultadoHTML += `<img src="${data.imagen}" alt="Foto del aprendiz" style="display: block; margin: 0 auto 15px auto; border-radius: 10px; width: 150px;">`;
                 resultadoHTML += `<p><strong>Nombre:</strong> ${data.datos.Nombre}</p>`;
                 resultadoHTML += `<p><strong>Rol:</strong> Aprendiz</p>`;
                 resultadoHTML += `<p><strong>RH:</strong> ${data.datos.RH}</p>`;
                 resultadoHTML += `<p><strong>Tipo de Programa:</strong> ${data.datos.TipoPrograma}</p>`;
                 resultadoHTML += `<p><strong>Programa:</strong> ${data.datos.Programa}</p>`;
+                resultadoHTML += `</div>`
             } else if (data.tipo === "usuario") {
                 localStorage.setItem("Id", data.datos.IdUsuario);
                 localStorage.setItem("Tipo", data.tipo);
@@ -77,7 +78,7 @@ function buscarDocumento() {
             }
 
             // Agregar el estado del movimiento (Entrada/Salida)
-            resultadoHTML += `<p><strong>Último Movimiento:</strong> ${data.movimiento}</p>`;
+            resultadoHTML += `<p  style=" font-size: 14px; line-height: 1.4;"><strong>Último Movimiento:</strong> ${data.movimiento}</p>`;
 
             resultadoHTML += "</ul>";
             mensajeBusqueda.innerHTML = resultadoHTML;
@@ -269,11 +270,7 @@ async function registrarMovimientosAmbos() {
 window.cargarMateriales = cargarMateriales;
 window.cargarVehiculos = cargarVehiculos;
 
-function ejecutarBusqueda(event) {
-    if (event.key === "Enter") {
-        buscarDocumento();
-    }
-}
+
 
 function recargarTabla(tipo) {
     if (tipo === "material" || tipo === "ambos") {
