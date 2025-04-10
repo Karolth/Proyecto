@@ -5,26 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Usuario</title>
     <link rel="stylesheet" href="../public/css/HistorialUsuario.css">
+    <style>
+        /* Estilos básicos para las sugerencias de autocompletado */
+        #suggestions {
+            border: 1px solid #ccc;
+            border-top: none;
+            display: none; /* Inicialmente oculto */
+            width: 93%;
+            background-color: white;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Historial de Usuario</h1>
         
-        <!-- Formulario de búsqueda -->
         <form id="searchForm">
             <input type="text" id="searchTerm" placeholder="Buscar...">
-            
-            <select id="filterField">
-                <option value="">Seleccionar Filtro</option>
-                <option value="Nombre">Nombre</option>
-                <option value="Documento">Documento</option>
-                <option value="Material">Material</option>
-                <option value="Referencia">Referencia</option>
-                <option value="Placa">Placa</option>
-                <option value="TipoVehiculo">Tipo de Vehículo</option>
-            </select>
-            
-            <button type="submit">Buscar</button>
+            <div id="suggestions"></div> <button type="submit">Buscar</button>
         </form>
     
         <table>
