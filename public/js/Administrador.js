@@ -224,12 +224,13 @@ async function registrarMovimientosAmbos() {
     const idMaterial = Array.from(checkboxesMateriales).map(checkbox => {
         const fila = checkbox.closest('tr');
         return fila.querySelector('.id-movimiento-material')?.textContent;
-    }).filter(id => id !== null);
-
+    }).filter((id, index, self) => id && self.indexOf(id) === index); // <- evita duplicados
+    
     const idVehiculo = Array.from(checkboxesVehiculos).map(checkbox => {
         const fila = checkbox.closest('tr');
         return fila.querySelector('.id-movimiento-vehiculo')?.textContent;
-    }).filter(id => id !== null);
+    }).filter((id, index, self) => id && self.indexOf(id) === index); // <- evita duplicados
+    
 
     if (idMaterial.length === 0 && idVehiculo.length === 0) {
         alert("Por favor, seleccione al menos un material o vehículo.");
