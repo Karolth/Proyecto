@@ -21,32 +21,42 @@ class MovimientoModel {
     }
 
     public function insertarMaterial($movimiento, $idMovimiento, $idMaterial) {
-        $stmt = $this->pdo->prepare("INSERT INTO movimientomaterial (Estado, IdMovimiento, IdMaterial) 
-                                     SELECT :estado, :idMovimiento, :idMaterial 
-                                     WHERE NOT EXISTS (
-                                        SELECT 1 FROM movimientomaterial 
-                                        WHERE Estado = :estado AND IdMovimiento = :idMovimiento AND IdMaterial = :idMaterial
-                                     )");
+        // Verificar si ya existe un registro con ese material en estado "Entrada"
+        $stmt = $this->pdo->prepare("SELECT 1 FROM movimientomaterial WHERE Estado = :estado AND IdMaterial = :idMaterial");
         $stmt->execute([
             ':estado' => $movimiento,
-            ':idMovimiento' => $idMovimiento,
             ':idMaterial' => $idMaterial
         ]);
-        
+    
+        if (!$stmt->fetch()) {
+            // Solo insertar si no existe en ese estado
+            $insert = $this->pdo->prepare("INSERT INTO movimientomaterial (Estado, IdMovimiento, IdMaterial)
+                                           VALUES (:estado, :idMovimiento, :idMaterial)");
+            $insert->execute([
+                ':estado' => $movimiento,
+                ':idMovimiento' => $idMovimiento,
+                ':idMaterial' => $idMaterial
+            ]);
+        }
     }
+    
 
     public function insertarVehiculo($estado, $idMovimiento, $idVehiculo) {
-        $stmt = $this->pdo->prepare("INSERT INTO movimientovehiculo (Estado, IdMovimiento, IdVehiculo) 
-                                     SELECT :estado, :idMovimiento, :idVehiculo 
-                                     WHERE NOT EXISTS (
-                                        SELECT 1 FROM movimientovehiculo 
-                                        WHERE Estado = :estado AND IdMovimiento = :idMovimiento AND IdVehiculo = :idVehiculo
-                                     )");
+        $stmt = $this->pdo->prepare("SELECT 1 FROM movimientovehiculo WHERE Estado = :estado AND IdVehiculo = :idVehiculo");
         $stmt->execute([
             ':estado' => $estado,
-            ':idMovimiento' => $idMovimiento,
             ':idVehiculo' => $idVehiculo
         ]);
-    }
+    
+        if (!$stmt->fetch()) {
+            $insert = $this->pdo->prepare("INSERT INTO movimientovehiculo (Estado, IdMovimiento, IdVehiculo)
+                                           VALUES (:estado, :idMovimiento, :idVehiculo)");
+            $insert->execute([
+                ':estado' => $estado,
+                ':idMovimiento' => $idMovimiento,
+                ':idVehiculo' => $idVehiculo
+            ]);
+        }
+    }    
 }
 ?>
