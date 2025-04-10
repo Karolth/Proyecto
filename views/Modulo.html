@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Crear Nueva Ficha</title>
+    <link rel="stylesheet" href="../public/css/Modulo.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Nueva Ficha</h1>
+
+        <form id="formFichaCompleta" action="../controllers/guardar_ficha.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="programaFormacion">Programa de Formación:</label>
+                    <select id="programaFormacion"  action="../models/ModeloGuardar_ficha.php">
+                        <option value="">Seleccione un programa</option>
+                    </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="jornada">Jornada:</label>
+                <select id="jornada" name="jornada" required>
+                    <option value="">Seleccionar Jornada</option>
+                    <option value="mañana">Mañana</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noche">Noche</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="tipoPrograma">Tipo de Programa:</label>
+                <select id="tipoPrograma" name="tipoPrograma" required>
+                    <option value="">Seleccionar Tipo de Programa</option>
+                    <option value="auxiliar">Auxiliar</option>
+                    <option value="tecnico">Técnico</option>
+                    <option value="operario">Operario</option>
+                    <option value="tecnologo">Tecnólogo</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="fechaInicio">Fecha de Inicio:</label>
+                <input type="date" id="fechaInicio" name="fechaInicio" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="fechaFin">Fecha de Fin:</label>
+                <input type="date" id="fechaFin" name="fechaFin" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="numeroFicha">Número de la Ficha:</label>
+                <input type="text" id="numeroFicha" name="numeroFicha" required autocomplete="off">
+            </div>
+        
+            <div class="form-group">
+                <label for="archivoExcel">Archivo de aprendices (.csv):</label>
+                <input type="file" id="archivoExcel" name="archivoExcel" accept=".csv,.xlsx" required>
+            </div>
+        
+            <div class="button-group">
+                <button type="submit" class="btn-submit" id="btnSubmit">Crear Ficha</button>
+                <button type="button" id="btnCancelar">Cancelar</button>
+            </div>
+        
+            <div id="mensajeExito" class="success-message" style="display: none;">
+                ¡Ficha creada exitosamente con aprendices!
+            </div>
+        </form>
+
+    <script src="../public/js/Modulo.js"> </script>
+</body>
+</html>
