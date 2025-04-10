@@ -4,206 +4,390 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=yes">
   <title>Pantalla Principal</title>
+  <link rel="stylesheet" href="../public/css/verPerfil.css">
+  <!-- <link rel="stylesheet" href="../public/css/Administrador.css"> -->
 
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="../public/css/Administrador.css"> 
-   <link rel="stylesheet" href="../public/css/verPerfil.css"> 
+  
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784d4);
+      min-height: 100vh;
+    }
+    
+    /* Sidebar styles */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 70px;
+      background-color: #437670;
+      transition: all 0.5s ease;
+      z-index: 1030;
+      overflow-y: auto;
+    }
+    
+    .sidebar.active {
+      width: 250px;
+    }
+    
+    .sidebar .logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      padding: 6px 14px;
+    }
+    
+    .sidebar .logo .text {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .sidebar.active .logo .text {
+      opacity: 1;
+    }
+    
+    .sidebar #btn {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.4s ease;
+    }
+    
+    .sidebar.active #btn {
+      left: 90%;
+    }
+    
+    .sidebar ul {
+      margin-top: 20px;
+      padding-left: 0;
+    }
+    
+    .sidebar ul li {
+      position: relative;
+      height: 50px;
+      list-style: none;
+      line-height: 50px;
+    }
+    
+    .sidebar ul li a {
+      color: white;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      border-radius: 12px;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+    
+    .sidebar ul li a:hover {
+      color: #11101d;
+      background: white;
+    }
+    
+    .sidebar ul li a i {
+      height: 50px;
+      min-width: 50px;
+      border-radius: 12px;
+      line-height: 50px;
+      text-align: center;
+    }
+    
+    .sidebar .link_name {
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+    
+    .sidebar.active .link_name {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Main content */
+    .main-content {
+      margin-left: 70px;
+      padding: 20px;
+      transition: margin-left 0.5s ease;
+    }
+    
+    .sidebar.active ~ .main-content {
+      margin-left: 250px;
+    }
+    
+    /* Tarjetas y paneles */
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #b0dacd;
+      margin-bottom: 20px;
+    }
+    
+    .card-header {
+      background-color: #2c8c66;
+      color: white;
+      border-top-left-radius: 15px !important;
+      border-top-right-radius: 15px !important;
+    }
+    
+    /* Botones personalizados */
+    .btn-success-custom {
+      background-color: #2c8c66;
+      border-color: #2c8c66;
+      color: white;
+      border-radius: 30px;
+    }
+    
+    .btn-success-custom:hover {
+      background-color: #219653;
+      border-color: #219653;
+    }
+    
+    /* Modales */
+    .modal-content {
+      border-radius: 15px;
+    }
+    
+    .modal-header {
+      background-color: #437670;
+      color: white;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    /* Perfil de usuario */
+    .container-perfil {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1050;
+      width: 90%;
+      max-width: 500px;
+    }
+    
+    /* Tablas */
+    .table {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .table thead th {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+  </style>
 </head>
 
-
 <body>
-  <div id="menu" class="container">
-      <div class="sidebar">
-          <div class="logo">
-              <div class="text">Menu</div>
+ <!-- Sidebar/Menu -->
+ <div class="sidebar">
+  <div class="logo">
+    <div class="text">Menu</div>
+  </div>
+  <i class="fas fa-bars" id="btn"></i>
+  <ul class="nav-list">
+    <li>
+      <a href="#" onclick="mostrarPerfil()" title="Ver perfil de usuario">
+        <i class="fas fa-user"></i>
+        <span class="link_name">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" data-bs-toggle="modal" data-bs-target="#registrarElementoModal" title="Registrar nuevo elemento">
+        <i class="fas fa-pen"></i>
+        <span class="link_name">Registrar Elemento</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" data-bs-toggle="modal" data-bs-target="#historialModal" title="Ver historial de movimientos">
+        <i class="fas fa-chart-line"></i>
+        <span class="link_name">Historial</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="logout-link" title="Cerrar sesión">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="link_name">Cerrar Sesión</span>
+      </a>
+    </li>    
+  </ul>
+</div>
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row mb-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <input type="text" id="buscarDocumento" class="form-control" placeholder="Ingrese documento del aprendiz" 
+                       onchange="buscarDocumento()" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
+              </div>
+              <div id="mensaje-busqueda"></div>
+            </div>
           </div>
-          <i class="fas fa-bars" id="btn"></i>
-          <ul class="nav-list">
-                <li>
-                  <a href="#" onclick="mostrarPerfil()">
-                      <i class="fas fa-user"></i>
-                      <span class="link_name">Perfil</span>
-                  </a>
-              </li>
-              <!-- <li>
-                  <a href="#" data-modal="formulario">
-                      <i class="fas fa-table"></i>
-                      <span class="link_name">Formulario</span>
-                  </a>
-              </li> -->
-              <li>
-                  <a href="#" data-modal="registrar-elemento">
-                      <i class="fas fa-pen"></i>
-                      <span class="link_name">Registrar Elemento</span>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" data-modal="historial">
-                      <i class="fas fa-chart-line"></i>
-                      <span class="link_name">Historial</span>
-                  </a>
-              </li>
-              <li>
-                  <a href="#" id="logout-link">
-                      <i class="fas fa-sign-out-alt"></i>
-                      <span class="link_name">Cerrar Sesión</span>
-                  </a>
-              </li>
-          </ul>
-      </div>
-
-      <div id="verPerfil-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Perfil</div>
-                <button class="close-modal">&times;</button>
-            </div>
-        </div>
-    </div>
-
-      <div id="formulario-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Formulario</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe src="Formulario.html" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <div id="registrar-elemento-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Registrar Elemento</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe src="RegistrarElemento.html" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <div id="historial-modal" class="modal-backdrop">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Historial</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe src="Historial.html" frameborder="0"></iframe>
-            </div>
+          
+          <div class="d-grid w-100 mt-3">
+            <button id="registrarAmbos" class="btn btn-success-custom w-100" onclick="registrarMovimientosAmbos()">
+              <i class="fas fa-save"></i> Registrar Movimientos
+            </button>
+          </div>
         </div>
       
-    </div>
 
-
-    <div id="UsuarioRegistrado" class="content">
-      <div class="container">
-        <div class="row" style="display: flex;justify-content: center;">
-          <div class="col-md-4">
-            <div class="col-md-8" style="align-content: center">
-              <div class="container-form" style="margin-top: 31px;" >
-                <div class="container-busqueda" style="margin-bottom: 20px;">
-                  <div style="display: flex; gap: 10px;">
-                    <input onkeypress="ejecutarBusqueda(event)" type="text" id="buscarDocumento" placeholder="Ingrese documento del aprendiz"
-                    style="padding: 8px; flex: 1; border-radius: 7px; background-color: rgba(255, 255, 255, 0.731);" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10">
-                    <button onclick="buscarDocumento()"
-                      style="padding: 8px 15px; border-radius: 7px; background-color: #2c8c66; color: white; border: none; cursor: pointer;">Buscar</button>
-                  </div>
-                  <div id="mensaje-busqueda" style="margin-top: 5px; color: #121111;"></div>
+        <!-- Tabla de Materiales -->
+      
+        <div class="col-8">
+          <div class="col-md-12 contenedorMaterial">
+            <div id="Material" class="card h-100">
+              <div class="card-header encabezado">
+                <h5>Movimientos de Materiales</h5>
+              </div>
+              <div class="card-body tabla-contenedor">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Seleccionar</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Referencia</th>
+                        <th>Marca</th>
+                        <th>Tipo Material</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyMaterial">
+                      <!-- Aquí se cargarán los materiales dinámicamente -->
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Botón para registrar movimientos de materiales y vehículos -->
-        <button id="registrarAmbos" class="btn botones"  onclick="registrarMovimientosAmbos()">Registrar Movimientos</button>      </div>
+          <!-- Tabla de Vehículos -->
+          <div class="col-md-12 mb-4 contenedorVehiculo">
+            <div id="Vehiculo" class="card h-100">
+              <div class="card-header encabezado">
+                <h5>Movimientos Vehículos</h5>
+              </div>
+              <div class="card-body tabla-contenedor">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Seleccionar</th>
+                        <th>ID</th>
+                        <th>Placa</th>
+                        <th>Tipo Vehículo</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyVehiculo">
+                      <!-- Aquí se cargarán los vehículos dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <!-- Nuevo div 1 -->
-      <div class="contenedorMaterial" col-10>
-        <div id="Material">
-          <div class="encabezado">
-            <h2>Movimientos de Materiales</h2>
-          </div>
-          <div class="tabla-contenedor">
-            <table>
-              <thead>
-                <tr>
-                  <th>Seleccionar</th>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Referencia</th>
-                  <th>Marca</th>
-                  <th>Tipo Material</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
         </div>
-      </div>
 
-      <!-- Nuevo div 2 -->
-      <div class="contenedorVehiculo" col-10>
-        <div id="Vehiculo" style ="width: 569px;">
-          <div class="encabezado">
-            <h2>Movimientos Vehiculos</h2>
-          </div>
-          <div class="tabla-contenedor">
-            <table>
-              <thead>
-                <tr>
-                  <th>Seleccionar</th>
-                  <th>ID </th>
-                  <th>Placa</th>
-                  <th>Tipo Vehiculo</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyVehiculo">
-                
-              </tbody>
-            </table>
-          </div>
-        </div>
         
-  </div>
-  </div>
-
-      <!-- Contenedor del perfil del usuario (inicialmente oculto) -->
-      <div class="container-perfil" id="perfilDatos" style="display: none;">
-        <div class="mb-3 text-end">
-            <button type="button" class="btn-close btn-close-white" onclick="cerrarPerfilDatos()">✖</button>
-        </div>
-        <h3>Perfil del Usuario</h3>
-        <div class="form-group">
-            <label>Nombre:</label>
-            <input type="text" id="perfilNombre" disabled>
-        </div>
-        <div class="form-group">
-            <label>Documento:</label>
-            <input type="text" id="perfilDocumento" disabled>
-        </div>
-        <div class="form-group">
-            <label>Teléfono:</label>
-            <input type="text" id="perfilCelular" disabled>
-        </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="text" id="perfilEmail" disabled>
-        </div>
-        <div class="button-container">
-            <button type="button" class="btn btn-light" onclick="habilitar()">Editar</button>
-            <button type="button" class="btn btn-success" onclick="modificarPerfil()">Guardar</button>
-        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 
- <script src="../public/js/Administrador.js"></script>
- <script src="../public/js/conexionIS.js"></script>
- <script src="../public/js/Menu_desplegable.js"></script>
+
+<!-- Modal Registrar Elemento -->
+<div class="modal fade" id="registrarElementoModal" tabindex="-1" aria-labelledby="registrarElementoModalLabel" aria-hidden="true">
+  <div  style="--bs-modal-width: 991px;" class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarElementoModalLabel">Registrar Elemento</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="RegistrarElemento.html" frameborder="0" style="width: 100%; height: 80vh;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Historial -->
+<div class="modal fade" id="historialModal" tabindex="-1" aria-labelledby="historialModalLabel" aria-hidden="true">
+  <div style="--bs-modal-width: 991px;" class="modal-dialog modal-dialog-centered modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="historialModalLabel">Historial</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="Historial.html" frameborder="0" style="width: 100%; height: 80vh;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor del perfil del usuario (inicialmente oculto) -->
+<div class="container-perfil" id="perfilDatos" style="display: none;">
+  <div class="mb-3 text-end">
+      <button type="button" class="btn-close btn-close-primary" onclick="cerrarPerfilDatos()">✖</button>
+  </div>
+  <h3>Perfil del Usuario</h3>
+  <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" id="perfilNombre" disabled>
+  </div>
+  <div class="form-group">
+      <label>Documento:</label>
+      <input type="text" id="perfilDocumento" disabled>
+  </div>
+  <div class="form-group">
+      <label>Teléfono:</label>
+      <input type="text" id="perfilCelular" disabled>
+  </div>
+  <div class="form-group">
+      <label>Email:</label>
+      <input type="text" id="perfilEmail" disabled>
+  </div>
+  <div class="button-container">
+      <button type="button" class="btn btn-light" onclick="habilitar()">Editar</button>
+      <button type="button" class="btn btn-success" onclick="modificarPerfil()">Guardar</button>
+  </div>
+</div>
+
+
+
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="../public/js/Administrador.js"></script>
+  <script src="../public/js/conexionIS.js"></script>
+  <script src="../public/js/Menu_desplegable.js"></script>
 </body>
 </html>

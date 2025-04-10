@@ -119,4 +119,16 @@ function cerrarFormulario() {
     document.getElementById('computadorForm').style.display = 'none';
     document.getElementById('automovilForm').style.display = 'none';
     document.getElementById('formOtro').style.display = 'none';
+
+    // Limpiar los campos de los formularios
+    document.getElementById('formPC').reset(); // Limpiar formulario de computador
+    document.getElementById('Formautomovil').reset(); // Limpiar formulario de automóvil
+    document.getElementById('formRegistro').reset(); // Limpiar formulario de otro
 }
+
+const closeButtons = document.querySelectorAll('.close-modal');
+closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        cerrarFormulario(); // Llama a la función para cerrar y limpiar el formulario
+    });
+});
