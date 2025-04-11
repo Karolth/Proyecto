@@ -34,4 +34,17 @@ class UsuarioModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
+
+public function obtenerHistorialLogin() 
+    $query = "SELECT u.Documento, u.Nombre, m.FechaHora, r.Rol 
+              FROM movimiento m
+              JOIN usuario u ON m.IdUsuario = u.IdUsuario
+              JOIN usuariorol ur ON u.IdUsuario = ur.IdUsuario
+              JOIN rol r ON ur.IdRol = r.IdRol
+              WHERE m.Movimiento = 'Entrada' AND r.Rol = 'Administrador'
+              ORDER BY m.FechaHora DESC";
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
