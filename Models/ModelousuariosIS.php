@@ -33,9 +33,9 @@ class UsuarioModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-}
 
-public function obtenerHistorialLogin() 
+
+public function obtenerHistorialLogin() {
     $query = "SELECT u.Documento, u.Nombre, m.FechaHora, r.Rol 
               FROM movimiento m
               JOIN usuario u ON m.IdUsuario = u.IdUsuario
@@ -46,5 +46,6 @@ public function obtenerHistorialLogin()
     $stmt = $this->pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+}
+}
 ?>

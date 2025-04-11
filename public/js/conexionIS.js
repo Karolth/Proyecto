@@ -39,6 +39,7 @@ function verificarLogin() {
         }, 1000);
         return;
     }
+    else{
 
     // Si no es el administrador, verificar en la base de datos
     fetch("../controllers/usuariosIS.php", {
@@ -64,6 +65,7 @@ function verificarLogin() {
         message.style.color = "red";
         message.textContent = "Error al iniciar sesión";
     });
+}
 }
 function mostrarPerfil() {
     const action = "getPerfil";
